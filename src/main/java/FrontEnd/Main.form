@@ -786,6 +786,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Back"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_results_backActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_resultsTitle">
               <Properties>
@@ -914,6 +917,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="English"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rBtn_hlEngActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rBtn_hlOther">
               <Properties>
@@ -925,6 +931,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Other"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rBtn_hlOtherActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rBtn_falEng">
               <Properties>
@@ -936,6 +945,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="English"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rBtn_falEngActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rBtn_mathT">
               <Properties>
@@ -980,6 +992,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Other"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rBtn_falOtherActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbx_opt1">
               <Properties>

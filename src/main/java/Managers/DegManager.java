@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  * @author Saien Naidu
  */
 public class DegManager {
-    private Degree[] degrees;
+    private Degree[] degrees = new Degree[1000];
     private int size;
     private dbDriver db = new dbDriver();
     private UniManager um = new UniManager();
@@ -36,14 +36,12 @@ public class DegManager {
     
     public DegManager(){
         try {
-            ResultSet rs = db.query("SELECT * FROM Faculty_Table;");
+            ResultSet rs = db.query("SELECT * FROM Degree_Table;");
 
             while(!rs.isLast()){
                 degrees[size] = createDeg(rs, size);
                 size++;
             }
-            degrees[size] = createDeg(rs, size);
-            size++;
 
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,9 +51,9 @@ public class DegManager {
     
     private Degree createDeg(ResultSet rs, int row){
         try {
-            rs.absolute(row);
+            rs.absolute(row + 1);
             
-            int ID = rs.getInt("DegreeID");
+            int ID = rs.getInt("ID");
             String name = rs.getString("DegreeName");
             int uni = rs.getInt("UniversityID");
             int fac = rs.getInt("FacultyID");

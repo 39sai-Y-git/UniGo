@@ -8,15 +8,14 @@ import java.sql.SQLException;
 
 /**
  *
- * @author IVD Merwe
+ * @author IVD Merwe, Saien Naidu
  */
 public class dbDriver {
     private static final String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
-    private static final String url = "jdbc:ucanaccess://UniGo_DB.accdb";
+    private static final String url = "jdbc:ucanaccess://data/UniGo_DB.accdb";
     
     public Connection connection;
     private PreparedStatement statement;
-    private ResultSet resultSet;
     
     public dbDriver(){
         
@@ -41,7 +40,7 @@ public class dbDriver {
     //SELECT
     public ResultSet query(String query) throws SQLException{
         
-        statement = connection.prepareStatement(query);
+        statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         return statement.executeQuery();
          
     }
@@ -49,7 +48,7 @@ public class dbDriver {
     //INSERT, UPDATE, DELETE
     public void update(String query) throws SQLException{
         
-        statement = connection.prepareStatement(query);
+        statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         statement.executeUpdate();
         statement.close();
         

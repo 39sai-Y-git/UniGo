@@ -16,17 +16,76 @@
  */
 package FrontEnd;
 
+import Managers.DegManager;
+import Managers.FacManager;
+import Managers.ReqManager;
+import Managers.UniManager;
+import Objects.University;
+import Objects.Faculty;
+import Objects.Degree;
+import Objects.Requirement;
+import Objects.SavedDegrees;
+import javax.swing.ButtonModel;
+
 /**
  *
  * @author Saien Naidu
  */
 public class Main extends javax.swing.JFrame {
 
+    private UniManager um = new UniManager();
+    private FacManager fm = new FacManager();
+    private DegManager dm = new DegManager();
+    private ReqManager rm = new ReqManager();
+    
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        
+        // <editor-fold defaultstate="collapsed" desc="See code that initializes the 'Your Results' tab">   
+        Requirement userMarks = rm.getUserMarks();
+        
+        spn_hl.setValue(userMarks.getHlMark());
+        if (userMarks.getHlChoice().equals("eng")) {
+            rBtn_hlEng.setSelected(true);
+            rBtn_falEng.setEnabled(false);
+        } else {
+            rBtn_hlOther.setSelected(true);
+        }
+        
+        spn_fal.setValue(userMarks.getFalMark());
+        if (userMarks.getFalChoice().equals("eng")) {
+            rBtn_falEng.setSelected(true);
+            rBtn_hlEng.setEnabled(false);
+        } else {
+            rBtn_falOther.setSelected(true);
+        }
+        
+        spn_math.setValue(userMarks.getMathMark());
+        switch (userMarks.getMathChoice()) {
+            case "cor" -> rBtn_mathC.setSelected(true);
+            case "lit" -> rBtn_mathL.setSelected(true);
+            default -> rBtn_mathT.setSelected(true);
+        }
+        
+        spn_opt1.setValue(userMarks.getOpt1Mark());
+        String opt1C = rm.getSubject(userMarks.getOpt1Choice());
+        cbx_opt1.setSelectedItem(opt1C);
+        
+        spn_opt2.setValue(userMarks.getOpt2Mark());
+        String opt2C = rm.getSubject(userMarks.getOpt2Choice());
+        cbx_opt2.setSelectedItem(opt2C);
+        
+        spn_opt3.setValue(userMarks.getOpt3Mark());
+        String opt3C = rm.getSubject(userMarks.getOpt3Choice());
+        cbx_opt3.setSelectedItem(opt3C);
+        
+        spn_lo.setValue(userMarks.getLo());
+        
+        // </editor-fold>  
+        
     }
 
     /**
@@ -467,6 +526,11 @@ public class Main extends javax.swing.JFrame {
         btn_results_back.setBackground(new java.awt.Color(179, 224, 255));
         btn_results_back.setForeground(new java.awt.Color(0, 0, 0));
         btn_results_back.setText("Back");
+        btn_results_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_results_backActionPerformed(evt);
+            }
+        });
 
         lbl_resultsTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbl_resultsTitle.setForeground(new java.awt.Color(86, 94, 255));
@@ -511,14 +575,29 @@ public class Main extends javax.swing.JFrame {
         btnG_hl.add(rBtn_hlEng);
         rBtn_hlEng.setForeground(new java.awt.Color(0, 0, 0));
         rBtn_hlEng.setText("English");
+        rBtn_hlEng.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtn_hlEngActionPerformed(evt);
+            }
+        });
 
         btnG_hl.add(rBtn_hlOther);
         rBtn_hlOther.setForeground(new java.awt.Color(0, 0, 0));
         rBtn_hlOther.setText("Other");
+        rBtn_hlOther.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtn_hlOtherActionPerformed(evt);
+            }
+        });
 
         btnG_fal.add(rBtn_falEng);
         rBtn_falEng.setForeground(new java.awt.Color(0, 0, 0));
         rBtn_falEng.setText("English");
+        rBtn_falEng.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtn_falEngActionPerformed(evt);
+            }
+        });
 
         btnG_math.add(rBtn_mathT);
         rBtn_mathT.setForeground(new java.awt.Color(0, 0, 0));
@@ -535,6 +614,11 @@ public class Main extends javax.swing.JFrame {
         btnG_fal.add(rBtn_falOther);
         rBtn_falOther.setForeground(new java.awt.Color(0, 0, 0));
         rBtn_falOther.setText("Other");
+        rBtn_falOther.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtn_falOtherActionPerformed(evt);
+            }
+        });
 
         cbx_opt1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Accounting", "Business Studies", "CAT", "Consumer Studies", "Dance Studies", "Design", "Dramatic Arts", "EGD", "Economics", "Geography", "History", "Hospitality Studies", "Information Technology", "Life Sciences", "Marine Sciences", "Music", "Physical Sciences", "Tourism", "Visual Arts", "Other" }));
 
@@ -1357,7 +1441,46 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_finderActionPerformed
 
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
-        // TODO add your handling code here:
+        // Save the changes made to the user's marks to the text file
+        
+        int hlM = (int) spn_hl.getValue();
+        String hlC;
+        if (rBtn_hlEng.isSelected()) {
+            hlC = "eng";
+        } else {
+            hlC = "oth";
+        }
+        
+        int falM = (int) spn_fal.getValue();
+        String falC;
+        if (rBtn_falEng.isSelected()) {
+            falC = "eng";
+        } else {
+            falC = "oth";
+        }
+        
+        int mathM = (int) spn_math.getValue();
+        String mathC;
+        if (rBtn_mathC.isSelected()) {
+            mathC = "cor";
+        } else if (rBtn_mathL.isSelected()) {
+            mathC = "lit";
+        } else {
+            mathC = "tec";
+        }
+        
+        int opt1M = (int) spn_opt1.getValue();
+        String opt1C = rm.getAbbreviation((String) cbx_opt1.getSelectedItem());
+        
+        int opt2M = (int) spn_opt2.getValue();
+        String opt2C = rm.getAbbreviation((String) cbx_opt2.getSelectedItem());
+        
+        int opt3M = (int) spn_opt3.getValue();
+        String opt3C = rm.getAbbreviation((String) cbx_opt3.getSelectedItem());
+        
+        int lo = (int) spn_lo.getValue();
+        
+        rm.setUserMarks(hlM, hlC, falM, falC, mathM, mathC, opt1M, opt1C, opt2M, opt2C, opt3M, opt3C, lo);
     }//GEN-LAST:event_btn_saveActionPerformed
 
     private void btn_saved_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saved_removeActionPerformed
@@ -1418,6 +1541,31 @@ public class Main extends javax.swing.JFrame {
         // When 'Browse Universities' is clicked, navigate to the 'Universities' tab.
         tbdPn_main.setSelectedIndex(3);
     }//GEN-LAST:event_btn_browseActionPerformed
+
+    private void btn_results_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_results_backActionPerformed
+        // Navigate to the main menu
+        tbdPn_main.setSelectedIndex(0);
+    }//GEN-LAST:event_btn_results_backActionPerformed
+
+    private void rBtn_falEngActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtn_falEngActionPerformed
+        // Deactivate option for HL English
+        rBtn_hlEng.setEnabled(false);
+    }//GEN-LAST:event_rBtn_falEngActionPerformed
+
+    private void rBtn_hlEngActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtn_hlEngActionPerformed
+        // Deactivate option for FAL English
+        rBtn_falEng.setEnabled(false);
+    }//GEN-LAST:event_rBtn_hlEngActionPerformed
+
+    private void rBtn_hlOtherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtn_hlOtherActionPerformed
+        // Activate option for FAL English
+        rBtn_falEng.setEnabled(true);
+    }//GEN-LAST:event_rBtn_hlOtherActionPerformed
+
+    private void rBtn_falOtherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtn_falOtherActionPerformed
+        // Activate option for HL English
+        rBtn_hlEng.setEnabled(true);
+    }//GEN-LAST:event_rBtn_falOtherActionPerformed
 
     /**
      * @param args the command line arguments

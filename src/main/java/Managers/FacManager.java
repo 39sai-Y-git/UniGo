@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  * @author Saien Naidu
  */
 public class FacManager {
-    private Faculty[] faculties;
+    private Faculty[] faculties = new Faculty[100];
     private int size;
     private dbDriver db = new dbDriver();
     private UniManager um = new UniManager();
@@ -41,8 +41,6 @@ public class FacManager {
                 faculties[size] = createFac(rs, size);
                 size++;
             }
-            faculties[size] = createFac(rs, size);
-            size++;
 
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,7 +50,7 @@ public class FacManager {
     
     private Faculty createFac(ResultSet rs, int row){
         try {
-            rs.absolute(row);
+            rs.absolute(row + 1);
             
             int ID = rs.getInt("ID");
             String name = rs.getString("FacultyName");

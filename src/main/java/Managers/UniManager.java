@@ -29,8 +29,8 @@ import java.util.logging.Logger;
  */
 public class UniManager {
     
-    private University[] universities;
-    private int size;
+    private University[] universities = new University[10];
+    private int size = 0;
     private dbDriver db = new dbDriver();
     
     public UniManager(){
@@ -41,8 +41,6 @@ public class UniManager {
                 universities[size] = createUni(rs, size);
                 size++;
             }
-            universities[size] = createUni(rs, size);
-            size++;
 
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,7 +50,7 @@ public class UniManager {
     
     private University createUni(ResultSet rs, int row){
         try {
-            rs.absolute(row);
+            rs.absolute(row + 1);
             
             int id = rs.getInt("ID");
             String name = rs.getString("UniversityName");
