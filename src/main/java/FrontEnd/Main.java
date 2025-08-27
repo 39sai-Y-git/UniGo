@@ -360,12 +360,22 @@ public class Main extends javax.swing.JFrame {
         btn_results.setForeground(new java.awt.Color(0, 0, 0));
         btn_results.setText("Your Results");
         btn_results.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        btn_results.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_resultsActionPerformed(evt);
+            }
+        });
 
         btn_saved.setBackground(java.awt.SystemColor.menu);
         btn_saved.setFont(new java.awt.Font("Gadugi", 0, 24)); // NOI18N
         btn_saved.setForeground(new java.awt.Color(0, 0, 0));
         btn_saved.setText("Your Saved Degrees");
         btn_saved.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        btn_saved.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_savedActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_menuProfileLayout = new javax.swing.GroupLayout(pnl_menuProfile);
         pnl_menuProfile.setLayout(pnl_menuProfileLayout);
@@ -396,6 +406,11 @@ public class Main extends javax.swing.JFrame {
         btn_browse.setForeground(new java.awt.Color(0, 0, 0));
         btn_browse.setText("Browse Universities");
         btn_browse.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        btn_browse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_browseActionPerformed(evt);
+            }
+        });
 
         btn_finder.setBackground(java.awt.SystemColor.menu);
         btn_finder.setFont(new java.awt.Font("Gadugi", 0, 24)); // NOI18N
@@ -972,7 +987,6 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(pnl_finderLayout.createSequentialGroup()
                         .addComponent(btn_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(1, 1, 1)))
-                .addGap(18, 18, 18)
                 .addComponent(scP_finder, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(btn_filter_view, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1127,8 +1141,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(pnl_uniLayout.createSequentialGroup()
                         .addComponent(lbl_uni, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
-                        .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txA_uniDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnl_uniLayout.createSequentialGroup()
                                 .addComponent(lbl_rank)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1147,7 +1160,9 @@ public class Main extends javax.swing.JFrame {
                                 .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lbl_accRate)
                                     .addComponent(txF_accRate)))
-                            .addComponent(txF_rank))
+                            .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txA_uniDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txF_rank)))
                         .addGap(18, 18, 18)
                         .addComponent(scP_uniFac, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
@@ -1337,7 +1352,8 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_finderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finderActionPerformed
-        // TODO add your handling code here:
+        // When 'Degree Finder' is clicked, navigate to the 'Degree Finder' tab.
+        tbdPn_main.setSelectedIndex(4);
     }//GEN-LAST:event_btn_finderActionPerformed
 
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
@@ -1387,6 +1403,21 @@ public class Main extends javax.swing.JFrame {
     private void btn_saveDegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveDegActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_saveDegActionPerformed
+
+    private void btn_resultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_resultsActionPerformed
+        // When 'Your Results' is clicked, navigate to the 'Your Results' tab.
+        tbdPn_main.setSelectedIndex(1);
+    }//GEN-LAST:event_btn_resultsActionPerformed
+
+    private void btn_savedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_savedActionPerformed
+        // When 'Your saved degrees' is clicked, navigate to the 'Saved Degrees' tab.
+        tbdPn_main.setSelectedIndex(2);
+    }//GEN-LAST:event_btn_savedActionPerformed
+
+    private void btn_browseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_browseActionPerformed
+        // When 'Browse Universities' is clicked, navigate to the 'Universities' tab.
+        tbdPn_main.setSelectedIndex(3);
+    }//GEN-LAST:event_btn_browseActionPerformed
 
     /**
      * @param args the command line arguments
