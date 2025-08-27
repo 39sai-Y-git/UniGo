@@ -20,18 +20,34 @@ package Objects;
  *
  * @author Saien Naidu
  */
+
+// This class represents the Faculty Object
+
 public class Faculty {
     
+    // FIELDS
+    private int ID;
     private String name;
     private String desc;
     private University uni;
 
-    public Faculty(String name, String desc, University uni) {
+    // CONSTRUCTOR
+    public Faculty(int ID, String name, String desc, University uni) {
+        this.ID = ID;
         this.name = name;
         this.desc = desc;
         this.uni = uni;
     }
 
+    // GETTERS & SETTERS
+    public int getID() {
+        return ID;
+    }
+    
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+    
     public String getName() {
         return name;
     }

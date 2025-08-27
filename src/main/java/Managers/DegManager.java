@@ -17,7 +17,7 @@
 package Managers;
 
 import Driver.dbDriver;
-import Objects.University;
+import Objects.Degree;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -27,97 +27,79 @@ import java.util.logging.Logger;
  *
  * @author Saien Naidu
  */
-public class UniManager {
-    
-    private University[] universities;
+public class DegManager {
+    private Degree[] degrees;
     private int size;
     private dbDriver db = new dbDriver();
+    private UniManager um = new UniManager();
+    private FacManager fm = new FacManager();
     
-    public UniManager(){
+    public DegManager(){
         try {
-            ResultSet rs = db.query("SELECT * FROM University_Table;");
+            ResultSet rs = db.query("SELECT * FROM Faculty_Table;");
 
             while(!rs.isLast()){
-                universities[size] = createUni(rs, size);
+                degrees[size] = createDeg(rs, size);
                 size++;
             }
-            universities[size] = createUni(rs, size);
+            degrees[size] = createDeg(rs, size);
             size++;
 
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error #04: Failed while retrieving Universities from DB.");
+            System.out.println("Error #08: Failed while retrieving Degrees from DB.");
         }
     }
     
-    private University createUni(ResultSet rs, int row){
+    private Degree createDeg(ResultSet rs, int row){
         try {
             rs.absolute(row);
             
-            int id = rs.getInt("ID");
-            String name = rs.getString("UniversityName");
+            int ID = rs.getInt("DegreeID");
+            String name = rs.getString("DegreeName");
+            int uni = rs.getInt("UniversityID");
+            int fac = rs.getInt("FacultyID");
             String desc = rs.getString("Description");
-            String location = rs.getString("Location");
-            int rank = rs.getInt("Rank");
-            int estb = rs.getInt("Established");
-            int students = rs.getInt("Students");
-            double accRate = rs.getDouble("AcceptanceRate");
             
-            return (new University(id, name, desc, location, rank, estb, students, accRate));
-
+            return (new Degree(ID, name, um.getUniWithID(ID), fm.getFacWithID(ID), desc));
+            
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error #04: Failed while retrieving Universities from DB.");
+            System.out.println("Error #08: Failed while retrieving Degrees from DB.");
         }
+        
         return null;
     }
     
-    public University getUniWithID(int ID) {
+    public Degree getDegWithID(int ID) {
         for (int i = 0; i < size; i++) {
-            int current = universities[i].getID();
+            int current = degrees[i].getDegreeID();
             if (current == ID) {
-                return universities[i];
+                return degrees[i];
             }
         }
         return null;
     }
     
-    public University[] getUniWithLocation(String location) {
-        University[] output = new University[size];
-        int size = 0;
-        for (int i = 0; i < this.size; i++) {
-            String current = universities[i].getLocation();
-            if (current.equalsIgnoreCase(location)) {
-                output[size] = universities[i];
-                size++;
-            }
-        }
-        return output;
-    }
-    
-    public University[] getUniWithName(String query) {
+    public Degree[] getDegWithQuery(String query) {
         try {
             ResultSet rs = db.query(query);
-            University[] temp = new University[size];
+            Degree[] temp = new Degree[size];
             int size = 0;
             
             while (!rs.isLast()) {
-                temp[size] = createUni(rs, size);
+                temp[size] = createDeg(rs, size);
                 size++;
             }
-            temp[size] = createUni(rs, size);
+            temp[size] = createDeg(rs, size);
             size++;
             
             return temp;
             
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error #05: Failed while retrieving University with a specific name from DB.");
+            System.out.println("Error #09: Failed while retrieving specific Degrees from DB.");
         }
         return null;
-    }
-    
-    public University[] getAll() {
-        return universities;
     }
 }

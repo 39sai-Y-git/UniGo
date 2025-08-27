@@ -20,9 +20,14 @@ package Objects;
  *
  * @author Saien Naidu
  */
+
+// This class represents the Requirement Object
+
 public class Requirement {
     
-    private int degreeID;
+    // FIELDS
+    private Degree deg;
+    private int ID;
     private int hlMark;
     private String hlChoice;
     private int falMark;
@@ -36,9 +41,12 @@ public class Requirement {
     private int opt3Mark;
     private String opt3Choice;
     private int lo;
+    private int aps;
 
-    public Requirement(int degreeID, int hlMark, String hlChoice, int falMark, String falChoice, int mathMark, String mathChoice, int opt1Mark, String opt1Choice, int opt2Mark, String opt2Choice, int opt3Mark, String opt3Choice, int lo) {
-        this.degreeID = degreeID;
+    // CONSTRUCTOR
+    public Requirement(Degree deg, int ID, int hlMark, String hlChoice, int falMark, String falChoice, int mathMark, String mathChoice, int opt1Mark, String opt1Choice, int opt2Mark, String opt2Choice, int opt3Mark, String opt3Choice, int lo, int aps) {
+        this.deg = deg;
+        this.ID = ID;
         this.hlMark = hlMark;
         this.hlChoice = hlChoice;
         this.falMark = falMark;
@@ -52,16 +60,26 @@ public class Requirement {
         this.opt3Mark = opt3Mark;
         this.opt3Choice = opt3Choice;
         this.lo = lo;
+        this.aps = aps;
+    }
+    
+    // GETTERS & SETTERS
+    public Degree getDegreeID() {
+        return deg;
     }
 
-    public int getDegreeID() {
-        return degreeID;
+    public void setDegreeID(Degree deg) {
+        this.deg = deg;
     }
 
-    public void setDegreeID(int degreeID) {
-        this.degreeID = degreeID;
+    public int getID() {
+        return this.ID;
     }
-
+    
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+    
     public int getHlMark() {
         return hlMark;
     }
@@ -164,5 +182,13 @@ public class Requirement {
 
     public void setLo(int lo) {
         this.lo = lo;
+    }
+    
+    public int getAps() {
+        return aps;
+    }
+    
+    public void setAps(int aps) {
+        this.aps = aps;
     }
 }

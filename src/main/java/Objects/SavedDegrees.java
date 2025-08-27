@@ -16,26 +16,43 @@
  */
 package Objects;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Saien Naidu
  */
+
+// This class represents the SavedDegree Object
+
 public class SavedDegrees {
     
+    // FIELDS
     private int[] degrees;
     private int size;
     
+    // CONSTRUCTOR
+    // Uses data from text file
     public SavedDegrees(String filePath){
-        Scanner fileSC = new Scanner(filePath);
-        while (fileSC.hasNext()){
-            int degreeID = fileSC.nextInt();
-            degrees[size] = degreeID;
-            size++;
+        try {
+            File file = new File(filePath);
+            Scanner fileSC = new Scanner(file);
+            while (fileSC.hasNext()){
+                int degreeID = fileSC.nextInt();
+                degrees[size] = degreeID;
+                size++;
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SavedDegrees.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error #03: SavedDegrees file not found");
         }
     }
 
+    // GETTER
     public int[] getSavedDegrees() {
         return degrees;
     }

@@ -20,14 +20,19 @@ package Objects;
  *
  * @author Saien Naidu
  */
+
+// This class represents the Degree Object
+
 public class Degree {
     
+    // FIELDS
     private int degreeID;
     private String name;
     private University uni;
     private Faculty fac;
     private String desc;
 
+    // CONSTRUCTOR
     public Degree(int degreeID, String name, University uni, Faculty fac, String desc) {
         this.degreeID = degreeID;
         this.name = name;
@@ -36,6 +41,7 @@ public class Degree {
         this.desc = desc;
     }
 
+    // GETTERS & SETTERS
     public int getDegreeID() {
         return degreeID;
     }
