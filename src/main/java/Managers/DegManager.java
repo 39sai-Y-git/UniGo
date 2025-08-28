@@ -140,7 +140,7 @@ public class DegManager {
         
         int outputSize = size;
         
-        // Using user's marks
+        // <editor-fold defaultstate="collapsed" desc="Using user's marks">
         if (f.isUseMarks()) {
             int[] IDs = rm.reqMet();
             Degree[] temp = new Degree[IDs.length];
@@ -152,42 +152,44 @@ public class DegManager {
             output = new Degree[temp.length];
             output = temp;
             outputSize = temp.length;
+            
         }
+        // </editor-fold>
         
-        // Using Location
+        // <editor-fold defaultstate="collapsed" desc="Location">
         boolean locationOn = false;
         String locations = "";
         
         if (f.isKzn()) {
-            locations = db.addToQuery(locations, "'KZN'");
+            locations = addLocation(locations, "'KZN'");
             locationOn = true;
         }
         if (f.isGauteng()) {
-            locations = db.addToQuery(locations, "'G'");
+            locations = addLocation(locations, "'G'");
             locationOn = true;
         }
         if (f.isEastcape()) {
-            locations = db.addToQuery(locations, "'EC'");
+            locations = addLocation(locations, "'EC'");
             locationOn = true;
         }
         if (f.isWestcape()) {
-            locations = db.addToQuery(locations, "'WC'");
+            locations = addLocation(locations, "'WC'");
             locationOn = true;
         }
         if (f.isFreestate()) {
-            locations = db.addToQuery(locations, "'FS'");
+            locations = addLocation(locations, "'FS'");
             locationOn = true;
         }
         if (f.isNorthwest()) {
-            locations = db.addToQuery(locations, "'NW'");
+            locations = addLocation(locations, "'NW'");
             locationOn = true;
         }
         if (f.isMpumalanga()) {
-            locations = db.addToQuery(locations, "'M'");
+            locations = addLocation(locations, "'M'");
             locationOn = true;
         }
         if (f.isLimpopo()) {
-            locations = db.addToQuery(locations, "'L'");
+            locations = addLocation(locations, "'L'");
             locationOn = true;
         }
         
@@ -222,7 +224,6 @@ public class DegManager {
             
             Degree[] temp = new Degree[outputSize];
             int tempSize = 0;
-            
             for (int i = 0; i < output.length; i++) {
                 for (int j = 0; j < results.length; j++) {
                     if (output[i].getDegreeID() == results[j].getDegreeID()) {
@@ -238,7 +239,102 @@ public class DegManager {
             }
             outputSize = tempSize;
         }
+        // </editor-fold>
+        
+        // <editor-fold defaultstate="collapsed" desc="Faculty">
+        boolean facultyOn = false;
+        String faculties = "";
+        
+        if (f.isCommerce()) {
+            faculties = addFaculty(faculties, "'%Commerce%'");
+            facultyOn = true;
+        }
+        if (f.isEngineering()) {
+            faculties = addFaculty(faculties, "'%Engineering%'");
+            facultyOn = true;
+        }
+        if (f.isHealth()) {
+            faculties = addFaculty(faculties, "'%Health%'");
+            facultyOn = true;
+        }
+        if (f.isLaw()) {
+            faculties = addFaculty(faculties, "'%Law%'");
+            facultyOn = true;
+        }
+        if (f.isHumanities()) {
+            faculties = addFaculty(faculties, "'%Humanities%'");
+            facultyOn = true;
+        }
+        if (f.isSciences()) {
+            faculties = addFaculty(faculties, "'%Science%'");
+            facultyOn = true;
+        }
+        
+        if (facultyOn) {
+            Degree[] results = new Degree[outputSize];
+            
+            results = getDegWithQuery("SELECT\n" +
+                "    Degree_Table.ID,\n" +
+                "    DegreeName,\n" +
+                "    Degree_Table.UniversityID,\n" +
+                "    Degree_Table.FacultyID,\n" +
+                "    Degree_Table.Description\n" +
+                "FROM\n" +
+                "    Degree_Table\n" +
+                "    INNER JOIN (\n" +
+                "        University_Table\n" +
+                "        INNER JOIN Faculty_Table ON University_Table.ID = Faculty_Table.UniversityID\n" +
+                "    ) ON (Degree_Table.UniversityID = University_Table.ID)\n" +
+                "    AND (Degree_Table.FacultyID = Faculty_Table.ID)\n" +
+                "WHERE\n" +
+                "    Degree_Table.FacultyName LIKE "
+                +faculties+";");
+            
+            boolean endReached = false;
+            outputSize = 0;
+            while (!endReached && (outputSize < results.length)) {
+                if (!results[outputSize].equals(null)) {
+                    outputSize++;
+                } else {
+                    endReached = true;
+                }
+            }
+            
+            Degree[] temp = new Degree[outputSize];
+            int tempSize = 0;
+            for (int i = 0; i < output.length; i++) {
+                for (int j = 0; j < results.length; j++) {
+                    if (output[i].getDegreeID() == results[j].getDegreeID()) {
+                        temp[tempSize] = results[j];
+                        tempSize++;
+                    }
+                }
+            }
+            
+            output = new Degree[tempSize];
+            for (int i = 0; i < tempSize; i++) {
+                output[i] = temp[i];
+            }
+            outputSize = tempSize;
+        }
+        // </editor-fold>
         
         return output;
+    }
+    
+    private String addLocation(String original, String toAdd) {
+        if (original.equals("")) {
+            return toAdd;
+        } else {
+            return original += ", " + toAdd;
+        }
+    }
+    
+    private String addFaculty(String original, String toAdd) {
+        if (original.equals("")) {
+            return toAdd;
+        } else {
+            return original += "\nOR Degree_Table.FacultyName LIKE " + toAdd;
+        }
     }
 }

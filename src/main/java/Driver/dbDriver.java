@@ -53,12 +53,4 @@ public class dbDriver {
         statement.close();
         
     }
-    
-    public String addToQuery(String original, String toAdd) {
-        if (original.equals("")) {
-            return toAdd;
-        } else {
-            return original += ", " + toAdd;
-        }
-    }
 }

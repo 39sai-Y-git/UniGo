@@ -258,12 +258,100 @@ public class ReqManager {
                         if (user.getFalMark() >= current.getFalMark()) {
                             if ((user.getMathChoice().equals(current.getMathChoice())) || current.getMathChoice().equals("any")) {
                                 if (user.getMathMark() >= current.getMathMark()) {
-                                    if ((user.getOpt1Choice().equals(current.getOpt1Choice())) || current.getHlChoice().equals("any")) {
+                                    
+                                    if ((user.getOpt1Choice().equals(current.getOpt1Choice())) || current.getOpt1Choice().equals("any")) {
                                         if (user.getOpt1Mark() >= current.getOpt1Mark()) {
+                                            
                                             if ((user.getOpt2Choice().equals(current.getOpt2Choice())) || current.getOpt2Choice().equals("any")) {
                                                 if (user.getOpt2Mark() >= current.getOpt2Mark()) {
                                                     if ((user.getOpt3Choice().equals(current.getOpt3Choice())) || current.getOpt3Choice().equals("any")) {
                                                         if (user.getOpt3Mark() >= current.getOpt3Mark()) {
+                                                            //123
+                                                            if (user.getLo() >= 50) {
+                                                                if (user.getAps() >= current.getAps()) {
+                                                                    temp[size] = requirements[i];
+                                                                    size++;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                
+                                            } else if ((user.getOpt2Choice().equals(current.getOpt3Choice())) || current.getOpt3Choice().equals("any")) {
+                                                if (user.getOpt2Mark() >= current.getOpt3Mark()) {
+                                                    if ((user.getOpt3Choice().equals(current.getOpt2Choice())) || current.getOpt2Choice().equals("any")) {
+                                                        if (user.getOpt3Mark() >= current.getOpt2Mark()) {
+                                                            //132
+                                                            if (user.getLo() >= 50) {
+                                                                if (user.getAps() >= current.getAps()) {
+                                                                    temp[size] = requirements[i];
+                                                                    size++;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                    } else if ((user.getOpt1Choice().equals(current.getOpt2Choice())) || current.getOpt2Choice().equals("any")) {
+                                        if (user.getOpt1Mark() >= current.getOpt2Mark()) {
+                                            
+                                            if ((user.getOpt2Choice().equals(current.getOpt1Choice())) || current.getOpt1Choice().equals("any")) {
+                                                if (user.getOpt2Mark() >= current.getOpt1Mark()) {
+                                                    if ((user.getOpt3Choice().equals(current.getOpt3Choice())) || current.getOpt3Choice().equals("any")) {
+                                                        if (user.getOpt3Mark() >= current.getOpt3Mark()) {
+                                                            //213
+                                                            if (user.getLo() >= 50) {
+                                                                if (user.getAps() >= current.getAps()) {
+                                                                    temp[size] = requirements[i];
+                                                                    size++;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                } 
+                                                
+                                            } else if ((user.getOpt2Choice().equals(current.getOpt3Choice())) || current.getOpt3Choice().equals("any")) {
+                                                if (user.getOpt2Mark() >= current.getOpt3Mark()) {
+                                                    if ((user.getOpt3Choice().equals(current.getOpt1Choice())) || current.getOpt1Choice().equals("any")) {
+                                                        if (user.getOpt3Mark() >= current.getOpt1Mark()) {
+                                                            //231
+                                                            if (user.getLo() >= 50) {
+                                                                if (user.getAps() >= current.getAps()) {
+                                                                    temp[size] = requirements[i];
+                                                                    size++;
+                                                                }
+                                                            }
+                                                        } 
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                    } else if ((user.getOpt1Choice().equals(current.getOpt3Choice())) || current.getOpt3Choice().equals("any")) {
+                                        if (user.getOpt1Mark() >= current.getOpt3Mark()) {
+                                            
+                                            if ((user.getOpt2Choice().equals(current.getOpt1Choice())) || current.getOpt1Choice().equals("any")) {
+                                                if (user.getOpt2Mark() >= current.getOpt1Mark()) {
+                                                    if ((user.getOpt3Choice().equals(current.getOpt2Choice())) || current.getOpt2Choice().equals("any")) {
+                                                        if (user.getOpt3Mark() >= current.getOpt2Mark()) {
+                                                            //312
+                                                            if (user.getLo() >= 50) {
+                                                                if (user.getAps() >= current.getAps()) {
+                                                                    temp[size] = requirements[i];
+                                                                    size++;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                
+                                            } else if ((user.getOpt2Choice().equals(current.getOpt2Choice())) || current.getOpt2Choice().equals("any")) {
+                                                if (user.getOpt2Mark() >= current.getOpt2Mark()) {
+                                                    if ((user.getOpt3Choice().equals(current.getOpt1Choice())) || current.getOpt3Choice().equals("any")) {
+                                                        if (user.getOpt3Mark() >= current.getOpt1Mark()) {
+                                                            //321
                                                             if (user.getLo() >= 50) {
                                                                 if (user.getAps() >= current.getAps()) {
                                                                     temp[size] = requirements[i];
@@ -294,4 +382,5 @@ public class ReqManager {
             return null;
         }
     }
+    
 }
