@@ -35,8 +35,8 @@ import java.util.logging.Logger;
 public class ReqManager {
     private Requirement[] requirements = new Requirement[2000];
     private int size;
-    private dbDriver db = new dbDriver();
-    private DegManager dm = new DegManager();
+    private final dbDriver db = new dbDriver();
+    private final DegManager dm = new DegManager();
     
     public ReqManager(){
         try {

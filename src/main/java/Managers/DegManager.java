@@ -30,9 +30,9 @@ import java.util.logging.Logger;
 public class DegManager {
     private Degree[] degrees = new Degree[1000];
     private int size;
-    private dbDriver db = new dbDriver();
-    private UniManager um = new UniManager();
-    private FacManager fm = new FacManager();
+    private final dbDriver db = new dbDriver();
+    private final UniManager um = new UniManager();
+    private final FacManager fm = new FacManager();
     
     public DegManager(){
         try {
@@ -88,14 +88,43 @@ public class DegManager {
             while (!rs.isLast()) {
                 temp[size] = createDeg(rs, size);
                 size++;
+                if ((size + 1) >= this.size) {
+                    Degree[] error = new Degree[1];
+                    error[0] = new Degree(0, "None", null, null, null);
+                    return error;
+                }
             }
             
-            return temp;
+            Degree[] output = new Degree[size];
+            for (int i = 0; i < size; i++) {
+                output[i] = temp[i];
+            }
+            return output;
             
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error #09: Failed while retrieving specific Degrees from DB.");
         }
         return null;
+    }
+    
+    public Object[][] createTable() {
+        Object[][] data = new Object[size][1];
+        
+        for (int i = 0; i < size; i++) {
+            data[i][0] = degrees[i].getName();
+        }
+        
+        return data;
+    }
+    
+    public Object[][] createTable(Degree[] input) {
+        Object[][] data = new Object[input.length][1];
+        
+        for (int i = 0; i < input.length; i++) {
+            data[i][0] = input[i].getName();
+        }
+        
+        return data;
     }
 }

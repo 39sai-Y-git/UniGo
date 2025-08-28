@@ -37,7 +37,7 @@ public class SavedDegrees {
     private int[] degrees = new int[25];
     private int size;
     
-    private DegManager dm = new DegManager();
+    private final DegManager dm = new DegManager();
     
     // CONSTRUCTOR
     // Uses data from text file

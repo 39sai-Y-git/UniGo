@@ -31,7 +31,7 @@ public class UniManager {
     
     private University[] universities = new University[10];
     private int size = 0;
-    private dbDriver db = new dbDriver();
+    private final dbDriver db = new dbDriver();
     
     public UniManager(){
         try {

@@ -33,67 +33,21 @@ import javax.swing.JTable;
  */
 public class Main extends javax.swing.JFrame {
 
-    private UniManager um = new UniManager();
-    private FacManager fm = new FacManager();
-    private DegManager dm = new DegManager();
-    private ReqManager rm = new ReqManager();
-    private SavedDegrees sd = new SavedDegrees("data\\SavedDegrees.txt");
+    private final UniManager um = new UniManager();
+    private final FacManager fm = new FacManager();
+    private final DegManager dm = new DegManager();
+    private final ReqManager rm = new ReqManager();
+    private final SavedDegrees sd = new SavedDegrees("data\\SavedDegrees.txt");
     
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
-        
-        // <editor-fold defaultstate="collapsed" desc="See code that initializes the 'Your Results' tab">   
-        Requirement userMarks = rm.getUserMarks();
-        
-        spn_hl.setValue(userMarks.getHlMark());
-        if (userMarks.getHlChoice().equals("eng")) {
-            rBtn_hlEng.setSelected(true);
-            rBtn_falEng.setEnabled(false);
-        } else {
-            rBtn_hlOther.setSelected(true);
-        }
-        
-        spn_fal.setValue(userMarks.getFalMark());
-        if (userMarks.getFalChoice().equals("eng")) {
-            rBtn_falEng.setSelected(true);
-            rBtn_hlEng.setEnabled(false);
-        } else {
-            rBtn_falOther.setSelected(true);
-        }
-        
-        spn_math.setValue(userMarks.getMathMark());
-        switch (userMarks.getMathChoice()) {
-            case "cor" -> rBtn_mathC.setSelected(true);
-            case "lit" -> rBtn_mathL.setSelected(true);
-            default -> rBtn_mathT.setSelected(true);
-        }
-        
-        spn_opt1.setValue(userMarks.getOpt1Mark());
-        String opt1C = rm.getSubject(userMarks.getOpt1Choice());
-        cbx_opt1.setSelectedItem(opt1C);
-        
-        spn_opt2.setValue(userMarks.getOpt2Mark());
-        String opt2C = rm.getSubject(userMarks.getOpt2Choice());
-        cbx_opt2.setSelectedItem(opt2C);
-        
-        spn_opt3.setValue(userMarks.getOpt3Mark());
-        String opt3C = rm.getSubject(userMarks.getOpt3Choice());
-        cbx_opt3.setSelectedItem(opt3C);
-        
-        spn_lo.setValue(userMarks.getLo());
-        // </editor-fold>  
-        
-        // <editor-fold defaultstate="collapsed" desc="See code that initializes the 'Saved Degrees' tab"> 
+        initUserMarksTab();
         initSavedDegreesTable();
-        // </editor-fold> 
-        
-        // <editor-fold defaultstate="collapsed" desc="See code that initializes the 'Universities' tab"> 
-        initUniversitiesTable();
-        // </editor-fold> 
-        
+        initUniversityTable();
+        initDegreeTable();
     }
 
     /**
@@ -937,6 +891,11 @@ public class Main extends javax.swing.JFrame {
         btn_finder_back.setBackground(new java.awt.Color(179, 224, 255));
         btn_finder_back.setForeground(new java.awt.Color(0, 0, 0));
         btn_finder_back.setText("Back");
+        btn_finder_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_finder_backActionPerformed(evt);
+            }
+        });
 
         lbl_finder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbl_finder.setForeground(new java.awt.Color(86, 94, 255));
@@ -946,6 +905,11 @@ public class Main extends javax.swing.JFrame {
         txF_finder_search.setBackground(new java.awt.Color(179, 224, 255));
         txF_finder_search.setToolTipText("");
         txF_finder_search.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(86, 94, 255))); // NOI18N
+        txF_finder_search.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txF_finder_searchCaretUpdate(evt);
+            }
+        });
 
         btn_filter.setText("Filter");
 
@@ -1006,7 +970,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(325, 325, 325))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_finderLayout.createSequentialGroup()
                         .addGroup(pnl_finderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(scP_finder, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scP_finder, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnl_finderLayout.createSequentialGroup()
                                 .addComponent(txF_finder_search, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1027,7 +991,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(btn_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(1, 1, 1)))
                 .addComponent(scP_finder, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(btn_filter_view, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -1388,6 +1352,91 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // <editor-fold defaultstate="collapsed" desc="Initialization code">                          
+    private void initUserMarksTab() {
+        Requirement userMarks = rm.getUserMarks();
+        
+        spn_hl.setValue(userMarks.getHlMark());
+        if (userMarks.getHlChoice().equals("eng")) {
+            rBtn_hlEng.setSelected(true);
+            rBtn_falEng.setEnabled(false);
+        } else {
+            rBtn_hlOther.setSelected(true);
+        }
+        
+        spn_fal.setValue(userMarks.getFalMark());
+        if (userMarks.getFalChoice().equals("eng")) {
+            rBtn_falEng.setSelected(true);
+            rBtn_hlEng.setEnabled(false);
+        } else {
+            rBtn_falOther.setSelected(true);
+        }
+        
+        spn_math.setValue(userMarks.getMathMark());
+        switch (userMarks.getMathChoice()) {
+            case "cor" -> rBtn_mathC.setSelected(true);
+            case "lit" -> rBtn_mathL.setSelected(true);
+            default -> rBtn_mathT.setSelected(true);
+        }
+        
+        spn_opt1.setValue(userMarks.getOpt1Mark());
+        String opt1C = rm.getSubject(userMarks.getOpt1Choice());
+        cbx_opt1.setSelectedItem(opt1C);
+        
+        spn_opt2.setValue(userMarks.getOpt2Mark());
+        String opt2C = rm.getSubject(userMarks.getOpt2Choice());
+        cbx_opt2.setSelectedItem(opt2C);
+        
+        spn_opt3.setValue(userMarks.getOpt3Mark());
+        String opt3C = rm.getSubject(userMarks.getOpt3Choice());
+        cbx_opt3.setSelectedItem(opt3C);
+        
+        spn_lo.setValue(userMarks.getLo());
+    }
+    
+    private void initSavedDegreesTable() {
+        String[] columnNames = new String[1];
+        columnNames[0] = "Degrees";
+        JTable temp = new JTable(sd.createTable(), columnNames);
+        tbl_saved.setModel(temp.getModel());
+    }
+    
+    private void initSavedDegreesTable(String input) {
+        String[] columnNames = new String[1];
+        columnNames[0] = "Degrees";
+        JTable temp = new JTable(sd.createTable(input), columnNames);
+        tbl_saved.setModel(temp.getModel());
+    }
+    
+    private void initUniversityTable() {
+        String[] columnNames = new String[1];
+        columnNames[0] = "Universities";
+        JTable temp = new JTable(um.createTable(), columnNames);
+        tbl_browse.setModel(temp.getModel());
+    }
+    
+    private void initUniversityTable(University[] input) {
+        String[] columnNames = new String[1];
+        columnNames[0] = "Universities";
+        JTable temp = new JTable(um.createTable(input), columnNames);
+        tbl_browse.setModel(temp.getModel());
+    }
+    
+    private void initDegreeTable() {
+        String[] columnNames = new String[1];
+        columnNames[0] = "Degrees";
+        JTable temp = new JTable(dm.createTable(), columnNames);
+        tbl_finder.setModel(temp.getModel());
+    }
+    
+    private void initDegreeTable(Degree[] input) {
+        String[] columnNames = new String[1];
+        columnNames[0] = "Degrees";
+        JTable temp = new JTable(dm.createTable(input),columnNames);
+        tbl_finder.setModel(temp.getModel());
+    }
+    // </editor-fold> 
+    
     private void btn_finderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finderActionPerformed
         // When 'Degree Finder' is clicked, navigate to the 'Degree Finder' tab.
         tbdPn_main.setSelectedIndex(4);
@@ -1531,11 +1580,28 @@ public class Main extends javax.swing.JFrame {
         if (!input.equals("")) {
             University[] results = um.getUniWithName("SELECT * FROM University_Table "
                 + "WHERE UniversityName LIKE '*" + input + "*';");
-            initUniversitiesTable(results);
+            initUniversityTable(results);
         } else {
-            initUniversitiesTable();
+            initUniversityTable();
         }
     }//GEN-LAST:event_txF_browse_searchCaretUpdate
+
+    private void btn_finder_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finder_backActionPerformed
+        // Navigate to the main menu
+        tbdPn_main.setSelectedIndex(0);
+    }//GEN-LAST:event_btn_finder_backActionPerformed
+
+    private void txF_finder_searchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txF_finder_searchCaretUpdate
+        // Update list based on search whenever user types into the bar
+        String input = txF_finder_search.getText();
+        if (!input.equals("")) {
+            Degree[] results = dm.getDegWithQuery("SELECT * FROM Degree_Table "
+                    + "WHERE DegreeName LIKE '*" + input + "*';");
+            initDegreeTable(results);
+        } else {
+            initDegreeTable();
+        }
+    }//GEN-LAST:event_txF_finder_searchCaretUpdate
 
     /**
      * @param args the command line arguments
@@ -1570,34 +1636,6 @@ public class Main extends javax.swing.JFrame {
                 new Main().setVisible(true);
             }
         });
-    }
-    
-    private void initSavedDegreesTable() {
-        String[] columnNames = new String[1];
-        columnNames[0] = "Degrees";
-        JTable temp = new JTable(sd.createTable(), columnNames);
-        tbl_saved.setModel(temp.getModel());
-    }
-    
-    private void initSavedDegreesTable(String input) {
-        String[] columnNames = new String[1];
-        columnNames[0] = "Degrees";
-        JTable temp = new JTable(sd.createTable(input), columnNames);
-        tbl_saved.setModel(temp.getModel());
-    }
-    
-    private void initUniversitiesTable() {
-        String[] columnNames = new String[1];
-        columnNames[0] = "Universities";
-        JTable temp = new JTable(um.createTable(), columnNames);
-        tbl_browse.setModel(temp.getModel());
-    }
-    
-    private void initUniversitiesTable(University[] input) {
-        String[] columnNames = new String[1];
-        columnNames[0] = "Universities";
-        JTable temp = new JTable(um.createTable(input), columnNames);
-        tbl_browse.setModel(temp.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

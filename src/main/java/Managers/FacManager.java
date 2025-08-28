@@ -30,8 +30,8 @@ import java.util.logging.Logger;
 public class FacManager {
     private Faculty[] faculties = new Faculty[100];
     private int size;
-    private dbDriver db = new dbDriver();
-    private UniManager um = new UniManager();
+    private final dbDriver db = new dbDriver();
+    private final UniManager um = new UniManager();
     
     public FacManager(){
         try {
