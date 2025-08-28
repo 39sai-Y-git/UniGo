@@ -110,14 +110,14 @@ public class SavedDegrees {
             
         } catch (IOException ex) {
             Logger.getLogger(SavedDegrees.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error 12: Error while removing a saved degree from the text file.");
+            System.out.println("Error #12: Error while removing a saved degree from the text file.");
             
         } finally {
             try {
                 fileFW.close();
             } catch (IOException ex) {
                 Logger.getLogger(SavedDegrees.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("Error 12: Error while removing a saved degree from the text file.");
+                System.out.println("Error #12: Error while removing a saved degree from the text file.");
             }
         }
     }

@@ -89,8 +89,6 @@ public class DegManager {
                 temp[size] = createDeg(rs, size);
                 size++;
             }
-            temp[size] = createDeg(rs, size);
-            size++;
             
             return temp;
             

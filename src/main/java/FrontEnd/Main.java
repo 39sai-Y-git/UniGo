@@ -89,6 +89,11 @@ public class Main extends javax.swing.JFrame {
         // <editor-fold defaultstate="collapsed" desc="See code that initializes the 'Saved Degrees' tab"> 
         initSavedDegreesTable();
         // </editor-fold> 
+        
+        // <editor-fold defaultstate="collapsed" desc="See code that initializes the 'Universities' tab"> 
+        initUniversitiesTable();
+        // </editor-fold> 
+        
     }
 
     /**
@@ -177,7 +182,7 @@ public class Main extends javax.swing.JFrame {
         lbl_browse = new javax.swing.JLabel();
         txF_browse_search = new javax.swing.JTextField();
         scP_browse = new javax.swing.JScrollPane();
-        tbl_saved1 = new javax.swing.JTable();
+        tbl_browse = new javax.swing.JTable();
         btn_browse_view = new javax.swing.JButton();
         btn_browse_back = new javax.swing.JButton();
         pnl_finder = new javax.swing.JPanel();
@@ -187,7 +192,7 @@ public class Main extends javax.swing.JFrame {
         btn_filter = new javax.swing.JButton();
         btn_filter_view = new javax.swing.JButton();
         scP_finder = new javax.swing.JScrollPane();
-        tbl_saved2 = new javax.swing.JTable();
+        tbl_finder = new javax.swing.JTable();
         tbdPn_dedicated = new javax.swing.JTabbedPane();
         pnl_uni = new javax.swing.JPanel();
         lbl_uni = new javax.swing.JLabel();
@@ -859,34 +864,13 @@ public class Main extends javax.swing.JFrame {
         txF_browse_search.setBackground(new java.awt.Color(179, 224, 255));
         txF_browse_search.setToolTipText("");
         txF_browse_search.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(86, 94, 255))); // NOI18N
-
-        tbl_saved1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Name"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        txF_browse_search.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txF_browse_searchCaretUpdate(evt);
             }
         });
-        scP_browse.setViewportView(tbl_saved1);
+
+        scP_browse.setViewportView(tbl_browse);
 
         btn_browse_view.setBackground(java.awt.SystemColor.menu);
         btn_browse_view.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
@@ -902,6 +886,11 @@ public class Main extends javax.swing.JFrame {
         btn_browse_back.setBackground(new java.awt.Color(179, 224, 255));
         btn_browse_back.setForeground(new java.awt.Color(0, 0, 0));
         btn_browse_back.setText("Back");
+        btn_browse_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_browse_backActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_browseLayout = new javax.swing.GroupLayout(pnl_browse);
         pnl_browse.setLayout(pnl_browseLayout);
@@ -971,7 +960,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        tbl_saved2.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_finder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -997,7 +986,7 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        scP_finder.setViewportView(tbl_saved2);
+        scP_finder.setViewportView(tbl_finder);
 
         javax.swing.GroupLayout pnl_finderLayout = new javax.swing.GroupLayout(pnl_finder);
         pnl_finder.setLayout(pnl_finderLayout);
@@ -1528,12 +1517,25 @@ public class Main extends javax.swing.JFrame {
     private void txF_saved_searchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txF_saved_searchCaretUpdate
         // Update list based on search whenever user types into the bar
         String input = txF_saved_search.getText();
-        
-        String[] columnNames = new String[1];
-        columnNames[0] = "Degrees";
-        JTable temp = new JTable(sd.createTable(input), columnNames);
-        tbl_saved.setModel(temp.getModel());
+        initSavedDegreesTable(input);
     }//GEN-LAST:event_txF_saved_searchCaretUpdate
+
+    private void btn_browse_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_browse_backActionPerformed
+        // Navigate to the main menu
+        tbdPn_main.setSelectedIndex(0);
+    }//GEN-LAST:event_btn_browse_backActionPerformed
+
+    private void txF_browse_searchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txF_browse_searchCaretUpdate
+        // Update list based on search whenever user types into the bar
+        String input = txF_browse_search.getText();
+        if (!input.equals("")) {
+            University[] results = um.getUniWithName("SELECT * FROM University_Table "
+                + "WHERE UniversityName LIKE '*" + input + "*';");
+            initUniversitiesTable(results);
+        } else {
+            initUniversitiesTable();
+        }
+    }//GEN-LAST:event_txF_browse_searchCaretUpdate
 
     /**
      * @param args the command line arguments
@@ -1575,6 +1577,27 @@ public class Main extends javax.swing.JFrame {
         columnNames[0] = "Degrees";
         JTable temp = new JTable(sd.createTable(), columnNames);
         tbl_saved.setModel(temp.getModel());
+    }
+    
+    private void initSavedDegreesTable(String input) {
+        String[] columnNames = new String[1];
+        columnNames[0] = "Degrees";
+        JTable temp = new JTable(sd.createTable(input), columnNames);
+        tbl_saved.setModel(temp.getModel());
+    }
+    
+    private void initUniversitiesTable() {
+        String[] columnNames = new String[1];
+        columnNames[0] = "Universities";
+        JTable temp = new JTable(um.createTable(), columnNames);
+        tbl_browse.setModel(temp.getModel());
+    }
+    
+    private void initUniversitiesTable(University[] input) {
+        String[] columnNames = new String[1];
+        columnNames[0] = "Universities";
+        JTable temp = new JTable(um.createTable(input), columnNames);
+        tbl_browse.setModel(temp.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1663,10 +1686,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSpinner spn_opt3;
     private javax.swing.JTabbedPane tbdPn_dedicated;
     private javax.swing.JTabbedPane tbdPn_main;
+    private javax.swing.JTable tbl_browse;
     private javax.swing.JTable tbl_facDeg;
+    private javax.swing.JTable tbl_finder;
     private javax.swing.JTable tbl_saved;
-    private javax.swing.JTable tbl_saved1;
-    private javax.swing.JTable tbl_saved2;
     private javax.swing.JTable tbl_uniFac;
     private javax.swing.JTextArea txA_degDesc;
     private javax.swing.JTextArea txA_facDesc;

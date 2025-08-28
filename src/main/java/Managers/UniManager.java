@@ -102,11 +102,18 @@ public class UniManager {
             while (!rs.isLast()) {
                 temp[size] = createUni(rs, size);
                 size++;
+                if ((size + 1) >= this.size) {
+                    University[] error = new University[1];
+                    error[0] = new University(0, "None", null, null, 0, 0, 0, 0);
+                    return error;
+                }
             }
-            temp[size] = createUni(rs, size);
-            size++;
             
-            return temp;
+            University[] output = new University[size];
+            for (int i = 0; i < size; i++) {
+                output[i] = temp[i];
+            }
+            return output;
             
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,5 +124,25 @@ public class UniManager {
     
     public University[] getAll() {
         return universities;
+    }
+    
+    public Object[][] createTable() {
+        Object[][] data = new Object[size][1];
+        
+        for (int i = 0; i < size; i++) {
+            data[i][0] = universities[i].getName();
+        }
+        
+        return data;
+    }
+    
+    public Object[][] createTable(University[] input) {
+        Object[][] data = new Object[input.length][1];
+        
+        for (int i = 0; i < input.length; i++) {
+            data[i][0] = input[i].getName();
+        }
+        
+        return data;
     }
 }
