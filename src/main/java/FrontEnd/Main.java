@@ -84,14 +84,10 @@ public class Main extends javax.swing.JFrame {
         cbx_opt3.setSelectedItem(opt3C);
         
         spn_lo.setValue(userMarks.getLo());
-        
         // </editor-fold>  
         
         // <editor-fold defaultstate="collapsed" desc="See code that initializes the 'Saved Degrees' tab"> 
-        String[] columnNames = new String[1];
-        columnNames[0] = "Degrees";
-        JTable temp = new JTable(sd.createTable(), columnNames);
-        tbl_saved.setModel(temp.getModel());
+        initSavedDegreesTable();
         // </editor-fold> 
     }
 
@@ -774,6 +770,8 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        tbl_saved.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tbl_saved.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scP_saved.setViewportView(tbl_saved);
 
         btn_saved_view.setBackground(java.awt.SystemColor.menu);
@@ -793,7 +791,6 @@ public class Main extends javax.swing.JFrame {
         btn_saved_remove.setForeground(new java.awt.Color(0, 0, 0));
         btn_saved_remove.setText("Remove");
         btn_saved_remove.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_saved_remove.setEnabled(false);
         btn_saved_remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_saved_removeActionPerformed(evt);
@@ -896,7 +893,6 @@ public class Main extends javax.swing.JFrame {
         btn_browse_view.setForeground(new java.awt.Color(0, 0, 0));
         btn_browse_view.setText("View");
         btn_browse_view.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_browse_view.setEnabled(false);
         btn_browse_view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_browse_viewActionPerformed(evt);
@@ -969,7 +965,6 @@ public class Main extends javax.swing.JFrame {
         btn_filter_view.setForeground(new java.awt.Color(0, 0, 0));
         btn_filter_view.setText("View");
         btn_filter_view.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_filter_view.setEnabled(false);
         btn_filter_view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_filter_viewActionPerformed(evt);
@@ -1102,7 +1097,6 @@ public class Main extends javax.swing.JFrame {
         btn_facView.setForeground(new java.awt.Color(0, 0, 0));
         btn_facView.setText("View");
         btn_facView.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_facView.setEnabled(false);
         btn_facView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_facViewActionPerformed(evt);
@@ -1272,7 +1266,6 @@ public class Main extends javax.swing.JFrame {
         btn_degView.setForeground(new java.awt.Color(0, 0, 0));
         btn_degView.setText("View");
         btn_degView.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_degView.setEnabled(false);
         btn_degView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_degViewActionPerformed(evt);
@@ -1455,7 +1448,12 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_saveActionPerformed
 
     private void btn_saved_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saved_removeActionPerformed
-        // TODO add your handling code here:
+        // Remove a degree from saved)
+        int index = tbl_saved.getSelectedRow();
+        if (index != -1) {
+            sd.remove(index);
+            initSavedDegreesTable();
+        }
     }//GEN-LAST:event_btn_saved_removeActionPerformed
 
     private void btn_saved_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saved_viewActionPerformed
@@ -1529,11 +1527,12 @@ public class Main extends javax.swing.JFrame {
 
     private void txF_saved_searchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txF_saved_searchCaretUpdate
         // Update list based on search whenever user types into the bar
-//        String input = txF_saved_search.getText();
-//        University[] result = um.getUniWithName("SELECT * FROM University_Table " + 
-//                "WHERE UniversityName LIKE '*" + input + "*';");
-//        
-//        
+        String input = txF_saved_search.getText();
+        
+        String[] columnNames = new String[1];
+        columnNames[0] = "Degrees";
+        JTable temp = new JTable(sd.createTable(input), columnNames);
+        tbl_saved.setModel(temp.getModel());
     }//GEN-LAST:event_txF_saved_searchCaretUpdate
 
     /**
@@ -1569,6 +1568,13 @@ public class Main extends javax.swing.JFrame {
                 new Main().setVisible(true);
             }
         });
+    }
+    
+    private void initSavedDegreesTable() {
+        String[] columnNames = new String[1];
+        columnNames[0] = "Degrees";
+        JTable temp = new JTable(sd.createTable(), columnNames);
+        tbl_saved.setModel(temp.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

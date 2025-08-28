@@ -18,6 +18,8 @@ package Managers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,12 +66,59 @@ public class SavedDegrees {
     }
     
     public Object[][] createTable() {
-        
         Object[][] data = new Object[size][1];
+        
         for (int i = 0; i < size; i++) {
             data[i][0] = dm.getDegWithID(degrees[i]).getName();
         }
         
         return data;
+    }
+    
+    /**
+     *
+     * @param mustContain
+     * @return
+     */
+    public Object[][] createTable(String mustContain) {
+        Object[][] data = new Object[size][1];
+        int j = 0;
+        
+        for (int i = 0; i < size; i++) {
+            String degName = dm.getDegWithID(degrees[i]).getName();
+            if (degName.toLowerCase().contains(mustContain.toLowerCase())) {
+                data[j][0] = degName;
+                j++;
+            }
+        }
+        
+        return data;
+    }
+    
+    public void remove(int index) {
+        FileWriter fileFW = null;
+        try {
+            for (int i = index; i < size; i++) {
+                degrees[i] = degrees[i+1];
+            }   size--;
+            
+            fileFW = new FileWriter("data\\SavedDegrees.txt");
+            fileFW.write("");
+            for (int i = 0; i < size; i++) {
+                fileFW.append(degrees[i] + "\n");
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(SavedDegrees.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error 12: Error while removing a saved degree from the text file.");
+            
+        } finally {
+            try {
+                fileFW.close();
+            } catch (IOException ex) {
+                Logger.getLogger(SavedDegrees.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Error 12: Error while removing a saved degree from the text file.");
+            }
+        }
     }
 }
