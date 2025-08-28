@@ -122,8 +122,13 @@ public class UniManager {
         return null;
     }
     
-    public University[] getAll() {
-        return universities;
+    public String[] getAll() {
+        String[] all = new String[size+1];
+        all[0] = "None";
+        for (int i = 0; i < size; i++) {
+            all[i+1] = universities[i].getName();
+        }
+        return all;
     }
     
     public Object[][] createTable() {

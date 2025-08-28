@@ -21,17 +21,21 @@ import Managers.FacManager;
 import Managers.ReqManager;
 import Managers.UniManager;
 import Objects.University;
-import Objects.Faculty;
 import Objects.Degree;
 import Objects.Requirement;
 import Managers.SavedDegrees;
+import Objects.Filter;
+import java.awt.Color;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author Saien Naidu
  */
-public class Main extends javax.swing.JFrame {
+public class FMain extends javax.swing.JFrame {
 
     private final UniManager um = new UniManager();
     private final FacManager fm = new FacManager();
@@ -39,15 +43,18 @@ public class Main extends javax.swing.JFrame {
     private final ReqManager rm = new ReqManager();
     private final SavedDegrees sd = new SavedDegrees("data\\SavedDegrees.txt");
     
+    private FFilter frm_filters = new FFilter();
+    
     /**
      * Creates new form Main
      */
-    public Main() {
+    public FMain() {
         initComponents();
         initUserMarksTab();
         initSavedDegreesTable();
         initUniversityTable();
-        initDegreeTable();
+        initFinderTable();
+        initFiltersFrame();
     }
 
     /**
@@ -62,31 +69,6 @@ public class Main extends javax.swing.JFrame {
         btnG_hl = new javax.swing.ButtonGroup();
         btnG_fal = new javax.swing.ButtonGroup();
         btnG_math = new javax.swing.ButtonGroup();
-        frame_filter = new javax.swing.JFrame();
-        pnl_filter = new javax.swing.JPanel();
-        xbx_useMarks = new javax.swing.JCheckBox();
-        sep1 = new javax.swing.JSeparator();
-        xbx_kzn = new javax.swing.JCheckBox();
-        xbx_gauteng = new javax.swing.JCheckBox();
-        xbx_westcape = new javax.swing.JCheckBox();
-        xbx_eastcape = new javax.swing.JCheckBox();
-        xbx_freestate = new javax.swing.JCheckBox();
-        xbx_northwest = new javax.swing.JCheckBox();
-        xbx_mpumalanga = new javax.swing.JCheckBox();
-        xbx_limpopo = new javax.swing.JCheckBox();
-        sep2 = new javax.swing.JSeparator();
-        xbx_commerce = new javax.swing.JCheckBox();
-        xbx_engineering = new javax.swing.JCheckBox();
-        xbx_healthsciences = new javax.swing.JCheckBox();
-        xbx_law = new javax.swing.JCheckBox();
-        xbx_humanities = new javax.swing.JCheckBox();
-        xbx_sciences = new javax.swing.JCheckBox();
-        sep3 = new javax.swing.JSeparator();
-        cbx_uni1 = new javax.swing.JComboBox<>();
-        cbx_uni2 = new javax.swing.JComboBox<>();
-        cbx_uni3 = new javax.swing.JComboBox<>();
-        rBtn_include = new javax.swing.JRadioButton();
-        rBtn_exclude = new javax.swing.JRadioButton();
         btnG_uniExOrIn = new javax.swing.ButtonGroup();
         tbdPn_main = new javax.swing.JTabbedPane();
         pnl_menu = new javax.swing.JPanel();
@@ -176,181 +158,6 @@ public class Main extends javax.swing.JFrame {
         txA_req = new javax.swing.JTextArea();
         btn_saveDeg = new javax.swing.JButton();
         lbl_title = new javax.swing.JLabel();
-
-        frame_filter.setTitle("FilterMenu");
-        frame_filter.setName("frame_filter"); // NOI18N
-        frame_filter.setResizable(false);
-
-        pnl_filter.setBackground(java.awt.SystemColor.menu);
-
-        xbx_useMarks.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_useMarks.setSelected(true);
-        xbx_useMarks.setText("Use Your Marks");
-
-        xbx_kzn.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_kzn.setText("KZN");
-
-        xbx_gauteng.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_gauteng.setText("Gauteng");
-        xbx_gauteng.setToolTipText("");
-
-        xbx_westcape.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_westcape.setText("West Cape");
-
-        xbx_eastcape.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_eastcape.setText("East Cape");
-
-        xbx_freestate.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_freestate.setText("Free State");
-
-        xbx_northwest.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_northwest.setText("North West");
-
-        xbx_mpumalanga.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_mpumalanga.setText("Mpumalanga");
-
-        xbx_limpopo.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_limpopo.setText("Limpopo");
-
-        xbx_commerce.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_commerce.setText("Commerce");
-
-        xbx_engineering.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_engineering.setText("Engineering");
-
-        xbx_healthsciences.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_healthsciences.setText("Health Sciences");
-
-        xbx_law.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_law.setText("Law");
-
-        xbx_humanities.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_humanities.setText("Humanities");
-
-        xbx_sciences.setForeground(new java.awt.Color(0, 0, 0));
-        xbx_sciences.setText("Sciences");
-
-        rBtn_include.setForeground(new java.awt.Color(0, 0, 0));
-        rBtn_include.setText("Include these");
-
-        rBtn_exclude.setForeground(new java.awt.Color(0, 0, 0));
-        rBtn_exclude.setText("Exclude these");
-
-        javax.swing.GroupLayout pnl_filterLayout = new javax.swing.GroupLayout(pnl_filter);
-        pnl_filter.setLayout(pnl_filterLayout);
-        pnl_filterLayout.setHorizontalGroup(
-            pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sep1)
-            .addComponent(sep2)
-            .addComponent(sep3)
-            .addGroup(pnl_filterLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_filterLayout.createSequentialGroup()
-                        .addGroup(pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(xbx_useMarks)
-                            .addGroup(pnl_filterLayout.createSequentialGroup()
-                                .addComponent(xbx_kzn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(xbx_gauteng)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(xbx_eastcape)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(xbx_westcape)))
-                        .addContainerGap(107, Short.MAX_VALUE))
-                    .addGroup(pnl_filterLayout.createSequentialGroup()
-                        .addGroup(pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnl_filterLayout.createSequentialGroup()
-                                .addComponent(xbx_freestate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(xbx_northwest)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(xbx_mpumalanga)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(xbx_limpopo))
-                            .addGroup(pnl_filterLayout.createSequentialGroup()
-                                .addComponent(xbx_commerce)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(xbx_engineering)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(xbx_healthsciences)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(xbx_law))
-                            .addGroup(pnl_filterLayout.createSequentialGroup()
-                                .addComponent(xbx_humanities)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(xbx_sciences)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnl_filterLayout.createSequentialGroup()
-                        .addGroup(pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cbx_uni3, javax.swing.GroupLayout.Alignment.LEADING, 0, 250, Short.MAX_VALUE)
-                            .addComponent(cbx_uni2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbx_uni1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rBtn_include, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rBtn_exclude, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20))))
-        );
-        pnl_filterLayout.setVerticalGroup(
-            pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_filterLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(xbx_useMarks)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sep1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(xbx_kzn)
-                    .addComponent(xbx_gauteng)
-                    .addComponent(xbx_eastcape)
-                    .addComponent(xbx_westcape))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(xbx_freestate)
-                    .addComponent(xbx_northwest)
-                    .addComponent(xbx_mpumalanga)
-                    .addComponent(xbx_limpopo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(sep2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(xbx_commerce)
-                    .addComponent(xbx_engineering)
-                    .addComponent(xbx_healthsciences)
-                    .addComponent(xbx_law))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(xbx_humanities)
-                    .addComponent(xbx_sciences))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnl_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnl_filterLayout.createSequentialGroup()
-                        .addComponent(sep3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbx_uni1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbx_uni2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbx_uni3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(15, Short.MAX_VALUE))
-                    .addGroup(pnl_filterLayout.createSequentialGroup()
-                        .addComponent(rBtn_include)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rBtn_exclude)
-                        .addGap(34, 34, 34))))
-        );
-
-        javax.swing.GroupLayout frame_filterLayout = new javax.swing.GroupLayout(frame_filter.getContentPane());
-        frame_filter.getContentPane().setLayout(frame_filterLayout);
-        frame_filterLayout.setHorizontalGroup(
-            frame_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnl_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        frame_filterLayout.setVerticalGroup(
-            frame_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnl_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UniGo Beta");
@@ -911,7 +718,16 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        btn_filter.setText("Filter");
+        btn_filter.setBackground(new java.awt.Color(153, 153, 153));
+        btn_filter.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        btn_filter.setForeground(new java.awt.Color(0, 0, 0));
+        btn_filter.setText("Filters");
+        btn_filter.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        btn_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_filterActionPerformed(evt);
+            }
+        });
 
         btn_filter_view.setBackground(java.awt.SystemColor.menu);
         btn_filter_view.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
@@ -926,9 +742,6 @@ public class Main extends javax.swing.JFrame {
 
         tbl_finder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
                 {null}
             },
             new String [] {
@@ -968,14 +781,15 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_finderLayout.createSequentialGroup()
                         .addComponent(btn_filter_view, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(325, 325, 325))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_finderLayout.createSequentialGroup()
-                        .addGroup(pnl_finderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(scP_finder, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnl_finderLayout.createSequentialGroup()
-                                .addComponent(txF_finder_search, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(51, 51, 51))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_finderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_finderLayout.createSequentialGroup()
+                            .addComponent(txF_finder_search, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(119, 119, 119))
+                        .addGroup(pnl_finderLayout.createSequentialGroup()
+                            .addGroup(pnl_finderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(scP_finder, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(51, 51, 51)))))
         );
         pnl_finderLayout.setVerticalGroup(
             pnl_finderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1352,7 +1166,7 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // <editor-fold defaultstate="collapsed" desc="Initialization code">                          
+    // <editor-fold defaultstate="collapsed" desc="Initialization code">
     private void initUserMarksTab() {
         Requirement userMarks = rm.getUserMarks();
         
@@ -1422,20 +1236,40 @@ public class Main extends javax.swing.JFrame {
         tbl_browse.setModel(temp.getModel());
     }
     
-    private void initDegreeTable() {
+    private void initFinderTable() {
         String[] columnNames = new String[1];
         columnNames[0] = "Degrees";
         JTable temp = new JTable(dm.createTable(), columnNames);
         tbl_finder.setModel(temp.getModel());
     }
     
-    private void initDegreeTable(Degree[] input) {
+    private void initFinderTable(Degree[] input) {
         String[] columnNames = new String[1];
         columnNames[0] = "Degrees";
         JTable temp = new JTable(dm.createTable(input),columnNames);
         tbl_finder.setModel(temp.getModel());
     }
+    
+    private void initFiltersFrame() {
+        frm_filters.setVisible(false);
+    }
     // </editor-fold> 
+    
+    // <editor-fold defaultstate="collapsed" desc="Degree Finder">
+    public void updateFinderTable(Filter f) {
+        this.setVisible(false);
+        String[] columnNames = new String[1];
+        columnNames[0] = "Degrees";
+        JTable temp = new JTable(dm.createTable(dm.degreeFinder(f)),columnNames);
+        tbl_finder.setModel(temp.getModel());
+        
+        tbdPn_main.setSelectedIndex(4);
+        
+        btn_filter.setBackground(Color.white);
+        txF_finder_search.setEnabled(false); //for now
+        this.setVisible(true);
+    }
+    // </editor-fold>
     
     private void btn_finderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finderActionPerformed
         // When 'Degree Finder' is clicked, navigate to the 'Degree Finder' tab.
@@ -1577,13 +1411,9 @@ public class Main extends javax.swing.JFrame {
     private void txF_browse_searchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txF_browse_searchCaretUpdate
         // Update list based on search whenever user types into the bar
         String input = txF_browse_search.getText();
-        if (!input.equals("")) {
-            University[] results = um.getUniWithName("SELECT * FROM University_Table "
+        University[] results = um.getUniWithName("SELECT * FROM University_Table "
                 + "WHERE UniversityName LIKE '*" + input + "*';");
             initUniversityTable(results);
-        } else {
-            initUniversityTable();
-        }
     }//GEN-LAST:event_txF_browse_searchCaretUpdate
 
     private void btn_finder_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finder_backActionPerformed
@@ -1593,15 +1423,27 @@ public class Main extends javax.swing.JFrame {
 
     private void txF_finder_searchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txF_finder_searchCaretUpdate
         // Update list based on search whenever user types into the bar
-        String input = txF_finder_search.getText();
-        if (!input.equals("")) {
-            Degree[] results = dm.getDegWithQuery("SELECT * FROM Degree_Table "
-                    + "WHERE DegreeName LIKE '*" + input + "*';");
-            initDegreeTable(results);
+        if (btn_filter.getBackground() != Color.white) {
+            String input = txF_finder_search.getText();
+            if (!input.equals("")) {
+                Degree[] results = dm.getDegWithQuery("SELECT * FROM Degree_Table "
+                        + "WHERE DegreeName LIKE '*" + input + "*';");
+                initFinderTable(results);
+            } else {
+                initFinderTable();
+            }
         } else {
-            initDegreeTable();
+            //To do
         }
+        
     }//GEN-LAST:event_txF_finder_searchCaretUpdate
+
+    private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
+        // Open filters frame
+        this.setVisible(false);
+        frm_filters.setEnabled(true);
+        frm_filters.setVisible(true);
+    }//GEN-LAST:event_btn_filterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1620,20 +1462,21 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new FMain().setVisible(true);
             }
         });
     }
@@ -1663,10 +1506,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbx_opt1;
     private javax.swing.JComboBox<String> cbx_opt2;
     private javax.swing.JComboBox<String> cbx_opt3;
-    private javax.swing.JComboBox<String> cbx_uni1;
-    private javax.swing.JComboBox<String> cbx_uni2;
-    private javax.swing.JComboBox<String> cbx_uni3;
-    private javax.swing.JFrame frame_filter;
     private javax.swing.JLabel lbl_accRate;
     private javax.swing.JLabel lbl_browse;
     private javax.swing.JLabel lbl_deg;
@@ -1690,7 +1529,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_browse;
     private javax.swing.JPanel pnl_deg;
     private javax.swing.JPanel pnl_fac;
-    private javax.swing.JPanel pnl_filter;
     private javax.swing.JPanel pnl_finder;
     private javax.swing.JPanel pnl_menu;
     private javax.swing.JPanel pnl_menuBrowse;
@@ -1698,12 +1536,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_results;
     private javax.swing.JPanel pnl_saved;
     private javax.swing.JPanel pnl_uni;
-    private javax.swing.JRadioButton rBtn_exclude;
     private javax.swing.JRadioButton rBtn_falEng;
     private javax.swing.JRadioButton rBtn_falOther;
     private javax.swing.JRadioButton rBtn_hlEng;
     private javax.swing.JRadioButton rBtn_hlOther;
-    private javax.swing.JRadioButton rBtn_include;
     private javax.swing.JRadioButton rBtn_mathC;
     private javax.swing.JRadioButton rBtn_mathL;
     private javax.swing.JRadioButton rBtn_mathT;
@@ -1712,9 +1548,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane scP_finder;
     private javax.swing.JScrollPane scP_saved;
     private javax.swing.JScrollPane scP_uniFac;
-    private javax.swing.JSeparator sep1;
-    private javax.swing.JSeparator sep2;
-    private javax.swing.JSeparator sep3;
     private javax.swing.JSpinner spn_fal;
     private javax.swing.JSpinner spn_hl;
     private javax.swing.JSpinner spn_lo;
@@ -1741,20 +1574,5 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel txF_rank;
     private javax.swing.JTextField txF_saved_search;
     private javax.swing.JLabel txF_students;
-    private javax.swing.JCheckBox xbx_commerce;
-    private javax.swing.JCheckBox xbx_eastcape;
-    private javax.swing.JCheckBox xbx_engineering;
-    private javax.swing.JCheckBox xbx_freestate;
-    private javax.swing.JCheckBox xbx_gauteng;
-    private javax.swing.JCheckBox xbx_healthsciences;
-    private javax.swing.JCheckBox xbx_humanities;
-    private javax.swing.JCheckBox xbx_kzn;
-    private javax.swing.JCheckBox xbx_law;
-    private javax.swing.JCheckBox xbx_limpopo;
-    private javax.swing.JCheckBox xbx_mpumalanga;
-    private javax.swing.JCheckBox xbx_northwest;
-    private javax.swing.JCheckBox xbx_sciences;
-    private javax.swing.JCheckBox xbx_useMarks;
-    private javax.swing.JCheckBox xbx_westcape;
     // End of variables declaration//GEN-END:variables
 }

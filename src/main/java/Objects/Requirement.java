@@ -26,8 +26,8 @@ package Objects;
 public class Requirement {
     
     // FIELDS
-    private Degree deg;
     private int ID;
+    private Degree deg;
     private int hlMark;
     private String hlChoice;
     private int falMark;
@@ -44,9 +44,9 @@ public class Requirement {
     private int aps;
 
     // CONSTRUCTOR
-    public Requirement(Degree deg, int ID, int hlMark, String hlChoice, int falMark, String falChoice, int mathMark, String mathChoice, int opt1Mark, String opt1Choice, int opt2Mark, String opt2Choice, int opt3Mark, String opt3Choice, int lo, int aps) {
-        this.deg = deg;
+    public Requirement(int ID, Degree deg, int hlMark, String hlChoice, int falMark, String falChoice, int mathMark, String mathChoice, int opt1Mark, String opt1Choice, int opt2Mark, String opt2Choice, int opt3Mark, String opt3Choice, int lo, int aps) {
         this.ID = ID;
+        this.deg = deg;
         this.hlMark = hlMark;
         this.hlChoice = hlChoice;
         this.falMark = falMark;

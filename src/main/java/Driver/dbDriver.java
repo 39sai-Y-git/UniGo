@@ -53,4 +53,12 @@ public class dbDriver {
         statement.close();
         
     }
+    
+    public String addToQuery(String query) {
+        if (query.contains("WHERE")) {
+            return query += "AND ";
+        } else {
+            return query += "WHERE ";
+        }
+    }
 }

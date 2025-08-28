@@ -18,6 +18,7 @@ package Managers;
 
 import Driver.dbDriver;
 import Objects.Degree;
+import Objects.Filter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -126,5 +127,31 @@ public class DegManager {
         }
         
         return data;
+    }
+    
+    public Degree[] degreeFinder(Filter f) {
+        ReqManager rm = new ReqManager();
+        Degree[] output = new Degree[size];
+        
+        for (int i = 0; i < size; i++) {
+            output[i] = degrees[i];
+        }
+        
+        int outputSize = size;
+        
+        if (f.isUseMarks()) {
+            int[] IDs = rm.reqMet();
+            Degree[] temp = new Degree[IDs.length];
+            
+            for (int i = 0; i < IDs.length; i++) {
+                temp[i] = getDegWithID(IDs[i]);
+            }
+            
+            output = new Degree[temp.length];
+            output = temp;
+            outputSize = temp.length;
+        }
+        
+        return output;
     }
 }

@@ -90,7 +90,7 @@ public class ReqManager {
             int lo = 50;
             int aps = rs.getInt("APS");
             
-            return (new Requirement(dm.getDegWithID(degID), id, hlM, hlC, falM, falC, mathM, mathC, opt1M, opt1C, opt2M, opt2C, opt3M, opt3C, lo, aps));
+            return (new Requirement(id, dm.getDegWithID(degID), hlM, hlC, falM, falC, mathM, mathC, opt1M, opt1C, opt2M, opt2C, opt3M, opt3C, lo, aps));
             
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -138,7 +138,7 @@ public class ReqManager {
             
             int lo = fileSC.nextInt();
             
-            requirements[0] = new Requirement(null, 0, hlM, hlC, falM, falC, mathM, mathC, opt1M, opt1C, opt2M, opt2C, opt3M, opt3C, lo, aps);
+            requirements[0] = new Requirement(0, null, hlM, hlC, falM, falC, mathM, mathC, opt1M, opt1C, opt2M, opt2C, opt3M, opt3C, lo, aps);
            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ReqManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -217,7 +217,7 @@ public class ReqManager {
         FileWriter fileFW = null;
         try {
             int aps = calcAPS(hlM) + calcAPS(falM) + calcAPS(mathM) + calcAPS(opt1M) + calcAPS(opt2M) + calcAPS(opt3M);
-            requirements[0] = new Requirement(null, 0, hlM, hlC, falM, falC, mathM, mathC, opt1M, opt1C, opt2M, opt2C, opt3M, opt3C, lo, aps);
+            requirements[0] = new Requirement(0, null, hlM, hlC, falM, falC, mathM, mathC, opt1M, opt1C, opt2M, opt2C, opt3M, opt3C, lo, aps);
             
             fileFW = new FileWriter("data\\UserMarks.txt");
             fileFW.write(hlC+hlM + "#" + falC+falM + "#" + mathC+mathM + "#" + opt1C+opt1M + "#" + opt2C+opt2M + "#" + opt3C+opt3M + "#" + lo);
@@ -232,6 +232,66 @@ public class ReqManager {
                 Logger.getLogger(ReqManager.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("Error #12: Error while saving user's marks to text file.");
             }
+        }
+    }
+    
+    public Requirement[] getAll() {
+        Requirement[] output = new Requirement[size - 1];
+        for (int i = 0; i < (size - 1); i++) {
+            output[i] = requirements[i+1];
+        }
+        return output;
+    }
+    
+    public int[] reqMet() {
+        Requirement[] temp = new Requirement[size];
+        int size = 0;
+        
+        Requirement user = requirements[0];
+        
+        for (int i = 1; i < this.size; i++) {
+            Requirement current = requirements[i];
+            
+            if ((user.getHlChoice().equals(current.getHlChoice())) || current.getHlChoice().equals("any")) {
+                if (user.getHlMark() >= current.getHlMark()) {
+                    if ((user.getFalChoice().equals(current.getFalChoice())) || current.getFalChoice().equals("any")) {
+                        if (user.getFalMark() >= current.getFalMark()) {
+                            if ((user.getMathChoice().equals(current.getMathChoice())) || current.getMathChoice().equals("any")) {
+                                if (user.getMathMark() >= current.getMathMark()) {
+                                    if ((user.getOpt1Choice().equals(current.getOpt1Choice())) || current.getHlChoice().equals("any")) {
+                                        if (user.getOpt1Mark() >= current.getOpt1Mark()) {
+                                            if ((user.getOpt2Choice().equals(current.getOpt2Choice())) || current.getOpt2Choice().equals("any")) {
+                                                if (user.getOpt2Mark() >= current.getOpt2Mark()) {
+                                                    if ((user.getOpt3Choice().equals(current.getOpt3Choice())) || current.getOpt3Choice().equals("any")) {
+                                                        if (user.getOpt3Mark() >= current.getOpt3Mark()) {
+                                                            if (user.getLo() >= 50) {
+                                                                if (user.getAps() >= current.getAps()) {
+                                                                    temp[size] = requirements[i];
+                                                                    size++;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (size != 0) {
+            int[] output = new int[size];
+            for (int i = 0; i < size; i++) {
+                output[i] = temp[i].getID();
+            }
+            return output;
+        } else {
+            return null;
         }
     }
 }
