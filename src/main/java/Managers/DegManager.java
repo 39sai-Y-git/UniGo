@@ -130,6 +130,7 @@ public class DegManager {
     }
     
     public Degree[] degreeFinder(Filter f) {
+        // Setup
         ReqManager rm = new ReqManager();
         Degree[] output = new Degree[size];
         
@@ -139,6 +140,7 @@ public class DegManager {
         
         int outputSize = size;
         
+        // Using user's marks
         if (f.isUseMarks()) {
             int[] IDs = rm.reqMet();
             Degree[] temp = new Degree[IDs.length];
@@ -150,6 +152,91 @@ public class DegManager {
             output = new Degree[temp.length];
             output = temp;
             outputSize = temp.length;
+        }
+        
+        // Using Location
+        boolean locationOn = false;
+        String locations = "";
+        
+        if (f.isKzn()) {
+            locations = db.addToQuery(locations, "'KZN'");
+            locationOn = true;
+        }
+        if (f.isGauteng()) {
+            locations = db.addToQuery(locations, "'G'");
+            locationOn = true;
+        }
+        if (f.isEastcape()) {
+            locations = db.addToQuery(locations, "'EC'");
+            locationOn = true;
+        }
+        if (f.isWestcape()) {
+            locations = db.addToQuery(locations, "'WC'");
+            locationOn = true;
+        }
+        if (f.isFreestate()) {
+            locations = db.addToQuery(locations, "'FS'");
+            locationOn = true;
+        }
+        if (f.isNorthwest()) {
+            locations = db.addToQuery(locations, "'NW'");
+            locationOn = true;
+        }
+        if (f.isMpumalanga()) {
+            locations = db.addToQuery(locations, "'M'");
+            locationOn = true;
+        }
+        if (f.isLimpopo()) {
+            locations = db.addToQuery(locations, "'L'");
+            locationOn = true;
+        }
+        
+        if (locationOn) {
+            Degree[] results = new Degree[outputSize];
+            
+            results = getDegWithQuery("SELECT\n" +
+                "    Degree_Table.ID,\n" +
+                "    DegreeName,\n" +
+                "    Degree_Table.UniversityID,\n" +
+                "    Degree_Table.FacultyID,\n" +
+                "    Degree_Table.Description\n" +
+                "FROM\n" +
+                "    Degree_Table\n" +
+                "    INNER JOIN (\n" +
+                "        University_Table\n" +
+                "        INNER JOIN Faculty_Table ON University_Table.ID = Faculty_Table.UniversityID\n" +
+                "    ) ON (Degree_Table.UniversityID = University_Table.ID)\n" +
+                "    AND (Degree_Table.FacultyID = Faculty_Table.ID)\n" +
+                "WHERE\n" +
+                "    Location IN ("+locations+");");
+            
+            boolean endReached = false;
+            outputSize = 0;
+            while (!endReached && (outputSize < results.length)) {
+                if (!results[outputSize].equals(null)) {
+                    outputSize++;
+                } else {
+                    endReached = true;
+                }
+            }
+            
+            Degree[] temp = new Degree[outputSize];
+            int tempSize = 0;
+            
+            for (int i = 0; i < output.length; i++) {
+                for (int j = 0; j < results.length; j++) {
+                    if (output[i].getDegreeID() == results[j].getDegreeID()) {
+                        temp[tempSize] = results[j];
+                        tempSize++;
+                    }
+                }
+            }
+            
+            output = new Degree[tempSize];
+            for (int i = 0; i < tempSize; i++) {
+                output[i] = temp[i];
+            }
+            outputSize = tempSize;
         }
         
         return output;

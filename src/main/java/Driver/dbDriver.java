@@ -54,11 +54,11 @@ public class dbDriver {
         
     }
     
-    public String addToQuery(String query) {
-        if (query.contains("WHERE")) {
-            return query += "AND ";
+    public String addToQuery(String original, String toAdd) {
+        if (original.equals("")) {
+            return toAdd;
         } else {
-            return query += "WHERE ";
+            return original += ", " + toAdd;
         }
     }
 }
