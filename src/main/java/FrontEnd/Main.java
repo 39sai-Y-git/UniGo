@@ -24,8 +24,8 @@ import Objects.University;
 import Objects.Faculty;
 import Objects.Degree;
 import Objects.Requirement;
-import Objects.SavedDegrees;
-import javax.swing.ButtonModel;
+import Managers.SavedDegrees;
+import javax.swing.JTable;
 
 /**
  *
@@ -37,6 +37,7 @@ public class Main extends javax.swing.JFrame {
     private FacManager fm = new FacManager();
     private DegManager dm = new DegManager();
     private ReqManager rm = new ReqManager();
+    private SavedDegrees sd = new SavedDegrees("data\\SavedDegrees.txt");
     
     /**
      * Creates new form Main
@@ -86,6 +87,12 @@ public class Main extends javax.swing.JFrame {
         
         // </editor-fold>  
         
+        // <editor-fold defaultstate="collapsed" desc="See code that initializes the 'Saved Degrees' tab"> 
+        String[] columnNames = new String[1];
+        columnNames[0] = "Degrees";
+        JTable temp = new JTable(sd.createTable(), columnNames);
+        tbl_saved.setModel(temp.getModel());
+        // </editor-fold> 
     }
 
     /**
@@ -227,11 +234,6 @@ public class Main extends javax.swing.JFrame {
 
         xbx_kzn.setForeground(new java.awt.Color(0, 0, 0));
         xbx_kzn.setText("KZN");
-        xbx_kzn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                xbx_kznActionPerformed(evt);
-            }
-        });
 
         xbx_gauteng.setForeground(new java.awt.Color(0, 0, 0));
         xbx_gauteng.setText("Gauteng");
@@ -766,38 +768,12 @@ public class Main extends javax.swing.JFrame {
         txF_saved_search.setForeground(new java.awt.Color(0, 0, 0));
         txF_saved_search.setToolTipText("");
         txF_saved_search.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(86, 94, 255))); // NOI18N
-        txF_saved_search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txF_saved_searchActionPerformed(evt);
+        txF_saved_search.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txF_saved_searchCaretUpdate(evt);
             }
         });
 
-        tbl_saved.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Name"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         scP_saved.setViewportView(tbl_saved);
 
         btn_saved_view.setBackground(java.awt.SystemColor.menu);
@@ -827,6 +803,11 @@ public class Main extends javax.swing.JFrame {
         btn_saved_back.setBackground(new java.awt.Color(179, 224, 255));
         btn_saved_back.setForeground(new java.awt.Color(0, 0, 0));
         btn_saved_back.setText("Back");
+        btn_saved_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_saved_backActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_savedLayout = new javax.swing.GroupLayout(pnl_saved);
         pnl_saved.setLayout(pnl_savedLayout);
@@ -858,11 +839,11 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnl_savedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_saved, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_saved_back))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txF_saved_search, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txF_saved_search, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scP_saved, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(scP_saved, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnl_savedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_saved_view, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_saved_remove, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -881,11 +862,6 @@ public class Main extends javax.swing.JFrame {
         txF_browse_search.setBackground(new java.awt.Color(179, 224, 255));
         txF_browse_search.setToolTipText("");
         txF_browse_search.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(86, 94, 255))); // NOI18N
-        txF_browse_search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txF_browse_searchActionPerformed(evt);
-            }
-        });
 
         tbl_saved1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -985,11 +961,6 @@ public class Main extends javax.swing.JFrame {
         txF_finder_search.setBackground(new java.awt.Color(179, 224, 255));
         txF_finder_search.setToolTipText("");
         txF_finder_search.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(86, 94, 255))); // NOI18N
-        txF_finder_search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txF_finder_searchActionPerformed(evt);
-            }
-        });
 
         btn_filter.setText("Filter");
 
@@ -1491,29 +1462,13 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_saved_viewActionPerformed
 
-    private void txF_saved_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txF_saved_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txF_saved_searchActionPerformed
-
-    private void txF_browse_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txF_browse_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txF_browse_searchActionPerformed
-
     private void btn_browse_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_browse_viewActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_browse_viewActionPerformed
 
-    private void txF_finder_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txF_finder_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txF_finder_searchActionPerformed
-
     private void btn_filter_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filter_viewActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_filter_viewActionPerformed
-
-    private void xbx_kznActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xbx_kznActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_xbx_kznActionPerformed
 
     private void btn_facViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facViewActionPerformed
         // TODO add your handling code here:
@@ -1566,6 +1521,20 @@ public class Main extends javax.swing.JFrame {
         // Activate option for HL English
         rBtn_hlEng.setEnabled(true);
     }//GEN-LAST:event_rBtn_falOtherActionPerformed
+
+    private void btn_saved_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saved_backActionPerformed
+        // Navigate to the main menu
+        tbdPn_main.setSelectedIndex(0);
+    }//GEN-LAST:event_btn_saved_backActionPerformed
+
+    private void txF_saved_searchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txF_saved_searchCaretUpdate
+        // Update list based on search whenever user types into the bar
+//        String input = txF_saved_search.getText();
+//        University[] result = um.getUniWithName("SELECT * FROM University_Table " + 
+//                "WHERE UniversityName LIKE '*" + input + "*';");
+//        
+//        
+    }//GEN-LAST:event_txF_saved_searchCaretUpdate
 
     /**
      * @param args the command line arguments

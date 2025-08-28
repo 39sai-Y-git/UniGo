@@ -181,9 +181,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="KZN"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="xbx_kznActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="xbx_gauteng">
               <Properties>
@@ -1164,11 +1161,11 @@
                           <Component id="lbl_saved" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="btn_saved_back" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txF_saved_search" min="-2" pref="63" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txF_saved_search" min="-2" pref="39" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="scP_saved" min="-2" pref="278" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="scP_saved" min="-2" pref="272" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btn_saved_view" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="btn_saved_remove" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
@@ -1209,7 +1206,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txF_saved_searchActionPerformed"/>
+                <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txF_saved_searchCaretUpdate"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="scP_saved">
@@ -1218,10 +1215,8 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="tbl_saved">
                   <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="1" rowCount="4">
-                        <Column editable="false" title="Name" type="java.lang.String"/>
-                      </Table>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <SerializedValue value="-84,-19,0,5,115,114,0,64,111,114,103,46,110,101,116,98,101,97,110,115,46,109,111,100,117,108,101,115,46,102,111,114,109,46,101,100,105,116,111,114,115,50,46,84,97,98,108,101,77,111,100,101,108,69,100,105,116,111,114,36,78,98,84,97,98,108,101,77,111,100,101,108,-95,8,-65,-35,21,111,108,-106,12,0,0,120,114,0,36,106,97,118,97,120,46,115,119,105,110,103,46,116,97,98,108,101,46,65,98,115,116,114,97,99,116,84,97,98,108,101,77,111,100,101,108,-122,-97,-68,88,104,-50,-117,-101,2,0,1,76,0,12,108,105,115,116,101,110,101,114,76,105,115,116,116,0,37,76,106,97,118,97,120,47,115,119,105,110,103,47,101,118,101,110,116,47,69,118,101,110,116,76,105,115,116,101,110,101,114,76,105,115,116,59,120,112,119,8,0,0,0,0,0,0,0,1,117,114,0,19,91,76,106,97,118,97,46,108,97,110,103,46,83,116,114,105,110,103,59,-83,-46,86,-25,-23,29,123,71,2,0,0,120,112,0,0,0,1,116,0,4,78,97,109,101,117,114,0,2,91,90,87,-113,32,57,20,-72,93,-30,2,0,0,120,112,0,0,0,1,0,116,0,16,106,97,118,97,46,108,97,110,103,46,83,116,114,105,110,103,120"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1283,6 +1278,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Back"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_saved_backActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1374,9 +1372,6 @@
                   </Border>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txF_browse_searchActionPerformed"/>
-              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="scP_browse">
 
@@ -1537,9 +1532,6 @@
                   </Border>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txF_finder_searchActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_filter">
               <Properties>

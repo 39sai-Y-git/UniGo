@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package Objects;
+package Managers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,8 +32,10 @@ import java.util.logging.Logger;
 public class SavedDegrees {
     
     // FIELDS
-    private int[] degrees;
+    private int[] degrees = new int[25];
     private int size;
+    
+    private DegManager dm = new DegManager();
     
     // CONSTRUCTOR
     // Uses data from text file
@@ -52,8 +54,22 @@ public class SavedDegrees {
         }
     }
 
-    // GETTER
+    // GETTERS
     public int[] getSavedDegrees() {
         return degrees;
+    }
+    
+    public int getSize() {
+        return size;
+    }
+    
+    public Object[][] createTable() {
+        
+        Object[][] data = new Object[size][1];
+        for (int i = 0; i < size; i++) {
+            data[i][0] = dm.getDegWithID(degrees[i]).getName();
+        }
+        
+        return data;
     }
 }
