@@ -6,9 +6,13 @@
     </Component>
   </NonVisualComponents>
   <Properties>
-    <Property name="title" type="java.lang.String" value="frm_filters"/>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
+    <Property name="title" type="java.lang.String" value="Filter"/>
     <Property name="alwaysOnTop" type="boolean" value="true"/>
-    <Property name="name" type="java.lang.String" value="frame_filters" noResource="true"/>
+    <Property name="location" type="java.awt.Point" editor="org.netbeans.beaninfo.editors.PointEditor">
+      <Point value="[570, 220]"/>
+    </Property>
+    <Property name="name" type="java.lang.String" value="Filters" noResource="true"/>
     <Property name="resizable" type="boolean" value="false"/>
     <Property name="type" type="java.awt.Window$Type" editor="org.netbeans.modules.form.editors.EnumEditor">
       <Value id="POPUP"/>

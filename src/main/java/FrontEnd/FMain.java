@@ -53,6 +53,7 @@ public class FMain extends javax.swing.JFrame {
     // Keep track of the Degree currently being displayed in the Degree Tab
     private Degree degreeTab;
 
+    // PROPERTIES
     /**
      * Creates new form Main
      */
@@ -178,7 +179,7 @@ public class FMain extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UniGo V1.0");
         setBackground(new java.awt.Color(179, 224, 255));
-        setLocation(new java.awt.Point(400, 150));
+        setLocation(new java.awt.Point(370, 150));
         setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(853, 480));
         setName("main"); // NOI18N

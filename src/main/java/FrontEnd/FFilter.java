@@ -16,10 +16,10 @@
  */
 package FrontEnd;
 
+// IMPORTS
 import Managers.UniManager;
 import Objects.Filter;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 
 /**
  *
@@ -27,8 +27,11 @@ import javax.swing.JFrame;
  */
 public class FFilter extends javax.swing.JFrame {
 
+    // FIELDS
+    // University Manager
     private final UniManager um = new UniManager();
     
+    // PROPERTIES
     /**
      * Creates new form Filters
      */
@@ -74,9 +77,11 @@ public class FFilter extends javax.swing.JFrame {
         sep1 = new javax.swing.JSeparator();
         xbx_law = new javax.swing.JCheckBox();
 
-        setTitle("frm_filters");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Filter");
         setAlwaysOnTop(true);
-        setName("frame_filters"); // NOI18N
+        setLocation(new java.awt.Point(570, 220));
+        setName("Filters"); // NOI18N
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 
@@ -272,6 +277,7 @@ public class FFilter extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // <editor-fold defaultstate="collapsed" desc="Initialization code">
+    // Creates and sets the models of the combo boxes
     private void initComboBoxes() {
         JComboBox uni1 = new JComboBox(um.getAll());
         cbx_uni1.setModel(uni1.getModel());
@@ -282,11 +288,13 @@ public class FFilter extends javax.swing.JFrame {
     }
     // </editor-fold>
     
+    // When [x] is clicked, send filter to main
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
-        // Send data to main and hide frame
-        
+
+        // Use user marks?
         boolean useMarks = xbx_useMarks.isSelected();
         
+        // Use location of?
         boolean kzn = xbx_kzn.isSelected();
         boolean gauteng = xbx_gauteng.isSelected();
         boolean eastcape = xbx_eastcape.isSelected();
@@ -296,6 +304,7 @@ public class FFilter extends javax.swing.JFrame {
         boolean mpumalanga = xbx_mpumalanga.isSelected();
         boolean limpopo = xbx_limpopo.isSelected();
         
+        // Use faculty of?
         boolean commerce = xbx_commerce.isSelected();
         boolean engineering = xbx_engineering.isSelected();
         boolean health = xbx_health.isSelected();
@@ -303,28 +312,37 @@ public class FFilter extends javax.swing.JFrame {
         boolean humanities = xbx_humanities.isSelected();
         boolean sciences = xbx_sciences.isSelected();
        
+        // Use university of?
         String uni1 = (String)cbx_uni1.getSelectedItem();
         String uni2 = (String)cbx_uni2.getSelectedItem();
         String uni3 = (String)cbx_uni3.getSelectedItem();
-        
+       
+        // Include or exclude the selected universities
+        // Only one of the two can be true, but both can be false
         boolean include;
         boolean exclude;
         
+        // If no university selected:
         if((uni1.equals("None")) 
                 && (uni2.equals("None")) 
                 && (uni3.equals("None"))) {
+            // Set both to false
             include = false;
             exclude = false;
-        } else {
+        } else { // Otherwise:
+            // Set either as true based on user selection
             include = rBtn_include.isSelected();
             exclude = rBtn_exclude.isSelected();
         }
-                
+            
+        // Create the filter object
         Filter filter = new Filter(useMarks, kzn, gauteng, eastcape, westcape, freestate, northwest, mpumalanga, limpopo, commerce, engineering, health, law, humanities, sciences, uni1, uni2, uni3, include, exclude);
         
+        // Deactivate this frame
         this.setVisible(false);
         this.setEnabled(false);
         
+        // Show main frame and send trigger
         FMain frm_main = new FMain();
         frm_main.updateFinderTable(filter);
         frm_main.setVisible(true);
@@ -346,23 +364,18 @@ public class FFilter extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FFilter.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FFilter.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FFilter.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FFilter.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
+        
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FFilter().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new FFilter().setVisible(true);
         });
     }
 
