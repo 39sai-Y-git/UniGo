@@ -17,6 +17,7 @@
 package Managers;
 
 import Driver.dbDriver;
+import Objects.Degree;
 import Objects.Requirement;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -383,4 +384,45 @@ public class ReqManager {
         }
     }
     
+    public String toString(Requirement req) {
+        String output = "";
+        
+        output += "Required APS:\t\t" + req.getAps();
+        output += "\n\n";
+        output += "Required Subjects:\n";
+        
+        if (req.getHlChoice().equals("eng")) {
+            output += "English HL:\t\t" + req.getHlMark() + "%\n";
+        }
+        if (req.getFalChoice().equals("eng")) {
+            output += "English FAL:\t\t" + req.getFalMark() + "%\n";
+        }
+        if (req.getMathChoice().equals("cor")) {
+            output += "Core Mathematics:\t" + req.getMathMark() + "%\n";
+        } else if (req.getMathChoice().equals("lit")) {
+            output += "Mathematical Literacy:\t" + req.getMathMark() + "%\n";
+        } else if (req.getFalChoice().equals("tec")) {
+            output += "Technical Mathematics:\t" + req.getMathMark() + "%\n";
+        }
+        if (!req.getOpt1Choice().equals("any")) {
+            output += getSubject(req.getOpt1Choice()) + ":\t" + req.getOpt1Mark() + "%\n";
+        }
+        if (!req.getOpt2Choice().equals("any")) {
+            output += getSubject(req.getOpt2Choice()) + ":\t" + req.getOpt2Mark() + "%\n";
+        }
+        if (!req.getOpt3Choice().equals("any")) {
+            output += getSubject(req.getOpt3Choice()) + ":\t" + req.getOpt3Mark() + "%\n";
+        }
+        
+        return output;
+    }
+    
+    public Requirement getReqWithDeg(Degree deg) {
+        for (int i = 1; i < size; i++) {
+            if (requirements[i].getDeg().getDegreeID() == deg.getDegreeID()) {
+                return requirements[i];
+            }
+        }
+        return null;
+    }
 }

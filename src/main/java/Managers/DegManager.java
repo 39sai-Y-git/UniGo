@@ -62,7 +62,7 @@ public class DegManager {
             int fac = rs.getInt("FacultyID");
             String desc = rs.getString("Description");
             
-            return (new Degree(ID, name, um.getUniWithID(ID), fm.getFacWithID(ID), desc));
+            return (new Degree(ID, name, um.getUniWithID(uni), fm.getFacWithID(fac), desc));
             
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -134,15 +134,19 @@ public class DegManager {
     }
     
     public Object[][] createTable(Faculty fac) {
-        Object[][] output = new Object[1][0];
-        int outputSize = 1;
+        Object[][] temp = new Object[size][1];
+        int tempSize = 0;
         
         for (int i = 0; i < size; i++) {
-            if (degrees[i].getFac().equals(fac)) {
-                output = new Object[1][outputSize];
-                output[0][outputSize - 1] = degrees[i].getName();
-                outputSize++;
+            if (degrees[i].getFac().getName().equals(fac.getName())) {
+                temp[tempSize][0] = degrees[i].getName();
+                tempSize++;
             }
+        }
+        
+        Object[][] output = new Object[tempSize][1];
+        for (int i = 0; i < tempSize; i++) {
+            output[i][0] = temp[i][0];
         }
         
         return output;

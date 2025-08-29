@@ -64,11 +64,11 @@ public class Requirement {
     }
     
     // GETTERS & SETTERS
-    public Degree getDegreeID() {
+    public Degree getDeg() {
         return deg;
     }
 
-    public void setDegreeID(Degree deg) {
+    public void setDeg(Degree deg) {
         this.deg = deg;
     }
 

@@ -46,6 +46,7 @@ public class FMain extends javax.swing.JFrame {
     private final SavedDegrees sd = new SavedDegrees("data\\SavedDegrees.txt");
     
     private FFilter frm_filters = new FFilter();
+    private String[] columnName = new String[1];
     
     /**
      * Creates new form Main
@@ -108,7 +109,6 @@ public class FMain extends javax.swing.JFrame {
         cbx_opt2 = new javax.swing.JComboBox<>();
         cbx_opt3 = new javax.swing.JComboBox<>();
         btn_save = new javax.swing.JButton();
-        lbl_indicator = new javax.swing.JLabel();
         pnl_saved = new javax.swing.JPanel();
         lbl_saved = new javax.swing.JLabel();
         txF_saved_search = new javax.swing.JTextField();
@@ -133,6 +133,11 @@ public class FMain extends javax.swing.JFrame {
         scP_finder = new javax.swing.JScrollPane();
         tbl_finder = new javax.swing.JTable();
         tbdPn_dedicated = new javax.swing.JTabbedPane();
+        pnl_help = new javax.swing.JPanel();
+        lbl_help = new javax.swing.JLabel();
+        btn_toBrowse = new javax.swing.JButton();
+        btn_toSaved = new javax.swing.JButton();
+        btn_toFinder = new javax.swing.JButton();
         pnl_uni = new javax.swing.JPanel();
         lbl_uni = new javax.swing.JLabel();
         txA_uniDesc = new javax.swing.JTextArea();
@@ -163,11 +168,6 @@ public class FMain extends javax.swing.JFrame {
         txA_req = new javax.swing.JTextArea();
         btn_saveDeg = new javax.swing.JButton();
         btn_degree_back = new javax.swing.JButton();
-        pnl_help = new javax.swing.JPanel();
-        lbl_help = new javax.swing.JLabel();
-        btn_toBrowse = new javax.swing.JButton();
-        btn_toSaved = new javax.swing.JButton();
-        btn_toFinder = new javax.swing.JButton();
         lbl_title = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -297,11 +297,6 @@ public class FMain extends javax.swing.JFrame {
         pnl_menu.getAccessibleContext().setAccessibleName("menu");
 
         pnl_results.setBackground(new java.awt.Color(179, 224, 255));
-        pnl_results.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                pnl_resultsFocusLost(evt);
-            }
-        });
 
         btn_results_back.setBackground(new java.awt.Color(179, 224, 255));
         btn_results_back.setForeground(new java.awt.Color(0, 0, 0));
@@ -417,9 +412,6 @@ public class FMain extends javax.swing.JFrame {
             }
         });
 
-        lbl_indicator.setForeground(new java.awt.Color(255, 0, 0));
-        lbl_indicator.setText("Saved!");
-
         javax.swing.GroupLayout pnl_resultsLayout = new javax.swing.GroupLayout(pnl_results);
         pnl_results.setLayout(pnl_resultsLayout);
         pnl_resultsLayout.setHorizontalGroup(
@@ -427,9 +419,7 @@ public class FMain extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_resultsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
-                .addComponent(lbl_indicator, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(206, 206, 206))
+                .addGap(309, 309, 309))
             .addGroup(pnl_resultsLayout.createSequentialGroup()
                 .addGroup(pnl_resultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_resultsLayout.createSequentialGroup()
@@ -533,9 +523,7 @@ public class FMain extends javax.swing.JFrame {
                             .addComponent(spn_lo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_lo))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addGroup(pnl_resultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_indicator))
+                .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
 
@@ -839,6 +827,80 @@ public class FMain extends javax.swing.JFrame {
         tbdPn_dedicated.setEnabled(false);
         tbdPn_dedicated.setOpaque(true);
 
+        pnl_help.setBackground(new java.awt.Color(179, 224, 255));
+        pnl_help.setEnabled(false);
+
+        lbl_help.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_help.setText("To use the browser, click one of the buttons below, select an entry from the list, and click [View]");
+
+        btn_toBrowse.setBackground(java.awt.SystemColor.menu);
+        btn_toBrowse.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
+        btn_toBrowse.setForeground(new java.awt.Color(0, 0, 0));
+        btn_toBrowse.setText("Go to list of Universities");
+        btn_toBrowse.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        btn_toBrowse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_toBrowseActionPerformed(evt);
+            }
+        });
+
+        btn_toSaved.setBackground(java.awt.SystemColor.menu);
+        btn_toSaved.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
+        btn_toSaved.setForeground(new java.awt.Color(0, 0, 0));
+        btn_toSaved.setText("View your Saved Degrees");
+        btn_toSaved.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        btn_toSaved.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_toSavedActionPerformed(evt);
+            }
+        });
+
+        btn_toFinder.setBackground(java.awt.SystemColor.menu);
+        btn_toFinder.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
+        btn_toFinder.setForeground(new java.awt.Color(0, 0, 0));
+        btn_toFinder.setText("Find a Degree");
+        btn_toFinder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        btn_toFinder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_toFinderActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnl_helpLayout = new javax.swing.GroupLayout(pnl_help);
+        pnl_help.setLayout(pnl_helpLayout);
+        pnl_helpLayout.setHorizontalGroup(
+            pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_helpLayout.createSequentialGroup()
+                .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_helpLayout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(lbl_help))
+                    .addGroup(pnl_helpLayout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(btn_toSaved, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_helpLayout.createSequentialGroup()
+                        .addGap(281, 281, 281)
+                        .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_toFinder, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_toBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(137, Short.MAX_VALUE))
+        );
+        pnl_helpLayout.setVerticalGroup(
+            pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_helpLayout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(lbl_help, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(btn_toSaved, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_toBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_toFinder, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(98, Short.MAX_VALUE))
+        );
+
+        tbdPn_dedicated.addTab("Help", pnl_help);
+
         pnl_uni.setBackground(new java.awt.Color(179, 224, 255));
 
         lbl_uni.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -850,6 +912,7 @@ public class FMain extends javax.swing.JFrame {
         txA_uniDesc.setBackground(new java.awt.Color(179, 224, 255));
         txA_uniDesc.setColumns(20);
         txA_uniDesc.setForeground(new java.awt.Color(0, 0, 0));
+        txA_uniDesc.setLineWrap(true);
         txA_uniDesc.setRows(5);
         txA_uniDesc.setText("[description]");
 
@@ -1059,6 +1122,7 @@ public class FMain extends javax.swing.JFrame {
         txA_facDesc.setBackground(new java.awt.Color(179, 224, 255));
         txA_facDesc.setColumns(20);
         txA_facDesc.setForeground(new java.awt.Color(0, 0, 0));
+        txA_facDesc.setLineWrap(true);
         txA_facDesc.setRows(5);
         txA_facDesc.setText("[description]");
 
@@ -1131,11 +1195,14 @@ public class FMain extends javax.swing.JFrame {
         txA_degDesc.setBackground(new java.awt.Color(179, 224, 255));
         txA_degDesc.setColumns(20);
         txA_degDesc.setForeground(new java.awt.Color(0, 0, 0));
+        txA_degDesc.setLineWrap(true);
         txA_degDesc.setRows(5);
         txA_degDesc.setText("[description]");
 
+        txA_req.setBackground(java.awt.SystemColor.menu);
         txA_req.setColumns(20);
         txA_req.setRows(5);
+        txA_req.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
         btn_saveDeg.setBackground(java.awt.SystemColor.menu);
         btn_saveDeg.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
@@ -1161,17 +1228,18 @@ public class FMain extends javax.swing.JFrame {
         pnl_deg.setLayout(pnl_degLayout);
         pnl_degLayout.setHorizontalGroup(
             pnl_degLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_degLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_degree_back)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbl_deg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(271, 271, 271))
             .addGroup(pnl_degLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(pnl_degLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txA_req, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txA_degDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_degLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_degree_back)
+                        .addGap(175, 175, 175)
+                        .addComponent(lbl_deg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_degLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(pnl_degLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txA_req, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txA_degDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(pnl_degLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnl_degLayout.createSequentialGroup()
@@ -1199,80 +1267,6 @@ public class FMain extends javax.swing.JFrame {
         );
 
         tbdPn_dedicated.addTab("Degree", pnl_deg);
-
-        pnl_help.setBackground(new java.awt.Color(179, 224, 255));
-        pnl_help.setEnabled(false);
-
-        lbl_help.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_help.setText("To use the browser, click one of the buttons below, select an entry from the list, and click [View]");
-
-        btn_toBrowse.setBackground(java.awt.SystemColor.menu);
-        btn_toBrowse.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
-        btn_toBrowse.setForeground(new java.awt.Color(0, 0, 0));
-        btn_toBrowse.setText("Go to list of Universities");
-        btn_toBrowse.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_toBrowse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_toBrowseActionPerformed(evt);
-            }
-        });
-
-        btn_toSaved.setBackground(java.awt.SystemColor.menu);
-        btn_toSaved.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
-        btn_toSaved.setForeground(new java.awt.Color(0, 0, 0));
-        btn_toSaved.setText("View your Saved Degrees");
-        btn_toSaved.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_toSaved.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_toSavedActionPerformed(evt);
-            }
-        });
-
-        btn_toFinder.setBackground(java.awt.SystemColor.menu);
-        btn_toFinder.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
-        btn_toFinder.setForeground(new java.awt.Color(0, 0, 0));
-        btn_toFinder.setText("Find a Degree");
-        btn_toFinder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_toFinder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_toFinderActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnl_helpLayout = new javax.swing.GroupLayout(pnl_help);
-        pnl_help.setLayout(pnl_helpLayout);
-        pnl_helpLayout.setHorizontalGroup(
-            pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_helpLayout.createSequentialGroup()
-                .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_helpLayout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(lbl_help))
-                    .addGroup(pnl_helpLayout.createSequentialGroup()
-                        .addGap(282, 282, 282)
-                        .addComponent(btn_toSaved, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnl_helpLayout.createSequentialGroup()
-                        .addGap(281, 281, 281)
-                        .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_toFinder, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_toBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(137, Short.MAX_VALUE))
-        );
-        pnl_helpLayout.setVerticalGroup(
-            pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_helpLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(lbl_help, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addComponent(btn_toSaved, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_toBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_toFinder, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
-        );
-
-        tbdPn_dedicated.addTab("Help", pnl_help);
 
         tbdPn_main.addTab("Browser", tbdPn_dedicated);
 
@@ -1340,63 +1334,96 @@ public class FMain extends javax.swing.JFrame {
         cbx_opt3.setSelectedItem(opt3C);
         
         spn_lo.setValue(userMarks.getLo());
-        
-        lbl_indicator.setVisible(false);
     }
     
     private void initSavedDegreesTable() {
-        String[] columnNames = new String[1];
-        columnNames[0] = "Degrees";
-        JTable temp = new JTable(sd.createTable(), columnNames);
+        columnName[0] = "Degrees";
+        JTable temp = new JTable(sd.createTable(), columnName);
         tbl_saved.setModel(temp.getModel());
     }
     
     private void initSavedDegreesTable(String input) {
-        String[] columnNames = new String[1];
-        columnNames[0] = "Degrees";
-        JTable temp = new JTable(sd.createTable(input), columnNames);
+        columnName[0] = "Degrees";
+        JTable temp = new JTable(sd.createTable(input), columnName);
         tbl_saved.setModel(temp.getModel());
     }
     
     private void initUniversityTable() {
-        String[] columnNames = new String[1];
-        columnNames[0] = "Universities";
-        JTable temp = new JTable(um.createTable(), columnNames);
+        columnName[0] = "Universities";
+        JTable temp = new JTable(um.createTable(), columnName);
         tbl_browse.setModel(temp.getModel());
     }
     
     private void initUniversityTable(University[] input) {
-        String[] columnNames = new String[1];
-        columnNames[0] = "Universities";
-        JTable temp = new JTable(um.createTable(input), columnNames);
+        columnName[0] = "Universities";
+        JTable temp = new JTable(um.createTable(input), columnName);
         tbl_browse.setModel(temp.getModel());
     }
     
     private void initFinderTable() {
-        String[] columnNames = new String[1];
-        columnNames[0] = "Degrees";
-        JTable temp = new JTable(dm.createTable(), columnNames);
+        columnName[0] = "Degrees";
+        JTable temp = new JTable(dm.createTable(), columnName);
         tbl_finder.setModel(temp.getModel());
     }
     
     private void initFinderTable(Degree[] input) {
-        String[] columnNames = new String[1];
-        columnNames[0] = "Degrees";
-        JTable temp = new JTable(dm.createTable(input),columnNames);
+        columnName[0] = "Degrees";
+        JTable temp = new JTable(dm.createTable(input),columnName);
         tbl_finder.setModel(temp.getModel());
     }
     
     private void initFiltersFrame() {
         frm_filters.setVisible(false);
+    } 
+    // </editor-fold> 
+    
+    // <editor-fold defaultstate="collapsed" desc="Update code">
+    private void updateUniversityTab(University uni) {
+        lbl_uni.setText(uni.getName());
+        txA_rank.setText(uni.getRank()+"");
+        txA_location.setText(uni.getLocation());
+        txA_estb.setText(""+uni.getEstb());
+        txA_students.setText(""+uni.getStudents());
+        txA_accRate.setText(uni.getAccRate()+"%");
+        txA_uniDesc.setText(uni.getDesc());
+        
+        columnName[0] = "Faculties";
+        JTable temp = new JTable(fm.createTable(uni), columnName);
+        tbl_uniFac.setModel(temp.getModel());
+    }
+    
+    private void updateFacultyTab(Faculty fac) {
+        lbl_fac.setText(fac.getName());
+        txA_facDesc.setText(fac.getDesc());
+        
+        columnName[0] = "Degrees";
+        
+        JTable temp = new JTable(dm.createTable(fac), columnName);
+        tbl_facDeg.setModel(temp.getModel());
+    }
+    
+    private void updateDegreeTab(Degree deg) {
+        lbl_deg.setText(deg.getName());
+        txA_degDesc.setText(deg.getDesc());
+        
+        Requirement req = rm.getReqWithDeg(deg);
+        
+        txA_req.setText(rm.toString(req));
+    }
+    
+    private void changeToDedicatedTabs() {
+        tbdPn_dedicated.setEnabled(true);
+        pnl_help.setEnabled(false);
+        tbdPn_main.setSelectedIndex(5);
+        tbdPn_dedicated.setSelectedIndex(3);
     }
     // </editor-fold> 
     
     // <editor-fold defaultstate="collapsed" desc="Degree Finder">
     public void updateFinderTable(Filter f) {
         this.setVisible(false);
-        String[] columnNames = new String[1];
-        columnNames[0] = "Degrees";
-        JTable temp = new JTable(dm.createTable(dm.degreeFinder(f)),columnNames);
+        columnName[0] = "Degrees";
+        JTable temp = new JTable(dm.createTable(dm.degreeFinder(f)),columnName);
         tbl_finder.setModel(temp.getModel());
         
         tbdPn_main.setSelectedIndex(4);
@@ -1453,8 +1480,6 @@ public class FMain extends javax.swing.JFrame {
         int lo = (int) spn_lo.getValue();
         
         rm.setUserMarks(hlM, hlC, falM, falC, mathM, mathC, opt1M, opt1C, opt2M, opt2C, opt3M, opt3C, lo);
-        
-        lbl_indicator.setVisible(true);
     }//GEN-LAST:event_btn_saveActionPerformed
 
     private void btn_saved_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saved_removeActionPerformed
@@ -1468,39 +1493,18 @@ public class FMain extends javax.swing.JFrame {
 
     private void btn_saved_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saved_viewActionPerformed
         // View selected Degree's info
-        tbdPn_dedicated.setEnabled(true);
-        pnl_help.setEnabled(false);
-        tbdPn_dedicated.setSelectedIndex(2);
         
         int selectedRow = tbl_saved.getSelectedRow();
-        Degree[] tableArr = dm.getTableArr();
+        int[] tableArr = sd.getSavedDegrees();
         
-        String[] columnNames = new String[1];
-        
-        Degree deg = tableArr[selectedRow - 1];
+        Degree deg = dm.getDegWithID(tableArr[selectedRow]);
         Faculty fac = deg.getFac();
         University uni = fac.getUni();
         
-        // University
-        lbl_uni.setText(uni.getName());
-        txA_rank.setText(uni.getRank()+"");
-        txA_location.setText(uni.getLocation());
-        txA_estb.setText(""+uni.getEstb());
-        txA_students.setText(""+uni.getStudents());
-        txA_accRate.setText(uni.getAccRate()+"%");
-        txA_uniDesc.setText(uni.getDesc());
-        
-        columnNames[0] = "Faculties";
-        JTable temp = new JTable(fm.createTable(uni), columnNames);
-        tbl_uniFac.setModel(temp.getModel());
-        
-        // Faculty
-        lbl_fac.setText(fac.getName());
-        txA_facDesc.setText(fac.getDesc());
-        
-        columnNames[0] = "Degrees";
-        temp = new JTable(dm.createTable(fac), columnNames);
-        tbl_facDeg.setModel(temp.getModel());
+        updateUniversityTab(uni);
+        updateFacultyTab(fac);
+        updateDegreeTab(deg);
+        changeToDedicatedTabs();
     }//GEN-LAST:event_btn_saved_viewActionPerformed
 
     private void btn_browse_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_browse_viewActionPerformed
@@ -1639,18 +1643,13 @@ public class FMain extends javax.swing.JFrame {
 
     private void btn_fac_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fac_backActionPerformed
         // Navigate to University tab
-        tbdPn_dedicated.setSelectedIndex(0);
+        tbdPn_dedicated.setSelectedIndex(1);
     }//GEN-LAST:event_btn_fac_backActionPerformed
 
     private void btn_degree_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_degree_backActionPerformed
         // Navigate to Faculty tab
-        tbdPn_dedicated.setSelectedIndex(1);
+        tbdPn_dedicated.setSelectedIndex(2);
     }//GEN-LAST:event_btn_degree_backActionPerformed
-
-    private void pnl_resultsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pnl_resultsFocusLost
-        // Make indicator invisible
-        lbl_indicator.setVisible(false);
-    }//GEN-LAST:event_pnl_resultsFocusLost
 
     /**
      * @param args the command line arguments
@@ -1728,7 +1727,6 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_finder;
     private javax.swing.JLabel lbl_help;
     private javax.swing.JLabel lbl_hl;
-    private javax.swing.JLabel lbl_indicator;
     private javax.swing.JLabel lbl_lo;
     private javax.swing.JLabel lbl_location;
     private javax.swing.JLabel lbl_math;

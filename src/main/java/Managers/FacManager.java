@@ -103,15 +103,19 @@ public class FacManager {
     }
     
     public Object[][] createTable(University uni) {
-        Object[][] output = new Object[1][0];
-        int outputSize = 1;
+        Object[][] temp = new Object[size][1];
+        int tempSize = 0;
         
         for (int i = 0; i < size; i++) {
-            if (faculties[i].getUni().equals(uni)) {
-                output = new Object[1][outputSize];
-                output[0][outputSize - 1] = faculties[i].getName();
-                outputSize++;
+            if (faculties[i].getUni().getName().equals(uni.getName())) {
+                temp[tempSize][0] = faculties[i].getName();
+                tempSize++;
             }
+        }
+        
+        Object[][] output = new Object[tempSize][1];
+        for (int i = 0; i < tempSize; i++) {
+            output[i][0] = temp[i][0];
         }
         
         return output;
