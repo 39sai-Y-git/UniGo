@@ -113,22 +113,28 @@ public class DegManager {
     
     public Object[][] createTable() {
         Object[][] data = new Object[size][1];
+        int[] tempTableArr = new int[size];
         
         for (int i = 0; i < size; i++) {
             data[i][0] = degrees[i].getName();
-            tableArr[i] = degrees[i].getDegreeID();
+            tempTableArr[i] = degrees[i].getDegreeID();
         }
+        
+        tableArr = tempTableArr;
         
         return data;
     }
     
     public Object[][] createTable(Degree[] input) {
         Object[][] data = new Object[input.length][1];
+        int[] tempTableArr = new int[input.length];
         
         for (int i = 0; i < input.length; i++) {
             data[i][0] = input[i].getName();
-            tableArr[i] = input[i].getDegreeID();
+            tempTableArr[i] = input[i].getDegreeID();
         }
+        
+        tableArr = tempTableArr;
         
         return data;
     }
@@ -138,10 +144,19 @@ public class DegManager {
         int tempSize = 0;
         
         for (int i = 0; i < size; i++) {
-            if (degrees[i].getFac().getName().equals(fac.getName())) {
+            if (degrees[i].getFac().getID() == (fac.getID())) {
                 temp[tempSize][0] = degrees[i].getName();
-                tableArr[i] = degrees[i].getDegreeID();
                 tempSize++;
+            }
+        }
+        
+        int[] tempTableArr = new int[tempSize]; 
+        int tempTableArrSize = 0;
+        
+        for (int i = 0; i < size; i++) {
+            if (degrees[i].getFac().getID() == (fac.getID())) {
+                tempTableArr[tempTableArrSize] = degrees[i].getDegreeID();
+                tempTableArrSize++;
             }
         }
         
@@ -149,6 +164,8 @@ public class DegManager {
         for (int i = 0; i < tempSize; i++) {
             output[i][0] = temp[i][0];
         }
+        
+        tableArr = tempTableArr;
         
         return output;
     }

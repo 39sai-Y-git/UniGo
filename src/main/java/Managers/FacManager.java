@@ -33,6 +33,7 @@ public class FacManager {
     private int size;
     private final dbDriver db = new dbDriver();
     private final UniManager um = new UniManager();
+    private int[] tableArr = new int[100];
     
     public FacManager(){
         try {
@@ -113,11 +114,27 @@ public class FacManager {
             }
         }
         
+        int[] tempTableArr = new int[tempSize]; 
+        int tempTableArrSize = 0;
+        
+        for (int i = 0; i < size; i++) {
+            if (faculties[i].getUni().getName().equals(uni.getName())) {
+                tempTableArr[tempTableArrSize] = faculties[i].getID();
+                tempTableArrSize++;
+            }
+        }
+        
         Object[][] output = new Object[tempSize][1];
         for (int i = 0; i < tempSize; i++) {
             output[i][0] = temp[i][0];
         }
         
+        tableArr = tempTableArr;
+        
         return output;
+    }
+    
+    public int[] getTableArr() {
+        return tableArr;
     }
 }

@@ -138,6 +138,7 @@ public class FMain extends javax.swing.JFrame {
         btn_toBrowse = new javax.swing.JButton();
         btn_toSaved = new javax.swing.JButton();
         btn_toFinder = new javax.swing.JButton();
+        lbl_contact = new javax.swing.JLabel();
         pnl_uni = new javax.swing.JPanel();
         lbl_uni = new javax.swing.JLabel();
         txA_uniDesc = new javax.swing.JTextArea();
@@ -183,6 +184,7 @@ public class FMain extends javax.swing.JFrame {
         tbdPn_main.setBackground(new java.awt.Color(179, 224, 255));
         tbdPn_main.setForeground(new java.awt.Color(0, 0, 0));
         tbdPn_main.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        tbdPn_main.setEnabled(false);
 
         pnl_menu.setBackground(new java.awt.Color(179, 224, 255));
 
@@ -728,7 +730,7 @@ public class FMain extends javax.swing.JFrame {
             }
         });
 
-        btn_filter.setBackground(new java.awt.Color(153, 153, 153));
+        btn_filter.setBackground(new java.awt.Color(102, 102, 102));
         btn_filter.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         btn_filter.setForeground(new java.awt.Color(0, 0, 0));
         btn_filter.setText("Filters");
@@ -866,6 +868,9 @@ public class FMain extends javax.swing.JFrame {
             }
         });
 
+        lbl_contact.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_contact.setText("For queries or bug reports , contact saiennaidu99@gmail.com");
+
         javax.swing.GroupLayout pnl_helpLayout = new javax.swing.GroupLayout(pnl_help);
         pnl_help.setLayout(pnl_helpLayout);
         pnl_helpLayout.setHorizontalGroup(
@@ -873,22 +878,26 @@ public class FMain extends javax.swing.JFrame {
             .addGroup(pnl_helpLayout.createSequentialGroup()
                 .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_helpLayout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(lbl_help))
-                    .addGroup(pnl_helpLayout.createSequentialGroup()
                         .addGap(282, 282, 282)
                         .addComponent(btn_toSaved, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnl_helpLayout.createSequentialGroup()
                         .addGap(281, 281, 281)
                         .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_toFinder, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_toBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btn_toBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnl_helpLayout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_help)
+                            .addGroup(pnl_helpLayout.createSequentialGroup()
+                                .addGap(97, 97, 97)
+                                .addComponent(lbl_contact)))))
                 .addContainerGap(137, Short.MAX_VALUE))
         );
         pnl_helpLayout.setVerticalGroup(
             pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_helpLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
+                .addGap(53, 53, 53)
                 .addComponent(lbl_help, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
                 .addComponent(btn_toSaved, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -896,7 +905,9 @@ public class FMain extends javax.swing.JFrame {
                 .addComponent(btn_toBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_toFinder, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addComponent(lbl_contact, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         tbdPn_dedicated.addTab("Help", pnl_help);
@@ -1038,26 +1049,24 @@ public class FMain extends javax.swing.JFrame {
             .addGroup(pnl_uniLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btn_uni_back)
-                .addGap(193, 193, 193)
-                .addComponent(lbl_uni, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83)
+                .addComponent(lbl_uni, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnl_uniLayout.setVerticalGroup(
             pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_uniLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_uni, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_uni_back))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_uniLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_facView, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_uniLayout.createSequentialGroup()
-                        .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_uni, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_uni_back))
-                        .addGap(16, 16, 16)
                         .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnl_uniLayout.createSequentialGroup()
                                 .addComponent(lbl_rank)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                                 .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lbl_location)
                                     .addComponent(txA_location))
@@ -1077,8 +1086,11 @@ public class FMain extends javax.swing.JFrame {
                                 .addComponent(txA_uniDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txA_rank)))
                         .addGap(18, 18, 18)
-                        .addComponent(scP_uniFac, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addComponent(scP_uniFac, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_uniLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_facView, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         tbdPn_dedicated.addTab("University", pnl_uni);
@@ -1162,8 +1174,8 @@ public class FMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btn_fac_back)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbl_fac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(271, 271, 271))
+                .addComponent(lbl_fac, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(188, 188, 188))
         );
         pnl_facLayout.setVerticalGroup(
             pnl_facLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1233,8 +1245,8 @@ public class FMain extends javax.swing.JFrame {
                     .addGroup(pnl_degLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btn_degree_back)
-                        .addGap(175, 175, 175)
-                        .addComponent(lbl_deg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addComponent(lbl_deg, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnl_degLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(pnl_degLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1352,6 +1364,7 @@ public class FMain extends javax.swing.JFrame {
         columnName[0] = "Universities";
         JTable temp = new JTable(um.createTable(), columnName);
         tbl_browse.setModel(temp.getModel());
+        btn_filter.setBackground(Color.lightGray);
     }
     
     private void initUniversityTable(University[] input) {
@@ -1406,14 +1419,12 @@ public class FMain extends javax.swing.JFrame {
         lbl_deg.setText(deg.getName());
         txA_degDesc.setText(deg.getDesc());
         
-        Requirement req = rm.getReqWithDeg(deg);
+        Requirement req = rm.getReqWithDegID(deg.getDegreeID());
         
         txA_req.setText(rm.toString(req));
     }
     
     private void changeToDedicatedTabs(int tab) {
-        tbdPn_dedicated.setEnabled(true);
-        pnl_help.setEnabled(false);
         tbdPn_main.setSelectedIndex(5);
         tbdPn_dedicated.setSelectedIndex(tab);
     }
@@ -1421,16 +1432,29 @@ public class FMain extends javax.swing.JFrame {
     
     // <editor-fold defaultstate="collapsed" desc="Degree Finder">
     public void updateFinderTable(Filter f) {
-        this.setVisible(false);
-        columnName[0] = "Degrees";
-        JTable temp = new JTable(dm.createTable(dm.degreeFinder(f)),columnName);
-        tbl_finder.setModel(temp.getModel());
         
-        tbdPn_main.setSelectedIndex(4);
-        
-        btn_filter.setBackground(Color.white);
-        txF_finder_search.setEnabled(false); //for now
-        this.setVisible(true);
+        if (f.isCommerce() || f.isEastcape() || f.isEngineering() || f.isExclude() || f.isFreestate() ||  f.isGauteng() || f.isHealth() || f.isHumanities() || f.isInclude() || f.isKzn() || f.isLaw() || f.isLimpopo() || f.isMpumalanga() || f.isNorthwest() || f.isSciences() || f.isUseMarks() || f.isWestcape()) {
+            this.setVisible(false);
+            
+            columnName[0] = "Degrees";
+            JTable temp = new JTable(dm.createTable(dm.degreeFinder(f)),columnName);
+            tbl_finder.setModel(temp.getModel());
+            
+            tbdPn_main.setSelectedIndex(4);
+            btn_filter.setBackground(Color.white);
+            txF_finder_search.setEnabled(false); //for now
+            this.setVisible(true);
+        } else {
+            this.setVisible(false);
+            
+            initFinderTable();
+            
+            tbdPn_main.setSelectedIndex(4);
+            btn_filter.setBackground(Color.darkGray);
+            txF_finder_search.setEditable(true);
+            this.setVisible(true);
+        }
+       
     }
     // </editor-fold>
     
@@ -1514,9 +1538,9 @@ public class FMain extends javax.swing.JFrame {
         int selectedRow = tbl_browse.getSelectedRow();
         
         if (selectedRow != -1) {
-            University[] tableArr = um.getTableArr();
+            int[] tableArr = um.getTableArr();
         
-            University uni = tableArr[selectedRow];
+            University uni = um.getUniWithID(tableArr[selectedRow]);
 
             updateUniversityTab(uni);
             changeToDedicatedTabs(1);
@@ -1543,11 +1567,27 @@ public class FMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_finder_viewActionPerformed
 
     private void btn_facViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facViewActionPerformed
-        // TODO add your handling code here:
+        // View faculty's info
+        int selectedRow = tbl_uniFac.getSelectedRow();
+        
+        if (selectedRow != -1) {
+            int[] tableArr = fm.getTableArr();
+            Faculty fac = fm.getFacWithID(tableArr[selectedRow]);
+            updateFacultyTab(fac);
+            changeToDedicatedTabs(2);
+        }
     }//GEN-LAST:event_btn_facViewActionPerformed
 
     private void btn_degViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_degViewActionPerformed
-        // TODO add your handling code here:
+        // View degree's info
+        int selectedRow = tbl_facDeg.getSelectedRow();
+        
+        if (selectedRow != -1) {
+            int[] tableArr = dm.getTableArr();
+            Degree deg = dm.getDegWithID(tableArr[selectedRow]);
+            updateDegreeTab(deg);
+            changeToDedicatedTabs(3);
+        } 
     }//GEN-LAST:event_btn_degViewActionPerformed
 
     private void btn_saveDegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveDegActionPerformed
@@ -1638,10 +1678,7 @@ public class FMain extends javax.swing.JFrame {
             } else {
                 initFinderTable();
             }
-        } else {
-            //To do
-        }
-        
+        }   
     }//GEN-LAST:event_txF_finder_searchCaretUpdate
 
     private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
@@ -1668,8 +1705,9 @@ public class FMain extends javax.swing.JFrame {
 
     private void btn_uni_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_uni_backActionPerformed
         // Go back to main menu
+        initUniversityTable();
+        initFinderTable();
         tbdPn_main.setSelectedIndex(0);
-        tbdPn_dedicated.setEnabled(false);
     }//GEN-LAST:event_btn_uni_backActionPerformed
 
     private void btn_fac_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fac_backActionPerformed
@@ -1751,6 +1789,7 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbx_opt3;
     private javax.swing.JLabel lbl_accRate;
     private javax.swing.JLabel lbl_browse;
+    private javax.swing.JLabel lbl_contact;
     private javax.swing.JLabel lbl_deg;
     private javax.swing.JLabel lbl_estb;
     private javax.swing.JLabel lbl_fac;

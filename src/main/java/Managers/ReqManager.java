@@ -419,9 +419,9 @@ public class ReqManager {
         return output;
     }
     
-    public Requirement getReqWithDeg(Degree deg) {
-        for (int i = 1; i < size; i++) {
-            if (requirements[i].getDeg().getDegreeID() == deg.getDegreeID()) {
+    public Requirement getReqWithDegID(int degreeID) {
+        for (int i = 1; i < size + 1; i++) {
+            if (requirements[i].getDeg().getDegreeID() == degreeID) {
                 return requirements[i];
             }
         }

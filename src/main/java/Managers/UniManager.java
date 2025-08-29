@@ -32,7 +32,7 @@ public class UniManager {
     private University[] universities = new University[10];
     private int size = 0;
     private final dbDriver db = new dbDriver();
-    private University[] tableArr = new University[10];
+    private int[] tableArr = new int[10];
     
     public UniManager(){
         try {
@@ -134,27 +134,33 @@ public class UniManager {
     
     public Object[][] createTable() {
         Object[][] data = new Object[size][1];
+        int[] tempTableArr = new int[size];
         
         for (int i = 0; i < size; i++) {
             data[i][0] = universities[i].getName();
-            tableArr[i] = universities[i];
+            tempTableArr[i] = universities[i].getID();
         }
+        
+        tableArr = tempTableArr;
         
         return data;
     }
     
     public Object[][] createTable(University[] input) {
         Object[][] data = new Object[input.length][1];
+        int[] tempTableArr = new int[input.length];
         
         for (int i = 0; i < input.length; i++) {
             data[i][0] = input[i].getName();
-            tableArr[i] = universities[i];
+            tempTableArr[i] = universities[i].getID();
         }
+        
+        tableArr = tempTableArr;
         
         return data;
     }
     
-    public University[] getTableArr() {
+    public int[] getTableArr() {
         return tableArr;
     }
 }
