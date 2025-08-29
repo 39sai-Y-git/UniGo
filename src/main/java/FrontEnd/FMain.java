@@ -129,7 +129,7 @@ public class FMain extends javax.swing.JFrame {
         lbl_finder = new javax.swing.JLabel();
         txF_finder_search = new javax.swing.JTextField();
         btn_filter = new javax.swing.JButton();
-        btn_filter_view = new javax.swing.JButton();
+        btn_finder_view = new javax.swing.JButton();
         scP_finder = new javax.swing.JScrollPane();
         tbl_finder = new javax.swing.JTable();
         tbdPn_dedicated = new javax.swing.JTabbedPane();
@@ -739,14 +739,14 @@ public class FMain extends javax.swing.JFrame {
             }
         });
 
-        btn_filter_view.setBackground(java.awt.SystemColor.menu);
-        btn_filter_view.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
-        btn_filter_view.setForeground(new java.awt.Color(0, 0, 0));
-        btn_filter_view.setText("View");
-        btn_filter_view.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_filter_view.addActionListener(new java.awt.event.ActionListener() {
+        btn_finder_view.setBackground(java.awt.SystemColor.menu);
+        btn_finder_view.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
+        btn_finder_view.setForeground(new java.awt.Color(0, 0, 0));
+        btn_finder_view.setText("View");
+        btn_finder_view.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        btn_finder_view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_filter_viewActionPerformed(evt);
+                btn_finder_viewActionPerformed(evt);
             }
         });
 
@@ -789,7 +789,7 @@ public class FMain extends javax.swing.JFrame {
                 .addContainerGap(52, Short.MAX_VALUE)
                 .addGroup(pnl_finderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_finderLayout.createSequentialGroup()
-                        .addComponent(btn_filter_view, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_finder_view, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(325, 325, 325))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_finderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_finderLayout.createSequentialGroup()
@@ -816,7 +816,7 @@ public class FMain extends javax.swing.JFrame {
                         .addGap(1, 1, 1)))
                 .addComponent(scP_finder, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(btn_filter_view, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_finder_view, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
@@ -1493,34 +1493,54 @@ public class FMain extends javax.swing.JFrame {
 
     private void btn_saved_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saved_viewActionPerformed
         // View selected Degree's info
-        
         int selectedRow = tbl_saved.getSelectedRow();
-        int[] tableArr = sd.getSavedDegrees();
         
-        Degree deg = dm.getDegWithID(tableArr[selectedRow]);
-        Faculty fac = deg.getFac();
-        University uni = fac.getUni();
-        
-        updateUniversityTab(uni);
-        updateFacultyTab(fac);
-        updateDegreeTab(deg);
-        changeToDedicatedTabs(3);
+        if (selectedRow != -1) {
+            int[] tableArr = sd.getSavedDegrees();
+
+            Degree deg = dm.getDegWithID(tableArr[selectedRow]);
+            Faculty fac = deg.getFac();
+            University uni = fac.getUni();
+
+            updateUniversityTab(uni);
+            updateFacultyTab(fac);
+            updateDegreeTab(deg);
+            changeToDedicatedTabs(3);
+        }
     }//GEN-LAST:event_btn_saved_viewActionPerformed
 
     private void btn_browse_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_browse_viewActionPerformed
-        // View a University's info
+        // View selected University's info
         int selectedRow = tbl_browse.getSelectedRow();
-        University[] tableArr = um.getTableArr();
         
-        University uni = tableArr[selectedRow];
+        if (selectedRow != -1) {
+            University[] tableArr = um.getTableArr();
         
-        updateUniversityTab(uni);
-        changeToDedicatedTabs(1);
+            University uni = tableArr[selectedRow];
+
+            updateUniversityTab(uni);
+            changeToDedicatedTabs(1);
+        }
+        
     }//GEN-LAST:event_btn_browse_viewActionPerformed
 
-    private void btn_filter_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filter_viewActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_filter_viewActionPerformed
+    private void btn_finder_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finder_viewActionPerformed
+        // View selected Degree's info
+        int selectedRow = tbl_finder.getSelectedRow();
+        
+        if (selectedRow != -1) {
+            int[] tableArr = dm.getTableArr();
+        
+            Degree deg = dm.getDegWithID(tableArr[selectedRow]);
+            Faculty fac = deg.getFac();
+            University uni = fac.getUni();
+
+            updateUniversityTab(uni);
+            updateFacultyTab(fac);
+            updateDegreeTab(deg);
+            changeToDedicatedTabs(3);
+        }
+    }//GEN-LAST:event_btn_finder_viewActionPerformed
 
     private void btn_facViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facViewActionPerformed
         // TODO add your handling code here:
@@ -1711,9 +1731,9 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.JButton btn_facView;
     private javax.swing.JButton btn_fac_back;
     private javax.swing.JButton btn_filter;
-    private javax.swing.JButton btn_filter_view;
     private javax.swing.JButton btn_finder;
     private javax.swing.JButton btn_finder_back;
+    private javax.swing.JButton btn_finder_view;
     private javax.swing.JButton btn_results;
     private javax.swing.JButton btn_results_back;
     private javax.swing.JButton btn_save;

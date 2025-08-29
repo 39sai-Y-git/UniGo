@@ -151,6 +151,8 @@ public class ReqManager {
         int rank = mark/10;
         
         return switch (rank) {
+            case 0, 1, 2 -> 1;
+            case 3 -> 2;
             case 4 -> 3;
             case 5 -> 4;
             case 6 -> 5;

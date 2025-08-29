@@ -35,7 +35,7 @@ public class DegManager {
     private final dbDriver db = new dbDriver();
     private final UniManager um = new UniManager();
     private final FacManager fm = new FacManager();
-    private Degree[] tableArr = new Degree[1000];
+    private int[] tableArr = new int[1000];
     
     public DegManager(){
         try {
@@ -116,7 +116,7 @@ public class DegManager {
         
         for (int i = 0; i < size; i++) {
             data[i][0] = degrees[i].getName();
-            tableArr[i] = degrees[i];
+            tableArr[i] = degrees[i].getDegreeID();
         }
         
         return data;
@@ -127,7 +127,7 @@ public class DegManager {
         
         for (int i = 0; i < input.length; i++) {
             data[i][0] = input[i].getName();
-            tableArr[i] = degrees[i];
+            tableArr[i] = input[i].getDegreeID();
         }
         
         return data;
@@ -140,6 +140,7 @@ public class DegManager {
         for (int i = 0; i < size; i++) {
             if (degrees[i].getFac().getName().equals(fac.getName())) {
                 temp[tempSize][0] = degrees[i].getName();
+                tableArr[i] = degrees[i].getDegreeID();
                 tempSize++;
             }
         }
@@ -504,7 +505,7 @@ public class DegManager {
         }
     }
     
-    public Degree[] getTableArr() {
+    public int[] getTableArr() {
         return tableArr;
     }
 }
