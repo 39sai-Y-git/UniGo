@@ -34,14 +34,15 @@ import java.util.logging.Logger;
 public class SavedDegrees {
     
     // FIELDS
-    private int[] degrees = new int[25];
+    private int[] degrees = new int[250];
     private int size;
+    private final String filePath = "data\\SavedDegrees.txt";
     
     private final DegManager dm = new DegManager();
     
     // CONSTRUCTOR
     // Uses data from text file
-    public SavedDegrees(String filePath){
+    public SavedDegrees(){
         try {
             File file = new File(filePath);
             Scanner fileSC = new Scanner(file);
@@ -102,7 +103,7 @@ public class SavedDegrees {
                 degrees[i] = degrees[i+1];
             }   size--;
             
-            fileFW = new FileWriter("data\\SavedDegrees.txt");
+            fileFW = new FileWriter(filePath);
             fileFW.write("");
             for (int i = 0; i < size; i++) {
                 fileFW.append(degrees[i] + "\n");
@@ -110,15 +111,43 @@ public class SavedDegrees {
             
         } catch (IOException ex) {
             Logger.getLogger(SavedDegrees.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error #12: Error while removing a saved degree from the text file.");
+            System.out.println("Error #13: Error while removing a saved degree from the text file.");
             
         } finally {
             try {
                 fileFW.close();
             } catch (IOException ex) {
                 Logger.getLogger(SavedDegrees.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("Error #12: Error while removing a saved degree from the text file.");
+                System.out.println("Error #13: Error while removing a saved degree from the text file.");
             }
         }
+    }
+    
+    public void add(int ID) {
+        FileWriter fileFW = null;
+        try {
+            degrees[size] = ID;
+            size++;
+            
+            String write = "";
+            for (int i = 0; i < size; i++) {
+                write += degrees[i] + "\n";
+            }
+            
+            fileFW = new FileWriter(filePath);
+            fileFW.write(write);
+        } catch (IOException ex) {
+            Logger.getLogger(SavedDegrees.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error #14: Error while adding a saved degree to the text file.");
+        } finally {
+            try {
+                fileFW.close();
+            } catch (IOException ex) {
+                Logger.getLogger(SavedDegrees.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Error #14: Error while adding a saved degree to the text file.");
+            }
+        }
+        
+        
     }
 }

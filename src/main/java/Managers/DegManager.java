@@ -500,7 +500,7 @@ public class DegManager {
         if (original.equals("")) {
             return toAdd;
         } else {
-            return original += ", " + toAdd;
+            return original + ", " + toAdd;
         }
     }
     
@@ -508,7 +508,7 @@ public class DegManager {
         if (original.equals("")) {
             return toAdd;
         } else {
-            return original += "\nOR Degree_Table.FacultyName LIKE " + toAdd;
+            return original + "\nOR Degree_Table.FacultyName LIKE " + toAdd;
         }
     }
     
@@ -516,9 +516,9 @@ public class DegManager {
         if (original.equals("")) {
             return "'" + toAdd + "'";
         } else if (include){
-            return original += "\nOR University_Table.UniversityName = '" + toAdd + "'";
+            return original + "\nOR University_Table.UniversityName = '" + toAdd + "'";
         } else {
-            return original += "\nAND University_Table.UniversityName <> '" + toAdd + "'";
+            return original + "\nAND University_Table.UniversityName <> '" + toAdd + "'";
         }
     }
     

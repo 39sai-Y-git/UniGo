@@ -43,10 +43,11 @@ public class FMain extends javax.swing.JFrame {
     private final FacManager fm = new FacManager();
     private final DegManager dm = new DegManager();
     private final ReqManager rm = new ReqManager();
-    private final SavedDegrees sd = new SavedDegrees("data\\SavedDegrees.txt");
+    private final SavedDegrees sd = new SavedDegrees();
     
     private FFilter frm_filters = new FFilter();
     private String[] columnName = new String[1];
+    private Degree degreeTab;
     
     /**
      * Creates new form Main
@@ -72,7 +73,6 @@ public class FMain extends javax.swing.JFrame {
         btnG_hl = new javax.swing.ButtonGroup();
         btnG_fal = new javax.swing.ButtonGroup();
         btnG_math = new javax.swing.ButtonGroup();
-        btnG_uniExOrIn = new javax.swing.ButtonGroup();
         tbdPn_main = new javax.swing.JTabbedPane();
         pnl_menu = new javax.swing.JPanel();
         pnl_menuProfile = new javax.swing.JPanel();
@@ -109,6 +109,7 @@ public class FMain extends javax.swing.JFrame {
         cbx_opt2 = new javax.swing.JComboBox<>();
         cbx_opt3 = new javax.swing.JComboBox<>();
         btn_save = new javax.swing.JButton();
+        lbl_saveIndicator = new javax.swing.JLabel();
         pnl_saved = new javax.swing.JPanel();
         lbl_saved = new javax.swing.JLabel();
         txF_saved_search = new javax.swing.JTextField();
@@ -414,6 +415,9 @@ public class FMain extends javax.swing.JFrame {
             }
         });
 
+        lbl_saveIndicator.setForeground(new java.awt.Color(255, 51, 0));
+        lbl_saveIndicator.setText("Saved!");
+
         javax.swing.GroupLayout pnl_resultsLayout = new javax.swing.GroupLayout(pnl_results);
         pnl_results.setLayout(pnl_resultsLayout);
         pnl_resultsLayout.setHorizontalGroup(
@@ -421,7 +425,9 @@ public class FMain extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_resultsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(309, 309, 309))
+                .addGap(124, 124, 124)
+                .addComponent(lbl_saveIndicator, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(148, 148, 148))
             .addGroup(pnl_resultsLayout.createSequentialGroup()
                 .addGroup(pnl_resultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_resultsLayout.createSequentialGroup()
@@ -525,7 +531,9 @@ public class FMain extends javax.swing.JFrame {
                             .addComponent(spn_lo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_lo))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnl_resultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_saveIndicator))
                 .addGap(43, 43, 43))
         );
 
@@ -1346,6 +1354,8 @@ public class FMain extends javax.swing.JFrame {
         cbx_opt3.setSelectedItem(opt3C);
         
         spn_lo.setValue(userMarks.getLo());
+        
+        lbl_saveIndicator.setVisible(false);
     }
     
     private void initSavedDegreesTable() {
@@ -1416,12 +1426,28 @@ public class FMain extends javax.swing.JFrame {
     }
     
     private void updateDegreeTab(Degree deg) {
+        degreeTab = deg;
         lbl_deg.setText(deg.getName());
         txA_degDesc.setText(deg.getDesc());
         
         Requirement req = rm.getReqWithDegID(deg.getDegreeID());
         
         txA_req.setText(rm.toString(req));
+        
+        int[] saved = sd.getSavedDegrees();
+        boolean isSaved = false;
+        for (int i = 0; i < saved.length; i++) {
+            if (deg.getDegreeID() == saved[i]) {
+                isSaved = true;
+            }
+        }
+        if (isSaved) {
+            btn_saveDeg.setText("Saved");
+            btn_saveDeg.setEnabled(false);
+        } else {
+            btn_saveDeg.setEnabled(true);
+            btn_saveDeg.setText("Save");
+        }
     }
     
     private void changeToDedicatedTabs(int tab) {
@@ -1504,6 +1530,8 @@ public class FMain extends javax.swing.JFrame {
         int lo = (int) spn_lo.getValue();
         
         rm.setUserMarks(hlM, hlC, falM, falC, mathM, mathC, opt1M, opt1C, opt2M, opt2C, opt3M, opt3C, lo);
+        
+        lbl_saveIndicator.setVisible(true);
     }//GEN-LAST:event_btn_saveActionPerformed
 
     private void btn_saved_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saved_removeActionPerformed
@@ -1591,7 +1619,11 @@ public class FMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_degViewActionPerformed
 
     private void btn_saveDegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveDegActionPerformed
-        // TODO add your handling code here:
+        // Save degree to text file
+        sd.add(degreeTab.getDegreeID());
+        initSavedDegreesTable();
+        btn_saveDeg.setText("Saved");
+        btn_saveDeg.setEnabled(false);
     }//GEN-LAST:event_btn_saveDegActionPerformed
 
     private void btn_resultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_resultsActionPerformed
@@ -1611,6 +1643,7 @@ public class FMain extends javax.swing.JFrame {
 
     private void btn_results_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_results_backActionPerformed
         // Navigate to the main menu
+        lbl_saveIndicator.setVisible(false);
         tbdPn_main.setSelectedIndex(0);
     }//GEN-LAST:event_btn_results_backActionPerformed
 
@@ -1760,7 +1793,6 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnG_fal;
     private javax.swing.ButtonGroup btnG_hl;
     private javax.swing.ButtonGroup btnG_math;
-    private javax.swing.ButtonGroup btnG_uniExOrIn;
     private javax.swing.JButton btn_browse;
     private javax.swing.JButton btn_browse_back;
     private javax.swing.JButton btn_browse_view;
@@ -1805,6 +1837,7 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_opt3;
     private javax.swing.JLabel lbl_rank;
     private javax.swing.JLabel lbl_resultsTitle;
+    private javax.swing.JLabel lbl_saveIndicator;
     private javax.swing.JLabel lbl_saved;
     private javax.swing.JLabel lbl_students;
     private javax.swing.JLabel lbl_title;
