@@ -53,7 +53,7 @@ public class FMain extends javax.swing.JFrame {
     // Keep track of the Degree currently being displayed in the Degree Tab
     private Degree degreeTab;
 
-    // PROPERTIES
+    // CONSTRUCTOR
     /**
      * Creates new form Main
      */
@@ -66,6 +66,8 @@ public class FMain extends javax.swing.JFrame {
         initFiltersFrame();
     }
 
+    //PROPERTIES
+    
     // <editor-fold defaultstate="collapsed" desc="Initialization code">
     /**
      * This method is called from within the constructor to initialize the form.

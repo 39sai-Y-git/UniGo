@@ -30,17 +30,17 @@ public class FFilter extends javax.swing.JFrame {
     // FIELDS
     // University Manager
     private final UniManager um = new UniManager();
-    
-    // PROPERTIES
+
+    // CONSTRUCTOR
     /**
      * Creates new form Filters
      */
     public FFilter() {
-        initComponents();        
+        initComponents();
         initComboBoxes();
     }
 
-
+    // PROPERTIES
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -287,13 +287,13 @@ public class FFilter extends javax.swing.JFrame {
         cbx_uni3.setModel(uni3.getModel());
     }
     // </editor-fold>
-    
+
     // When [x] is clicked, send filter to main
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
 
         // Use user marks?
         boolean useMarks = xbx_useMarks.isSelected();
-        
+
         // Use location of?
         boolean kzn = xbx_kzn.isSelected();
         boolean gauteng = xbx_gauteng.isSelected();
@@ -303,7 +303,7 @@ public class FFilter extends javax.swing.JFrame {
         boolean northwest = xbx_northwest.isSelected();
         boolean mpumalanga = xbx_mpumalanga.isSelected();
         boolean limpopo = xbx_limpopo.isSelected();
-        
+
         // Use faculty of?
         boolean commerce = xbx_commerce.isSelected();
         boolean engineering = xbx_engineering.isSelected();
@@ -311,20 +311,20 @@ public class FFilter extends javax.swing.JFrame {
         boolean law = xbx_law.isSelected();
         boolean humanities = xbx_humanities.isSelected();
         boolean sciences = xbx_sciences.isSelected();
-       
+
         // Use university of?
-        String uni1 = (String)cbx_uni1.getSelectedItem();
-        String uni2 = (String)cbx_uni2.getSelectedItem();
-        String uni3 = (String)cbx_uni3.getSelectedItem();
-       
+        String uni1 = (String) cbx_uni1.getSelectedItem();
+        String uni2 = (String) cbx_uni2.getSelectedItem();
+        String uni3 = (String) cbx_uni3.getSelectedItem();
+
         // Include or exclude the selected universities
         // Only one of the two can be true, but both can be false
         boolean include;
         boolean exclude;
-        
+
         // If no university selected:
-        if((uni1.equals("None")) 
-                && (uni2.equals("None")) 
+        if ((uni1.equals("None"))
+                && (uni2.equals("None"))
                 && (uni3.equals("None"))) {
             // Set both to false
             include = false;
@@ -334,14 +334,14 @@ public class FFilter extends javax.swing.JFrame {
             include = rBtn_include.isSelected();
             exclude = rBtn_exclude.isSelected();
         }
-            
+
         // Create the filter object
         Filter filter = new Filter(useMarks, kzn, gauteng, eastcape, westcape, freestate, northwest, mpumalanga, limpopo, commerce, engineering, health, law, humanities, sciences, uni1, uni2, uni3, include, exclude);
-        
+
         // Deactivate this frame
         this.setVisible(false);
         this.setEnabled(false);
-        
+
         // Show main frame and send trigger
         FMain frm_main = new FMain();
         frm_main.updateFinderTable(filter);
@@ -369,7 +369,7 @@ public class FFilter extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
 
