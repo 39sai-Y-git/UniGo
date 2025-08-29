@@ -24,11 +24,13 @@ import Objects.University;
 import Objects.Degree;
 import Objects.Requirement;
 import Managers.SavedDegrees;
+import Objects.Faculty;
 import Objects.Filter;
 import java.awt.Color;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
 import javax.swing.JTable;
+import javax.swing.Timer;
 import javax.swing.table.TableModel;
 
 /**
@@ -106,6 +108,7 @@ public class FMain extends javax.swing.JFrame {
         cbx_opt2 = new javax.swing.JComboBox<>();
         cbx_opt3 = new javax.swing.JComboBox<>();
         btn_save = new javax.swing.JButton();
+        lbl_indicator = new javax.swing.JLabel();
         pnl_saved = new javax.swing.JPanel();
         lbl_saved = new javax.swing.JLabel();
         txF_saved_search = new javax.swing.JTextField();
@@ -138,25 +141,33 @@ public class FMain extends javax.swing.JFrame {
         btn_facView = new javax.swing.JButton();
         lbl_students = new javax.swing.JLabel();
         lbl_accRate = new javax.swing.JLabel();
-        txF_rank = new javax.swing.JLabel();
-        txF_location = new javax.swing.JLabel();
-        txF_estb = new javax.swing.JLabel();
-        txF_students = new javax.swing.JLabel();
-        txF_accRate = new javax.swing.JLabel();
+        txA_rank = new javax.swing.JLabel();
+        txA_location = new javax.swing.JLabel();
+        txA_estb = new javax.swing.JLabel();
+        txA_students = new javax.swing.JLabel();
+        txA_accRate = new javax.swing.JLabel();
         lbl_rank = new javax.swing.JLabel();
         lbl_location = new javax.swing.JLabel();
         lbl_estb = new javax.swing.JLabel();
+        btn_uni_back = new javax.swing.JButton();
         pnl_fac = new javax.swing.JPanel();
         scP_facDeg = new javax.swing.JScrollPane();
         tbl_facDeg = new javax.swing.JTable();
         lbl_fac = new javax.swing.JLabel();
         txA_facDesc = new javax.swing.JTextArea();
         btn_degView = new javax.swing.JButton();
+        btn_fac_back = new javax.swing.JButton();
         pnl_deg = new javax.swing.JPanel();
         lbl_deg = new javax.swing.JLabel();
         txA_degDesc = new javax.swing.JTextArea();
         txA_req = new javax.swing.JTextArea();
         btn_saveDeg = new javax.swing.JButton();
+        btn_degree_back = new javax.swing.JButton();
+        pnl_help = new javax.swing.JPanel();
+        lbl_help = new javax.swing.JLabel();
+        btn_toBrowse = new javax.swing.JButton();
+        btn_toSaved = new javax.swing.JButton();
+        btn_toFinder = new javax.swing.JButton();
         lbl_title = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -286,6 +297,11 @@ public class FMain extends javax.swing.JFrame {
         pnl_menu.getAccessibleContext().setAccessibleName("menu");
 
         pnl_results.setBackground(new java.awt.Color(179, 224, 255));
+        pnl_results.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                pnl_resultsFocusLost(evt);
+            }
+        });
 
         btn_results_back.setBackground(new java.awt.Color(179, 224, 255));
         btn_results_back.setForeground(new java.awt.Color(0, 0, 0));
@@ -401,6 +417,9 @@ public class FMain extends javax.swing.JFrame {
             }
         });
 
+        lbl_indicator.setForeground(new java.awt.Color(255, 0, 0));
+        lbl_indicator.setText("Saved!");
+
         javax.swing.GroupLayout pnl_resultsLayout = new javax.swing.GroupLayout(pnl_results);
         pnl_results.setLayout(pnl_resultsLayout);
         pnl_resultsLayout.setHorizontalGroup(
@@ -408,7 +427,9 @@ public class FMain extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_resultsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(309, 309, 309))
+                .addGap(66, 66, 66)
+                .addComponent(lbl_indicator, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(206, 206, 206))
             .addGroup(pnl_resultsLayout.createSequentialGroup()
                 .addGroup(pnl_resultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_resultsLayout.createSequentialGroup()
@@ -512,7 +533,9 @@ public class FMain extends javax.swing.JFrame {
                             .addComponent(spn_lo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_lo))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnl_resultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_indicator))
                 .addGap(43, 43, 43))
         );
 
@@ -545,7 +568,6 @@ public class FMain extends javax.swing.JFrame {
         btn_saved_view.setForeground(new java.awt.Color(0, 0, 0));
         btn_saved_view.setText("View");
         btn_saved_view.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_saved_view.setEnabled(false);
         btn_saved_view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_saved_viewActionPerformed(evt);
@@ -876,25 +898,25 @@ public class FMain extends javax.swing.JFrame {
         lbl_accRate.setForeground(new java.awt.Color(0, 0, 0));
         lbl_accRate.setText("Acceptance Rate (%):");
 
-        txF_rank.setForeground(new java.awt.Color(0, 0, 0));
-        txF_rank.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        txF_rank.setText("[Rank]");
+        txA_rank.setForeground(new java.awt.Color(0, 0, 0));
+        txA_rank.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        txA_rank.setText("[Rank]");
 
-        txF_location.setForeground(new java.awt.Color(0, 0, 0));
-        txF_location.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        txF_location.setText("[Location]");
+        txA_location.setForeground(new java.awt.Color(0, 0, 0));
+        txA_location.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        txA_location.setText("[Location]");
 
-        txF_estb.setForeground(new java.awt.Color(0, 0, 0));
-        txF_estb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        txF_estb.setText("[etsb]");
+        txA_estb.setForeground(new java.awt.Color(0, 0, 0));
+        txA_estb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        txA_estb.setText("[etsb]");
 
-        txF_students.setForeground(new java.awt.Color(0, 0, 0));
-        txF_students.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        txF_students.setText("[Students]");
+        txA_students.setForeground(new java.awt.Color(0, 0, 0));
+        txA_students.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        txA_students.setText("[Students]");
 
-        txF_accRate.setForeground(new java.awt.Color(0, 0, 0));
-        txF_accRate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        txF_accRate.setText("[AccRate]");
+        txA_accRate.setForeground(new java.awt.Color(0, 0, 0));
+        txA_accRate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        txA_accRate.setText("[AccRate]");
 
         lbl_rank.setForeground(new java.awt.Color(0, 0, 0));
         lbl_rank.setText("National Ranking:");
@@ -904,6 +926,15 @@ public class FMain extends javax.swing.JFrame {
 
         lbl_estb.setForeground(new java.awt.Color(0, 0, 0));
         lbl_estb.setText("Year Established:");
+
+        btn_uni_back.setBackground(new java.awt.Color(179, 224, 255));
+        btn_uni_back.setForeground(new java.awt.Color(0, 0, 0));
+        btn_uni_back.setText("Back");
+        btn_uni_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_uni_backActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_uniLayout = new javax.swing.GroupLayout(pnl_uni);
         pnl_uni.setLayout(pnl_uniLayout);
@@ -915,23 +946,23 @@ public class FMain extends javax.swing.JFrame {
                     .addGroup(pnl_uniLayout.createSequentialGroup()
                         .addComponent(lbl_accRate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
-                        .addComponent(txF_accRate))
+                        .addComponent(txA_accRate))
                     .addGroup(pnl_uniLayout.createSequentialGroup()
                         .addComponent(lbl_students)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txF_students))
+                        .addComponent(txA_students))
                     .addGroup(pnl_uniLayout.createSequentialGroup()
                         .addComponent(lbl_estb)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txF_estb))
+                        .addComponent(txA_estb))
                     .addGroup(pnl_uniLayout.createSequentialGroup()
                         .addComponent(lbl_location)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txF_location))
+                        .addComponent(txA_location))
                     .addGroup(pnl_uniLayout.createSequentialGroup()
                         .addComponent(lbl_rank)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txF_rank)))
+                        .addComponent(txA_rank)))
                 .addGap(18, 18, 18)
                 .addComponent(txA_uniDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57))
@@ -942,46 +973,49 @@ public class FMain extends javax.swing.JFrame {
                 .addComponent(btn_facView, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 144, Short.MAX_VALUE))
             .addGroup(pnl_uniLayout.createSequentialGroup()
-                .addGap(271, 271, 271)
+                .addContainerGap()
+                .addComponent(btn_uni_back)
+                .addGap(193, 193, 193)
                 .addComponent(lbl_uni, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnl_uniLayout.setVerticalGroup(
             pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_uniLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_uniLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_facView, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnl_uniLayout.createSequentialGroup()
-                        .addComponent(lbl_uni, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_uniLayout.createSequentialGroup()
+                        .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_uni, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_uni_back))
                         .addGap(16, 16, 16)
                         .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnl_uniLayout.createSequentialGroup()
                                 .addComponent(lbl_rank)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                                 .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lbl_location)
-                                    .addComponent(txF_location))
+                                    .addComponent(txA_location))
                                 .addGap(21, 21, 21)
                                 .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lbl_estb)
-                                    .addComponent(txF_estb))
+                                    .addComponent(txA_estb))
                                 .addGap(18, 18, 18)
                                 .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lbl_students)
-                                    .addComponent(txF_students))
+                                    .addComponent(txA_students))
                                 .addGap(16, 16, 16)
                                 .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lbl_accRate)
-                                    .addComponent(txF_accRate)))
+                                    .addComponent(txA_accRate)))
                             .addGroup(pnl_uniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txA_uniDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txF_rank)))
+                                .addComponent(txA_rank)))
                         .addGap(18, 18, 18)
                         .addComponent(scP_uniFac, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         tbdPn_dedicated.addTab("University", pnl_uni);
@@ -1039,6 +1073,15 @@ public class FMain extends javax.swing.JFrame {
             }
         });
 
+        btn_fac_back.setBackground(new java.awt.Color(179, 224, 255));
+        btn_fac_back.setForeground(new java.awt.Color(0, 0, 0));
+        btn_fac_back.setText("Back");
+        btn_fac_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_fac_backActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnl_facLayout = new javax.swing.GroupLayout(pnl_fac);
         pnl_fac.setLayout(pnl_facLayout);
         pnl_facLayout.setHorizontalGroup(
@@ -1051,8 +1094,10 @@ public class FMain extends javax.swing.JFrame {
                     .addComponent(txA_facDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_degView, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_facLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnl_facLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_fac_back)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_fac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(271, 271, 271))
         );
@@ -1060,7 +1105,9 @@ public class FMain extends javax.swing.JFrame {
             pnl_facLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_facLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_fac, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnl_facLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_fac, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_fac_back))
                 .addGap(19, 19, 19)
                 .addGroup(pnl_facLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(scP_facDeg, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1101,12 +1148,23 @@ public class FMain extends javax.swing.JFrame {
             }
         });
 
+        btn_degree_back.setBackground(new java.awt.Color(179, 224, 255));
+        btn_degree_back.setForeground(new java.awt.Color(0, 0, 0));
+        btn_degree_back.setText("Back");
+        btn_degree_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_degree_backActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnl_degLayout = new javax.swing.GroupLayout(pnl_deg);
         pnl_deg.setLayout(pnl_degLayout);
         pnl_degLayout.setHorizontalGroup(
             pnl_degLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_degLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btn_degree_back)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_deg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(271, 271, 271))
             .addGroup(pnl_degLayout.createSequentialGroup()
@@ -1125,7 +1183,9 @@ public class FMain extends javax.swing.JFrame {
             pnl_degLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_degLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_deg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnl_degLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_deg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_degree_back))
                 .addGap(18, 18, 18)
                 .addComponent(txA_degDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1140,7 +1200,81 @@ public class FMain extends javax.swing.JFrame {
 
         tbdPn_dedicated.addTab("Degree", pnl_deg);
 
-        tbdPn_main.addTab("-", tbdPn_dedicated);
+        pnl_help.setBackground(new java.awt.Color(179, 224, 255));
+        pnl_help.setEnabled(false);
+
+        lbl_help.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_help.setText("To use the browser, click one of the buttons below, select an entry from the list, and click [View]");
+
+        btn_toBrowse.setBackground(java.awt.SystemColor.menu);
+        btn_toBrowse.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
+        btn_toBrowse.setForeground(new java.awt.Color(0, 0, 0));
+        btn_toBrowse.setText("Go to list of Universities");
+        btn_toBrowse.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        btn_toBrowse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_toBrowseActionPerformed(evt);
+            }
+        });
+
+        btn_toSaved.setBackground(java.awt.SystemColor.menu);
+        btn_toSaved.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
+        btn_toSaved.setForeground(new java.awt.Color(0, 0, 0));
+        btn_toSaved.setText("View your Saved Degrees");
+        btn_toSaved.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        btn_toSaved.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_toSavedActionPerformed(evt);
+            }
+        });
+
+        btn_toFinder.setBackground(java.awt.SystemColor.menu);
+        btn_toFinder.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
+        btn_toFinder.setForeground(new java.awt.Color(0, 0, 0));
+        btn_toFinder.setText("Find a Degree");
+        btn_toFinder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        btn_toFinder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_toFinderActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnl_helpLayout = new javax.swing.GroupLayout(pnl_help);
+        pnl_help.setLayout(pnl_helpLayout);
+        pnl_helpLayout.setHorizontalGroup(
+            pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_helpLayout.createSequentialGroup()
+                .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_helpLayout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(lbl_help))
+                    .addGroup(pnl_helpLayout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(btn_toSaved, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_helpLayout.createSequentialGroup()
+                        .addGap(281, 281, 281)
+                        .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_toFinder, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_toBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(137, Short.MAX_VALUE))
+        );
+        pnl_helpLayout.setVerticalGroup(
+            pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_helpLayout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(lbl_help, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(btn_toSaved, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_toBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_toFinder, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(98, Short.MAX_VALUE))
+        );
+
+        tbdPn_dedicated.addTab("Help", pnl_help);
+
+        tbdPn_main.addTab("Browser", tbdPn_dedicated);
 
         lbl_title.setFont(new java.awt.Font("Niagara Solid", 2, 24)); // NOI18N
         lbl_title.setText("UniGo Beta");
@@ -1206,6 +1340,8 @@ public class FMain extends javax.swing.JFrame {
         cbx_opt3.setSelectedItem(opt3C);
         
         spn_lo.setValue(userMarks.getLo());
+        
+        lbl_indicator.setVisible(false);
     }
     
     private void initSavedDegreesTable() {
@@ -1317,6 +1453,8 @@ public class FMain extends javax.swing.JFrame {
         int lo = (int) spn_lo.getValue();
         
         rm.setUserMarks(hlM, hlC, falM, falC, mathM, mathC, opt1M, opt1C, opt2M, opt2C, opt3M, opt3C, lo);
+        
+        lbl_indicator.setVisible(true);
     }//GEN-LAST:event_btn_saveActionPerformed
 
     private void btn_saved_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saved_removeActionPerformed
@@ -1329,7 +1467,40 @@ public class FMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_saved_removeActionPerformed
 
     private void btn_saved_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saved_viewActionPerformed
-        // TODO add your handling code here:
+        // View selected Degree's info
+        tbdPn_dedicated.setEnabled(true);
+        pnl_help.setEnabled(false);
+        tbdPn_dedicated.setSelectedIndex(2);
+        
+        int selectedRow = tbl_saved.getSelectedRow();
+        Degree[] tableArr = dm.getTableArr();
+        
+        String[] columnNames = new String[1];
+        
+        Degree deg = tableArr[selectedRow - 1];
+        Faculty fac = deg.getFac();
+        University uni = fac.getUni();
+        
+        // University
+        lbl_uni.setText(uni.getName());
+        txA_rank.setText(uni.getRank()+"");
+        txA_location.setText(uni.getLocation());
+        txA_estb.setText(""+uni.getEstb());
+        txA_students.setText(""+uni.getStudents());
+        txA_accRate.setText(uni.getAccRate()+"%");
+        txA_uniDesc.setText(uni.getDesc());
+        
+        columnNames[0] = "Faculties";
+        JTable temp = new JTable(fm.createTable(uni), columnNames);
+        tbl_uniFac.setModel(temp.getModel());
+        
+        // Faculty
+        lbl_fac.setText(fac.getName());
+        txA_facDesc.setText(fac.getDesc());
+        
+        columnNames[0] = "Degrees";
+        temp = new JTable(dm.createTable(fac), columnNames);
+        tbl_facDeg.setModel(temp.getModel());
     }//GEN-LAST:event_btn_saved_viewActionPerformed
 
     private void btn_browse_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_browse_viewActionPerformed
@@ -1445,6 +1616,42 @@ public class FMain extends javax.swing.JFrame {
         frm_filters.setVisible(true);
     }//GEN-LAST:event_btn_filterActionPerformed
 
+    private void btn_toBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_toBrowseActionPerformed
+        // Navigate to 'Universities' tab
+        tbdPn_main.setSelectedIndex(3);
+    }//GEN-LAST:event_btn_toBrowseActionPerformed
+
+    private void btn_toSavedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_toSavedActionPerformed
+        // Navigate to 'Saved Degrees' tab
+        tbdPn_main.setSelectedIndex(2);
+    }//GEN-LAST:event_btn_toSavedActionPerformed
+
+    private void btn_toFinderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_toFinderActionPerformed
+        // Navigate to 'Degree Finder' tab
+        tbdPn_main.setSelectedIndex(4);
+    }//GEN-LAST:event_btn_toFinderActionPerformed
+
+    private void btn_uni_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_uni_backActionPerformed
+        // Go back to main menu
+        tbdPn_main.setSelectedIndex(0);
+        tbdPn_dedicated.setEnabled(false);
+    }//GEN-LAST:event_btn_uni_backActionPerformed
+
+    private void btn_fac_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fac_backActionPerformed
+        // Navigate to University tab
+        tbdPn_dedicated.setSelectedIndex(0);
+    }//GEN-LAST:event_btn_fac_backActionPerformed
+
+    private void btn_degree_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_degree_backActionPerformed
+        // Navigate to Faculty tab
+        tbdPn_dedicated.setSelectedIndex(1);
+    }//GEN-LAST:event_btn_degree_backActionPerformed
+
+    private void pnl_resultsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pnl_resultsFocusLost
+        // Make indicator invisible
+        lbl_indicator.setVisible(false);
+    }//GEN-LAST:event_pnl_resultsFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -1490,7 +1697,9 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.JButton btn_browse_back;
     private javax.swing.JButton btn_browse_view;
     private javax.swing.JButton btn_degView;
+    private javax.swing.JButton btn_degree_back;
     private javax.swing.JButton btn_facView;
+    private javax.swing.JButton btn_fac_back;
     private javax.swing.JButton btn_filter;
     private javax.swing.JButton btn_filter_view;
     private javax.swing.JButton btn_finder;
@@ -1503,6 +1712,10 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.JButton btn_saved_back;
     private javax.swing.JButton btn_saved_remove;
     private javax.swing.JButton btn_saved_view;
+    private javax.swing.JButton btn_toBrowse;
+    private javax.swing.JButton btn_toFinder;
+    private javax.swing.JButton btn_toSaved;
+    private javax.swing.JButton btn_uni_back;
     private javax.swing.JComboBox<String> cbx_opt1;
     private javax.swing.JComboBox<String> cbx_opt2;
     private javax.swing.JComboBox<String> cbx_opt3;
@@ -1513,7 +1726,9 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_fac;
     private javax.swing.JLabel lbl_fal;
     private javax.swing.JLabel lbl_finder;
+    private javax.swing.JLabel lbl_help;
     private javax.swing.JLabel lbl_hl;
+    private javax.swing.JLabel lbl_indicator;
     private javax.swing.JLabel lbl_lo;
     private javax.swing.JLabel lbl_location;
     private javax.swing.JLabel lbl_math;
@@ -1530,6 +1745,7 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_deg;
     private javax.swing.JPanel pnl_fac;
     private javax.swing.JPanel pnl_finder;
+    private javax.swing.JPanel pnl_help;
     private javax.swing.JPanel pnl_menu;
     private javax.swing.JPanel pnl_menuBrowse;
     private javax.swing.JPanel pnl_menuProfile;
@@ -1562,17 +1778,17 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.JTable tbl_finder;
     private javax.swing.JTable tbl_saved;
     private javax.swing.JTable tbl_uniFac;
+    private javax.swing.JLabel txA_accRate;
     private javax.swing.JTextArea txA_degDesc;
+    private javax.swing.JLabel txA_estb;
     private javax.swing.JTextArea txA_facDesc;
+    private javax.swing.JLabel txA_location;
+    private javax.swing.JLabel txA_rank;
     private javax.swing.JTextArea txA_req;
+    private javax.swing.JLabel txA_students;
     private javax.swing.JTextArea txA_uniDesc;
-    private javax.swing.JLabel txF_accRate;
     private javax.swing.JTextField txF_browse_search;
-    private javax.swing.JLabel txF_estb;
     private javax.swing.JTextField txF_finder_search;
-    private javax.swing.JLabel txF_location;
-    private javax.swing.JLabel txF_rank;
     private javax.swing.JTextField txF_saved_search;
-    private javax.swing.JLabel txF_students;
     // End of variables declaration//GEN-END:variables
 }

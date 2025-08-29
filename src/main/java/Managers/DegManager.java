@@ -18,6 +18,7 @@ package Managers;
 
 import Driver.dbDriver;
 import Objects.Degree;
+import Objects.Faculty;
 import Objects.Filter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,6 +35,7 @@ public class DegManager {
     private final dbDriver db = new dbDriver();
     private final UniManager um = new UniManager();
     private final FacManager fm = new FacManager();
+    private Degree[] tableArr = new Degree[1000];
     
     public DegManager(){
         try {
@@ -114,6 +116,7 @@ public class DegManager {
         
         for (int i = 0; i < size; i++) {
             data[i][0] = degrees[i].getName();
+            tableArr[i] = degrees[i];
         }
         
         return data;
@@ -124,9 +127,25 @@ public class DegManager {
         
         for (int i = 0; i < input.length; i++) {
             data[i][0] = input[i].getName();
+            tableArr[i] = degrees[i];
         }
         
         return data;
+    }
+    
+    public Object[][] createTable(Faculty fac) {
+        Object[][] output = new Object[1][0];
+        int outputSize = 1;
+        
+        for (int i = 0; i < size; i++) {
+            if (degrees[i].getFac().equals(fac)) {
+                output = new Object[1][outputSize];
+                output[0][outputSize - 1] = degrees[i].getName();
+                outputSize++;
+            }
+        }
+        
+        return output;
     }
     
     public Degree[] degreeFinder(Filter f) {
@@ -140,7 +159,7 @@ public class DegManager {
         
         int outputSize = size;
         
-        // <editor-fold defaultstate="collapsed" desc="Using user's marks">
+        // <editor-fold defaultstate="collapsed" desc="Search using user's marks">
         if (f.isUseMarks()) {
             int[] IDs = rm.reqMet();
             Degree[] temp = new Degree[IDs.length];
@@ -156,7 +175,7 @@ public class DegManager {
         }
         // </editor-fold>
         
-        // <editor-fold defaultstate="collapsed" desc="Location">
+        // <editor-fold defaultstate="collapsed" desc="Search based on Location">
         boolean locationOn = false;
         String locations = "";
         
@@ -241,7 +260,7 @@ public class DegManager {
         }
         // </editor-fold>
         
-        // <editor-fold defaultstate="collapsed" desc="Faculty">
+        // <editor-fold defaultstate="collapsed" desc="Search based on Faculty">
         boolean facultyOn = false;
         String faculties = "";
         
@@ -319,6 +338,139 @@ public class DegManager {
         }
         // </editor-fold>
         
+        // <editor-fold defaultstate="collapsed" desc="Search based on University">
+        boolean includeOn = f.isInclude();
+        boolean excludeOn = f.isExclude();
+        
+        if (includeOn) {
+            String uni1 = f.getUni1();
+            String uni2 = f.getUni2();
+            String uni3 = f.getUni3();
+            
+            String universities = "";
+            
+            if (!uni1.equals("None")) {
+                universities = addUniversity(universities, uni1, true);
+            }
+            if (!uni2.equals("None")) {
+                universities = addUniversity(universities, uni2, true);
+            }
+            if (!uni3.equals("None")) {
+                universities = addUniversity(universities, uni3, true);
+            }
+            
+            Degree[] results = new Degree[outputSize];
+            
+            results = getDegWithQuery("SELECT\n" +
+                "    Degree_Table.ID,\n" +
+                "    DegreeName,\n" +
+                "    Degree_Table.UniversityID,\n" +
+                "    Degree_Table.FacultyID,\n" +
+                "    Degree_Table.Description\n" +
+                "FROM\n" +
+                "    Degree_Table\n" +
+                "    INNER JOIN (\n" +
+                "        University_Table\n" +
+                "        INNER JOIN Faculty_Table ON University_Table.ID = Faculty_Table.UniversityID\n" +
+                "    ) ON (Degree_Table.UniversityID = University_Table.ID)\n" +
+                "    AND (Degree_Table.FacultyID = Faculty_Table.ID)\n" +
+                "WHERE\n" +
+                "    University_Table.UniversityName = "
+                +universities+";");
+            
+            boolean endReached = false;
+            outputSize = 0;
+            while (!endReached && (outputSize < results.length)) {
+                if (!results[outputSize].equals(null)) {
+                    outputSize++;
+                } else {
+                    endReached = true;
+                }
+            }
+            
+            Degree[] temp = new Degree[outputSize];
+            int tempSize = 0;
+            for (int i = 0; i < output.length; i++) {
+                for (int j = 0; j < results.length; j++) {
+                    if (output[i].getDegreeID() == results[j].getDegreeID()) {
+                        temp[tempSize] = results[j];
+                        tempSize++;
+                    }
+                }
+            }
+            
+            output = new Degree[tempSize];
+            for (int i = 0; i < tempSize; i++) {
+                output[i] = temp[i];
+            }
+            outputSize = tempSize;
+        }
+        
+        if (excludeOn) {
+            String uni1 = f.getUni1();
+            String uni2 = f.getUni2();
+            String uni3 = f.getUni3();
+            
+            String universities = "";
+            
+            if (!uni1.equals("None")) {
+                universities = addUniversity(universities, uni1, false);
+            }
+            if (!uni2.equals("None")) {
+                universities = addUniversity(universities, uni2, false);
+            }
+            if (!uni3.equals("None")) {
+                universities = addUniversity(universities, uni3, false);
+            }
+            
+            Degree[] results = new Degree[outputSize];
+            
+            results = getDegWithQuery("SELECT\n" +
+                "    Degree_Table.ID,\n" +
+                "    DegreeName,\n" +
+                "    Degree_Table.UniversityID,\n" +
+                "    Degree_Table.FacultyID,\n" +
+                "    Degree_Table.Description\n" +
+                "FROM\n" +
+                "    Degree_Table\n" +
+                "    INNER JOIN (\n" +
+                "        University_Table\n" +
+                "        INNER JOIN Faculty_Table ON University_Table.ID = Faculty_Table.UniversityID\n" +
+                "    ) ON (Degree_Table.UniversityID = University_Table.ID)\n" +
+                "    AND (Degree_Table.FacultyID = Faculty_Table.ID)\n" +
+                "WHERE\n" +
+                "    University_Table.UniversityName <> "
+                +universities+";");
+            
+            boolean endReached = false;
+            outputSize = 0;
+            while (!endReached && (outputSize < results.length)) {
+                if (!results[outputSize].equals(null)) {
+                    outputSize++;
+                } else {
+                    endReached = true;
+                }
+            }
+            
+            Degree[] temp = new Degree[outputSize];
+            int tempSize = 0;
+            for (int i = 0; i < output.length; i++) {
+                for (int j = 0; j < results.length; j++) {
+                    if (output[i].getDegreeID() == results[j].getDegreeID()) {
+                        temp[tempSize] = results[j];
+                        tempSize++;
+                    }
+                }
+            }
+            
+            output = new Degree[tempSize];
+            for (int i = 0; i < tempSize; i++) {
+                output[i] = temp[i];
+            }
+            outputSize = tempSize;
+        }
+        // </editor-fold>
+        
         return output;
     }
     
@@ -336,5 +488,19 @@ public class DegManager {
         } else {
             return original += "\nOR Degree_Table.FacultyName LIKE " + toAdd;
         }
+    }
+    
+    private String addUniversity(String original, String toAdd, boolean include) {
+        if (original.equals("")) {
+            return "'" + toAdd + "'";
+        } else if (include){
+            return original += "\nOR University_Table.UniversityName = '" + toAdd + "'";
+        } else {
+            return original += "\nAND University_Table.UniversityName <> '" + toAdd + "'";
+        }
+    }
+    
+    public Degree[] getTableArr() {
+        return tableArr;
     }
 }

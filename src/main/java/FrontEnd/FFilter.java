@@ -273,10 +273,12 @@ public class FFilter extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Initialization code">
     private void initComboBoxes() {
-        JComboBox all = new JComboBox(um.getAll());
-        cbx_uni1.setModel(all.getModel());
-        cbx_uni2.setModel(all.getModel());
-        cbx_uni3.setModel(all.getModel());
+        JComboBox uni1 = new JComboBox(um.getAll());
+        cbx_uni1.setModel(uni1.getModel());
+        JComboBox uni2 = new JComboBox(um.getAll());
+        cbx_uni2.setModel(uni2.getModel());
+        JComboBox uni3 = new JComboBox(um.getAll());
+        cbx_uni3.setModel(uni3.getModel());
     }
     // </editor-fold>
     

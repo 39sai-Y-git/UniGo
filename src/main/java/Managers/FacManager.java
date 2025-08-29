@@ -18,6 +18,7 @@ package Managers;
 
 import Driver.dbDriver;
 import Objects.Faculty;
+import Objects.University;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -99,5 +100,20 @@ public class FacManager {
     
     public Faculty[] getAll() {
         return faculties;
+    }
+    
+    public Object[][] createTable(University uni) {
+        Object[][] output = new Object[1][0];
+        int outputSize = 1;
+        
+        for (int i = 0; i < size; i++) {
+            if (faculties[i].getUni().equals(uni)) {
+                output = new Object[1][outputSize];
+                output[0][outputSize - 1] = faculties[i].getName();
+                outputSize++;
+            }
+        }
+        
+        return output;
     }
 }
