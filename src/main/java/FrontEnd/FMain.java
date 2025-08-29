@@ -1411,11 +1411,11 @@ public class FMain extends javax.swing.JFrame {
         txA_req.setText(rm.toString(req));
     }
     
-    private void changeToDedicatedTabs() {
+    private void changeToDedicatedTabs(int tab) {
         tbdPn_dedicated.setEnabled(true);
         pnl_help.setEnabled(false);
         tbdPn_main.setSelectedIndex(5);
-        tbdPn_dedicated.setSelectedIndex(3);
+        tbdPn_dedicated.setSelectedIndex(tab);
     }
     // </editor-fold> 
     
@@ -1504,11 +1504,18 @@ public class FMain extends javax.swing.JFrame {
         updateUniversityTab(uni);
         updateFacultyTab(fac);
         updateDegreeTab(deg);
-        changeToDedicatedTabs();
+        changeToDedicatedTabs(3);
     }//GEN-LAST:event_btn_saved_viewActionPerformed
 
     private void btn_browse_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_browse_viewActionPerformed
-        // TODO add your handling code here:
+        // View a University's info
+        int selectedRow = tbl_browse.getSelectedRow();
+        University[] tableArr = um.getTableArr();
+        
+        University uni = tableArr[selectedRow];
+        
+        updateUniversityTab(uni);
+        changeToDedicatedTabs(1);
     }//GEN-LAST:event_btn_browse_viewActionPerformed
 
     private void btn_filter_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filter_viewActionPerformed
@@ -1586,9 +1593,13 @@ public class FMain extends javax.swing.JFrame {
     private void txF_browse_searchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txF_browse_searchCaretUpdate
         // Update list based on search whenever user types into the bar
         String input = txF_browse_search.getText();
-        University[] results = um.getUniWithName("SELECT * FROM University_Table "
+        if (!input.equals("")) {
+            University[] results = um.getUniWithName("SELECT * FROM University_Table "
                 + "WHERE UniversityName LIKE '*" + input + "*';");
             initUniversityTable(results);
+        } else {
+            initUniversityTable();
+        }
     }//GEN-LAST:event_txF_browse_searchCaretUpdate
 
     private void btn_finder_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finder_backActionPerformed

@@ -32,6 +32,7 @@ public class UniManager {
     private University[] universities = new University[10];
     private int size = 0;
     private final dbDriver db = new dbDriver();
+    private University[] tableArr = new University[10];
     
     public UniManager(){
         try {
@@ -136,6 +137,7 @@ public class UniManager {
         
         for (int i = 0; i < size; i++) {
             data[i][0] = universities[i].getName();
+            tableArr[i] = universities[i];
         }
         
         return data;
@@ -146,8 +148,13 @@ public class UniManager {
         
         for (int i = 0; i < input.length; i++) {
             data[i][0] = input[i].getName();
+            tableArr[i] = universities[i];
         }
         
         return data;
+    }
+    
+    public University[] getTableArr() {
+        return tableArr;
     }
 }
