@@ -16,6 +16,7 @@
  */
 package Managers;
 
+// IMPORTS
 import Driver.dbDriver;
 import Objects.Faculty;
 import Objects.University;
@@ -29,111 +30,123 @@ import java.util.logging.Logger;
  * @author Saien Naidu
  */
 public class FacManager {
+
+    // FIELDS
     private Faculty[] faculties = new Faculty[100];
     private int size;
     private final dbDriver db = new dbDriver();
     private final UniManager um = new UniManager();
     private int[] tableArr = new int[100];
-    
-    public FacManager(){
+
+    // CONSTRUCTOR
+    // Fetch all the Faculties from the DB and save it into the array
+    public FacManager() {
         try {
+            // Fetch data
             ResultSet rs = db.query("SELECT * FROM Faculty_Table;");
 
-            while(!rs.isLast()){
+            while (!rs.isLast()) {
+                // Save Faculty into array
                 faculties[size] = createFac(rs, size);
+                // Increment size
                 size++;
             }
 
+            // Error handling
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error #06: Failed while retrieving Faculties from DB.");
         }
     }
-    
-    private Faculty createFac(ResultSet rs, int row){
+
+    private Faculty createFac(ResultSet rs, int row) {
         try {
+            // Prepare the next row of results
             rs.absolute(row + 1);
-            
+
+            // Get the value of each column in the row
             int ID = rs.getInt("ID");
             String name = rs.getString("FacultyName");
             String desc = rs.getString("Description");
             int uni = rs.getInt("UniversityID");
-            
+
+            // Create new Faculty object using the values, then return it
             return (new Faculty(ID, name, desc, um.getUniWithID(uni)));
-            
+
+            // Error handling
         } catch (SQLException ex) {
             Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error #06: Failed while retrieving Faculties from DB.");
         }
-        
+
         return null;
     }
-    
-    public Faculty getFacWithNameAndUni(String input) {
-        try {
-            ResultSet rs = db.query(input);
-            String name = rs.getString("FacultyName");
-            int uni = rs.getInt("UniversityID");
-            for (int i = 0; i < size; i++) {
-                String currentName = faculties[i].getName();
-                int currentUni = (faculties[i].getUni().getID());
-                if (name.equals(currentName) && uni == currentUni) {
-                    return faculties[i];
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UniManager.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error #07: Failed while retrieving Faculty with a specific name and University from DB.");
-        }
-        
-        return null;
-    }
-    
+
+    // Fetch a faculty with a specific ID from the array
     public Faculty getFacWithID(int ID) {
+        // Go through every entry in the array until a match is found
         for (int i = 0; i < size; i++) {
             int current = faculties[i].getID();
+            // If match found:
             if (current == ID) {
+                // Return current Faculty object
                 return faculties[i];
             }
         }
+        // If no match is found, return nothing
         return null;
     }
-    
-    public Faculty[] getAll() {
-        return faculties;
-    }
-    
+
+    // Create a table row model using all the faculties that belong to a specific university
     public Object[][] createTable(University uni) {
+        // Instantiate temporary model with the length equal to that of the class's faculty array
         Object[][] temp = new Object[size][1];
+        // The program needs to keep track of the length of the output array
         int tempSize = 0;
-        
+
+        // Go through each faculty in the class array
         for (int i = 0; i < size; i++) {
+            // If the name of the current faculty's university is equal to the one given: 
             if (faculties[i].getUni().getName().equals(uni.getName())) {
+                // Save the faculty's name into the temporary model
                 temp[tempSize][0] = faculties[i].getName();
+                // Increment size
                 tempSize++;
             }
         }
-        
-        int[] tempTableArr = new int[tempSize]; 
+
+        // The program will also need to store an array of the IDs of the faculties being used
+        // Create new integer array with size equal to the length of the temporary model
+        int[] tempTableArr = new int[tempSize];
+        // Keep track of the size of the integer array
         int tempTableArrSize = 0;
-        
+
+        // Go through each faculty in the class array
         for (int i = 0; i < size; i++) {
+            // If the name of the current faculty's university is equal to the one given: 
             if (faculties[i].getUni().getName().equals(uni.getName())) {
+                // Save the faculty's ID into the integer array
                 tempTableArr[tempTableArrSize] = faculties[i].getID();
+                // Increment size
                 tempTableArrSize++;
             }
         }
-        
+
+        // Instantiate output model with the length equal to that of the size of the temporary model
         Object[][] output = new Object[tempSize][1];
+        // Copy array
         for (int i = 0; i < tempSize; i++) {
             output[i][0] = temp[i][0];
         }
-        
+
+        // Store the integer array for future use
         tableArr = tempTableArr;
-        
+
+        // Return output model
         return output;
     }
-    
+
+    // Return the IDs of the faculties that were used in the making of the latest table row model
     public int[] getTableArr() {
         return tableArr;
     }

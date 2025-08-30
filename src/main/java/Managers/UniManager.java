@@ -61,9 +61,10 @@ public class UniManager {
     // Create and return a University object using a specific row from the DB
     private University createUni(ResultSet rs, int row) {
         try {
+            // Prepare the next row of results
             rs.absolute(row + 1);
 
-            // Declare fields
+            // Get the value of each column in the row
             int id = rs.getInt("ID");
             String name = rs.getString("UniversityName");
             String desc = rs.getString("Description");
@@ -73,7 +74,7 @@ public class UniManager {
             int students = rs.getInt("Students");
             double accRate = rs.getDouble("AcceptanceRate");
 
-            // Create new University object, then return it
+            // Create new University object using the values, then return it
             return (new University(id, name, desc, location, rank, estb, students, accRate));
 
             // Error handling
@@ -97,27 +98,6 @@ public class UniManager {
         }
         // If no match is found, return nothing
         return null;
-    }
-
-    // Fetch universities with a specific location from the array
-    public University[] getUniWithLocation(String location) {
-        // Instantiate new output array with a size of 0
-        University[] output = new University[size];
-        int outputSize = 0;
-        // Go through every entry in the array until a match is found
-        for (int i = 0; i < this.size; i++) {
-            String current = universities[i].getLocation();
-            // If match found:
-            if (current.equalsIgnoreCase(location)) {
-                // Add University object to output array
-                output[outputSize] = universities[i];
-                // Increment size
-                outputSize++;
-            }
-        }
-        // Return output array
-        // If no matches are found, array will consist of null entries only.
-        return output;
     }
 
     // Fetch universities with a similar name compared to the one provided from the DB
@@ -187,7 +167,7 @@ public class UniManager {
     // Create a table row model using all the names of all the universities
     public Object[][] createTable() {
 
-        // Instantiate model
+        // Instantiate model with length equal to that of the class's university array
         Object[][] data = new Object[size][1];
         // The program will also need to store an array of the IDs of the universities being used
         int[] tempTableArr = new int[size];
@@ -209,7 +189,7 @@ public class UniManager {
     // Create a table row model using all the names of specific universities
     public Object[][] createTable(University[] input) {
 
-        // Instantiate model
+        // Instantiate model with size equal to the length of the given university array
         Object[][] data = new Object[input.length][1];
         // The program will also need to store an array of the IDs of the universities being used
         int[] tempTableArr = new int[input.length];
