@@ -41,7 +41,9 @@ public class DegManager {
     private int[] tableArr = new int[1000];
 
     // CONSTRUCTOR
-    // Fetch all the Degrees from the DB and save it into the array
+    /**
+     * Fetch all the Degrees from the DB and save it into the array
+     */
     public DegManager() {
         try {
             // Fetch data
@@ -88,7 +90,12 @@ public class DegManager {
         return null;
     }
 
-    // Fetch a degree with a specific ID from the array
+    /**
+     * Fetch a degree with a specific ID from the array
+     *
+     * @param ID The ID of the Degree Object that you want to fetch
+     * @return The matching Degree Object
+     */
     public Degree getDegWithID(int ID) {
         // Go through every entry in the array until a match is found
         for (int i = 0; i < size; i++) {
@@ -103,7 +110,12 @@ public class DegManager {
         return null;
     }
 
-    // Fetch list of degrees based on DB query
+    /**
+     * Fetch list of degrees based on DB query
+     *
+     * @param query The query to send to the DB
+     * @return Returns the list of Degree Objects matching the query
+     */
     public Degree[] getDegWithQuery(String query) {
         try {
             // Fetch data
@@ -152,7 +164,11 @@ public class DegManager {
         return null;
     }
 
-    // Create a table row model using all the names of all the degrees
+    /**
+     * Create a table row model using all the names of all the degrees
+     *
+     * @return A table row model
+     */
     public Object[][] createTable() {
         // Instantiate model with length equal to that of the class's degree array
         Object[][] data = new Object[size][1];
@@ -173,7 +189,12 @@ public class DegManager {
         return data;
     }
 
-    // Create a table row model using all the names of specific degrees
+    /**
+     * Create a table row model using all the names of specific degrees
+     *
+     * @param input The list of Degree Objects to use
+     * @return A table row model
+     */
     public Object[][] createTable(Degree[] input) {
 
         // Instantiate model with size equal to the length of the given degree array
@@ -195,7 +216,13 @@ public class DegManager {
         return data;
     }
 
-    // Create a table row model using all the names of degrees that belong to a specific faculty
+    /**
+     * Create a table row model using all the names of degrees that belong to a
+     * specific faculty
+     *
+     * @param fac The Faculty Object to use
+     * @return A table row model
+     */
     public Object[][] createTable(Faculty fac) {
 
         // Instantiate temporary model with size equal to the length of the given faculty array
@@ -245,7 +272,12 @@ public class DegManager {
         return output;
     }
 
-    // Return a list of degrees that match the filter
+    /**
+     * Return a list of degrees that match the filter
+     *
+     * @param f The filter containing the user's choices
+     * @return The list of Degree Objects that satisfy the filter
+     */
     public Degree[] degreeFinder(Filter f) {
         // SETUP
         ReqManager rm = new ReqManager();
@@ -756,7 +788,12 @@ public class DegManager {
         }
     }
 
-    // Return the IDs of the degrees that were used in the making of the latest table row model
+    /**
+     * Return the IDs of the degrees that were used in the making of the latest
+     * table row model
+     *
+     * @return The list of IDs
+     */
     public int[] getTableArr() {
         return tableArr;
     }

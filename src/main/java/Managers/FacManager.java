@@ -39,7 +39,9 @@ public class FacManager {
     private int[] tableArr = new int[100];
 
     // CONSTRUCTOR
-    // Fetch all the Faculties from the DB and save it into the array
+    /**
+     * Fetch all the Faculties from the DB and save it into the array
+     */
     public FacManager() {
         try {
             // Fetch data
@@ -85,7 +87,12 @@ public class FacManager {
         return null;
     }
 
-    // Fetch a faculty with a specific ID from the array
+    /**
+     * Fetch a faculty with a specific ID from the array
+     *
+     * @param ID The ID of the Faculty Object that you want to fetch
+     * @return The matching Faculty Object
+     */
     public Faculty getFacWithID(int ID) {
         // Go through every entry in the array until a match is found
         for (int i = 0; i < size; i++) {
@@ -100,7 +107,13 @@ public class FacManager {
         return null;
     }
 
-    // Create a table row model using all the faculties that belong to a specific university
+    /**
+     * Create a table row model using all the faculties that belong to a
+     * specific university
+     *
+     * @param uni The University Object to use
+     * @return A table row model
+     */
     public Object[][] createTable(University uni) {
         // Instantiate temporary model with the length equal to that of the class's faculty array
         Object[][] temp = new Object[size][1];
@@ -149,7 +162,12 @@ public class FacManager {
         return output;
     }
 
-    // Return the IDs of the faculties that were used in the making of the latest table row model
+    /**
+     * Return the IDs of the faculties that were used in the making of the
+     * latest table row model
+     *
+     * @return The list of IDs
+     */
     public int[] getTableArr() {
         return tableArr;
     }

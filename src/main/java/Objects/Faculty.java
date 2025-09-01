@@ -30,6 +30,14 @@ public class Faculty {
     private University uni;
 
     // CONSTRUCTOR
+    /**
+     * Instantiate a new Faculty Object
+     *
+     * @param ID
+     * @param name
+     * @param desc
+     * @param uni
+     */
     public Faculty(int ID, String name, String desc, University uni) {
         this.ID = ID;
         this.name = name;

@@ -42,7 +42,9 @@ public class ReqManager {
     private final DegManager dm = new DegManager();
 
     // CONSTRUCTOR
-    // Fetch all the Requirements from the DB and save it into the array
+    /**
+     * Fetch all the Requirements from the DB and save it into the array
+     */
     public ReqManager() {
         try {
             // Fetch data
@@ -218,7 +220,12 @@ public class ReqManager {
         };
     }
 
-    // Return a subject's full name from its abbreviation
+    /**
+     * Return a subject's full name from its abbreviation
+     *
+     * @param abbreviation The subject's abbreviated form (E.g. "acc")
+     * @return The subject's full name (E.g. "Accounting")
+     */
     public String getSubject(String abbreviation) {
         return switch (abbreviation) {
             case "acc" ->
@@ -264,7 +271,12 @@ public class ReqManager {
         };
     }
 
-    // Return a subject's abbreviation from its full name
+    /**
+     * Return a subject's abbreviation from its full name
+     *
+     * @param subject The subject's full name (E.g. "Accounting")
+     * @return The subject's abbreviated form (E.g. "acc")
+     */
     public String getAbbreviation(String subject) {
         return switch (subject) {
             case "Accounting" ->
@@ -310,13 +322,34 @@ public class ReqManager {
         };
     }
 
-    // Return the Requirement representing the user's marks
+    /**
+     * Return the Requirement representing the user's marks
+     *
+     * @return The user's marks as a Requirement Object
+     */
     public Requirement getUserMarks() {
         // The user's marks are ALWAYS held in the first entry of the class's requirement array
         return requirements[0];
     }
 
-    // Change user's marks
+    /**
+     * Change user's marks
+     *
+     * @param hlM The mark received for Home Language
+     * @param hlC The subject choice for Home Language, either 'eng' or 'oth'
+     * @param falM The mark received for 1st Add Lang
+     * @param falC The subject choice for 1st Add Lang, either 'eng' or 'oth'
+     * @param mathM The mark received for Mathematics
+     * @param mathC The subject choice for Mathematics, either 'cor', 'lit' or
+     * 'tec'
+     * @param opt1M The mark received for the user's 1st Subject Choice
+     * @param opt1C The user's 1st Subject Choice
+     * @param opt2M The mark received for the user's 2nd Subject Choice
+     * @param opt2C The user's 2nd Subject Choice
+     * @param opt3M The mark received for the user's 3rd Subject Choice
+     * @param opt3C The user's 3rd Subject Choice
+     * @param lo The mark received for LO
+     */
     public void setUserMarks(int hlM, String hlC, int falM, String falC, int mathM, String mathC, int opt1M, String opt1C, int opt2M, String opt2C, int opt3M, String opt3C, int lo) {
         FileWriter fileFW = null;
         try {
@@ -343,7 +376,11 @@ public class ReqManager {
         }
     }
 
-    // Return all the requirements in the DB EXCEPT the user's marks
+    /**
+     * Return all the requirements in the DB EXCEPT the user's marks
+     *
+     * @return The list of Requirement Objects
+     */
     public Requirement[] getAll() {
         Requirement[] output = new Requirement[size - 1];
         for (int i = 0; i < (size - 1); i++) {
@@ -352,7 +389,11 @@ public class ReqManager {
         return output;
     }
 
-    // Return all the degrees that the user has met the requirements of
+    /**
+     * Return all the degrees that the user has met the requirements of.
+     *
+     * @return The list of IDs of the degrees
+     */
     public int[] reqMet() {
         // Create a new temporary Requirement array with a size equal to that of the class's Requirement array
         Requirement[] temp = new Requirement[size];
@@ -394,7 +435,7 @@ public class ReqManager {
             
             / The user's LO mark has to be 50 or above
             / The user's APS score has to be the same or above the APS score specified
-             */
+            */
             if ((user.getHlChoice().equals(current.getHlChoice())) || current.getHlChoice().equals("any")) {
                 if (user.getHlMark() >= current.getHlMark()) {
                     if ((user.getFalChoice().equals(current.getFalChoice())) || current.getFalChoice().equals("any")) {
@@ -518,7 +559,13 @@ public class ReqManager {
         }
     }
 
-    // For a degree's dedicated tab, this method converts the degree's requirement into a readable format
+    /**
+     * For a degree's dedicated tab, this method converts the degree's
+     * requirement into a readable format
+     *
+     * @param req The Requirement Object to convert
+     * @return The requirement as a readable format
+     */
     public String toString(Requirement req) {
         String output = "";
 
@@ -552,7 +599,12 @@ public class ReqManager {
         return output;
     }
 
-    // Return the requirement belonging to a specific degree
+    /**
+     * Return the requirement belonging to a specific degree
+     *
+     * @param degreeID The ID of the Degree to use
+     * @return The Requirement belonging to the Degree
+     */
     public Requirement getReqWithDegID(int degreeID) {
         // For each requirement in the class's array (Skip user marks, which is in the first entry of the array)
         for (int i = 1; i < size + 1; i++) {

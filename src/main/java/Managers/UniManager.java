@@ -31,13 +31,15 @@ import java.util.logging.Logger;
 public class UniManager {
 
     // FIELDS
-    private University[] universities = new University[10]; // Array
-    private int size = 0; // Size of array
-    private final dbDriver db = new dbDriver(); // DB Driver
-    private int[] tableArr = new int[10]; // The array of Universities currently being shown in the UI
+    private University[] universities = new University[10];
+    private int size = 0;
+    private final dbDriver db = new dbDriver();
+    private int[] tableArr = new int[10];
 
     // CONSTRUCTOR
-    // Fetch all the universities from the DB and save it into the array
+    /**
+     * Fetch all the universities from the DB and save it into the array
+     */
     public UniManager() {
         try {
             // Fetch data
@@ -86,7 +88,12 @@ public class UniManager {
         return null;
     }
 
-    // Fetch a university with a specific ID from the array
+    /**
+     * Fetch University Object with a specific ID from the array
+     *
+     * @param ID The ID of the University Object that you want to fetch
+     * @return The matching University Object
+     */
     public University getUniWithID(int ID) {
         // Go through every entry in the array until a match is found
         for (int i = 0; i < size; i++) {
@@ -101,7 +108,13 @@ public class UniManager {
         return null;
     }
 
-    // Fetch universities with a similar name compared to the one provided from the DB
+    /**
+     * Fetch universities with a similar name compared to the one provided from
+     * the DB
+     *
+     * @param query The query to send to the DB
+     * @return The list of University Objects that satisfies the query
+     */
     public University[] getUniWithName(String query) {
         try {
             // Fetch results
@@ -150,8 +163,12 @@ public class UniManager {
         return null;
     }
 
-    // Get the names of all the Universities in the DB
-    // This method is used to set the models of the combo boxes in the Filter frame.
+    /**
+     * Get the names of all the Universities in the DB This method is used to
+     * set the models of the combo boxes in the Filter frame.
+     *
+     * @return The names of all the University Objects
+     */
     public String[] getAll() {
         // Create empty String array with a size equal to the total amount of universities + 1
         String[] all = new String[size + 1];
@@ -165,7 +182,11 @@ public class UniManager {
         return all;
     }
 
-    // Create a table row model using all the names of all the universities
+    /**
+     * Create a table row model using all the names of all the universities
+     *
+     * @return A table row model
+     */
     public Object[][] createTable() {
 
         // Instantiate model with length equal to that of the class's university array
@@ -187,7 +208,12 @@ public class UniManager {
         return data;
     }
 
-    // Create a table row model using all the names of specific universities
+    /**
+     * Create a table row model using all the names of specific universities
+     *
+     * @param input The array of University Objects to use
+     * @return A table row model
+     */
     public Object[][] createTable(University[] input) {
 
         // Instantiate model with size equal to the length of the given university array
@@ -209,7 +235,12 @@ public class UniManager {
         return data;
     }
 
-    // Return the IDs of the universities that were used in the making of the latest table row model
+    /**
+     * Return the IDs of the universities that were used in the making of the
+     * latest table row model
+     *
+     * @return The list of IDs
+     */
     public int[] getTableArr() {
         return tableArr;
     }

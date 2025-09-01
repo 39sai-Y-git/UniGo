@@ -42,6 +42,26 @@ public class Requirement {
     private int aps;
 
     // CONSTRUCTOR
+    /**
+     * Instantiate a new Requirement Object
+     *
+     * @param ID
+     * @param deg
+     * @param hlMark
+     * @param hlChoice
+     * @param falMark
+     * @param falChoice
+     * @param mathMark
+     * @param mathChoice
+     * @param opt1Mark
+     * @param opt1Choice
+     * @param opt2Mark
+     * @param opt2Choice
+     * @param opt3Mark
+     * @param opt3Choice
+     * @param lo
+     * @param aps
+     */
     public Requirement(int ID, Degree deg, int hlMark, String hlChoice, int falMark, String falChoice, int mathMark, String mathChoice, int opt1Mark, String opt1Choice, int opt2Mark, String opt2Choice, int opt3Mark, String opt3Choice, int lo, int aps) {
         this.ID = ID;
         this.deg = deg;

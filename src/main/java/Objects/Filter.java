@@ -49,6 +49,30 @@ public class Filter {
     private boolean exclude;
 
     // CONSTRUCTOR
+    /**
+     * Instantiate a new Filter Object
+     *
+     * @param useMarks
+     * @param kzn
+     * @param gauteng
+     * @param eastcape
+     * @param westcape
+     * @param freestate
+     * @param northwest
+     * @param mpumalanga
+     * @param limpopo
+     * @param commerce
+     * @param engineering
+     * @param health
+     * @param law
+     * @param humanities
+     * @param sciences
+     * @param uni1
+     * @param uni2
+     * @param uni3
+     * @param include
+     * @param exclude
+     */
     public Filter(boolean useMarks, boolean kzn, boolean gauteng, boolean eastcape, boolean westcape, boolean freestate, boolean northwest, boolean mpumalanga, boolean limpopo, boolean commerce, boolean engineering, boolean health, boolean law, boolean humanities, boolean sciences, String uni1, String uni2, String uni3, boolean include, boolean exclude) {
         this.useMarks = useMarks;
         this.kzn = kzn;

@@ -34,7 +34,20 @@ public class University {
     private double accRate;
 
     // CONSTRUCTOR
-    public University(int ID, String name, String desc, String location, int rank, int estb, int students, double accRate) {
+    /**
+     * Instantiate a new University Object
+     *
+     * @param ID
+     * @param name
+     * @param desc
+     * @param location
+     * @param rank
+     * @param estb
+     * @param students
+     * @param accRate
+     */
+    public University(int ID, String name, String desc, String location, 
+            int rank, int estb, int students, double accRate) {
         this.ID = ID;
         this.name = name;
         this.desc = desc;

@@ -31,6 +31,15 @@ public class Degree {
     private String desc;
 
     // CONSTRUCTOR
+    /**
+     * Instantiate a new Degree Object
+     *
+     * @param degreeID
+     * @param name
+     * @param uni
+     * @param fac
+     * @param desc
+     */
     public Degree(int degreeID, String name, University uni, Faculty fac, String desc) {
         this.degreeID = degreeID;
         this.name = name;

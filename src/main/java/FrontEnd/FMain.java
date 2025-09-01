@@ -67,7 +67,6 @@ public class FMain extends javax.swing.JFrame {
     }
 
     //PROPERTIES
-    
     // <editor-fold defaultstate="collapsed" desc="Initialization code">
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1390,8 +1389,12 @@ public class FMain extends javax.swing.JFrame {
         }
     }
 
-    // Update the list of degrees based on the filter provided
     // <editor-fold defaultstate="collapsed" desc="Degree Finder">
+    /**
+     * Update the list of degrees based on the filter provided
+     *
+     * @param f The filter to use
+     */
     public void updateFinderTable(Filter f) {
 
         // If a filter is applied:
@@ -1791,7 +1794,7 @@ public class FMain extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
 
