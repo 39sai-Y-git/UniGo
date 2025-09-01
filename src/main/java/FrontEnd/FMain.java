@@ -140,12 +140,6 @@ public class FMain extends javax.swing.JFrame {
         scP_finder = new javax.swing.JScrollPane();
         tbl_finder = new javax.swing.JTable();
         tbdPn_dedicated = new javax.swing.JTabbedPane();
-        pnl_help = new javax.swing.JPanel();
-        lbl_help = new javax.swing.JLabel();
-        btn_toBrowse = new javax.swing.JButton();
-        btn_toSaved = new javax.swing.JButton();
-        btn_toFinder = new javax.swing.JButton();
-        lbl_contact = new javax.swing.JLabel();
         pnl_uni = new javax.swing.JPanel();
         lbl_uni = new javax.swing.JLabel();
         txA_uniDesc = new javax.swing.JTextArea();
@@ -837,89 +831,6 @@ public class FMain extends javax.swing.JFrame {
         tbdPn_dedicated.setForeground(new java.awt.Color(0, 0, 0));
         tbdPn_dedicated.setEnabled(false);
         tbdPn_dedicated.setOpaque(true);
-
-        pnl_help.setBackground(new java.awt.Color(179, 224, 255));
-        pnl_help.setEnabled(false);
-
-        lbl_help.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_help.setText("To use the browser, click one of the buttons below, select an entry from the list, and click [View]");
-
-        btn_toBrowse.setBackground(java.awt.SystemColor.menu);
-        btn_toBrowse.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
-        btn_toBrowse.setForeground(new java.awt.Color(0, 0, 0));
-        btn_toBrowse.setText("Go to list of Universities");
-        btn_toBrowse.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_toBrowse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_toBrowseActionPerformed(evt);
-            }
-        });
-
-        btn_toSaved.setBackground(java.awt.SystemColor.menu);
-        btn_toSaved.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
-        btn_toSaved.setForeground(new java.awt.Color(0, 0, 0));
-        btn_toSaved.setText("View your Saved Degrees");
-        btn_toSaved.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_toSaved.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_toSavedActionPerformed(evt);
-            }
-        });
-
-        btn_toFinder.setBackground(java.awt.SystemColor.menu);
-        btn_toFinder.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
-        btn_toFinder.setForeground(new java.awt.Color(0, 0, 0));
-        btn_toFinder.setText("Find a Degree");
-        btn_toFinder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btn_toFinder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_toFinderActionPerformed(evt);
-            }
-        });
-
-        lbl_contact.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_contact.setText("For queries or bug reports , contact saiennaidu99@gmail.com");
-
-        javax.swing.GroupLayout pnl_helpLayout = new javax.swing.GroupLayout(pnl_help);
-        pnl_help.setLayout(pnl_helpLayout);
-        pnl_helpLayout.setHorizontalGroup(
-            pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_helpLayout.createSequentialGroup()
-                .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_helpLayout.createSequentialGroup()
-                        .addGap(282, 282, 282)
-                        .addComponent(btn_toSaved, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnl_helpLayout.createSequentialGroup()
-                        .addGap(281, 281, 281)
-                        .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_toFinder, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_toBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnl_helpLayout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addGroup(pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_help)
-                            .addGroup(pnl_helpLayout.createSequentialGroup()
-                                .addGap(97, 97, 97)
-                                .addComponent(lbl_contact)))))
-                .addContainerGap(147, Short.MAX_VALUE))
-        );
-        pnl_helpLayout.setVerticalGroup(
-            pnl_helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_helpLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(lbl_help, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addComponent(btn_toSaved, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_toBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_toFinder, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(lbl_contact, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
-
-        tbdPn_dedicated.addTab("Help", pnl_help);
 
         pnl_uni.setBackground(new java.awt.Color(179, 224, 255));
 
@@ -1617,7 +1528,7 @@ public class FMain extends javax.swing.JFrame {
             updateDegreeTab(deg);
 
             // Switch focus from main tabs to dedicated
-            changeToDedicatedTabs(3);
+            changeToDedicatedTabs(2);
         }
     }//GEN-LAST:event_btn_saved_viewActionPerformed
 
@@ -1638,7 +1549,7 @@ public class FMain extends javax.swing.JFrame {
             updateUniversityTab(uni);
 
             // Switch focus from main tabs to dedicated
-            changeToDedicatedTabs(1);
+            changeToDedicatedTabs(0);
         }
 
     }//GEN-LAST:event_btn_browse_viewActionPerformed
@@ -1664,7 +1575,7 @@ public class FMain extends javax.swing.JFrame {
             updateDegreeTab(deg);
 
             // Switch focus from main tabs to dedicated
-            changeToDedicatedTabs(3);
+            changeToDedicatedTabs(2);
         }
     }//GEN-LAST:event_btn_finder_viewActionPerformed
 
@@ -1685,7 +1596,7 @@ public class FMain extends javax.swing.JFrame {
             updateFacultyTab(fac);
 
             // Nevigate to Faculty dedicated tab
-            changeToDedicatedTabs(2);
+            changeToDedicatedTabs(1);
         }
     }//GEN-LAST:event_btn_facViewActionPerformed
 
@@ -1706,7 +1617,7 @@ public class FMain extends javax.swing.JFrame {
             updateDegreeTab(deg);
 
             // Nevigate to Degree dedicated tab
-            changeToDedicatedTabs(3);
+            changeToDedicatedTabs(2);
         }
     }//GEN-LAST:event_btn_degViewActionPerformed
 
@@ -1834,21 +1745,6 @@ public class FMain extends javax.swing.JFrame {
         frm_filters.setVisible(true);
     }//GEN-LAST:event_btn_filterActionPerformed
 
-    // When [Go to list of Universities] is clicked, navigate to 'Universities'
-    private void btn_toBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_toBrowseActionPerformed
-        tbdPn_main.setSelectedIndex(3);
-    }//GEN-LAST:event_btn_toBrowseActionPerformed
-
-    // When [View your Saved Degrees] is clicked, navigate to 'Saved Degrees'
-    private void btn_toSavedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_toSavedActionPerformed
-        tbdPn_main.setSelectedIndex(2);
-    }//GEN-LAST:event_btn_toSavedActionPerformed
-
-    // When [Find a Degree] is clicked, navigate to 'Degree Finder'
-    private void btn_toFinderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_toFinderActionPerformed
-        tbdPn_main.setSelectedIndex(4);
-    }//GEN-LAST:event_btn_toFinderActionPerformed
-
     // When [Back] is clicked on dedictaed University tab, return to main menu
     private void btn_uni_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_uni_backActionPerformed
         // Update university table to show all universities in DB
@@ -1860,12 +1756,12 @@ public class FMain extends javax.swing.JFrame {
 
     // When [Back] is clicked on dedictaed Faculty tab, return to dedicated University tab
     private void btn_fac_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fac_backActionPerformed
-        tbdPn_dedicated.setSelectedIndex(1);
+        tbdPn_dedicated.setSelectedIndex(0);
     }//GEN-LAST:event_btn_fac_backActionPerformed
 
     // When [Back] is clicked on dedictaed Degree tab, return to dedicated Faculty tab
     private void btn_degree_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_degree_backActionPerformed
-        tbdPn_dedicated.setSelectedIndex(2);
+        tbdPn_dedicated.setSelectedIndex(1);
     }//GEN-LAST:event_btn_degree_backActionPerformed
 
     // Switch focus to dedicated tabs
@@ -1928,22 +1824,17 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.JButton btn_saved_back;
     private javax.swing.JButton btn_saved_remove;
     private javax.swing.JButton btn_saved_view;
-    private javax.swing.JButton btn_toBrowse;
-    private javax.swing.JButton btn_toFinder;
-    private javax.swing.JButton btn_toSaved;
     private javax.swing.JButton btn_uni_back;
     private javax.swing.JComboBox<String> cbx_opt1;
     private javax.swing.JComboBox<String> cbx_opt2;
     private javax.swing.JComboBox<String> cbx_opt3;
     private javax.swing.JLabel lbl_accRate;
     private javax.swing.JLabel lbl_browse;
-    private javax.swing.JLabel lbl_contact;
     private javax.swing.JLabel lbl_deg;
     private javax.swing.JLabel lbl_estb;
     private javax.swing.JLabel lbl_fac;
     private javax.swing.JLabel lbl_fal;
     private javax.swing.JLabel lbl_finder;
-    private javax.swing.JLabel lbl_help;
     private javax.swing.JLabel lbl_hl;
     private javax.swing.JLabel lbl_lo;
     private javax.swing.JLabel lbl_location;
@@ -1962,7 +1853,6 @@ public class FMain extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_deg;
     private javax.swing.JPanel pnl_fac;
     private javax.swing.JPanel pnl_finder;
-    private javax.swing.JPanel pnl_help;
     private javax.swing.JPanel pnl_menu;
     private javax.swing.JPanel pnl_menuBrowse;
     private javax.swing.JPanel pnl_menuProfile;

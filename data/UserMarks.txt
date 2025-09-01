@@ -1,1 +1,1 @@
-eng65#oth70#cor75#inf85#phy60#bus70#90
+eng00#oth00#cor00#oth00#oth00#oth00#00
