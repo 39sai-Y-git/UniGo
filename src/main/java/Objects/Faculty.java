@@ -20,11 +20,9 @@ package Objects;
  *
  * @author Saien Naidu
  */
-
 // This class represents the Faculty Object
-
 public class Faculty {
-    
+
     // FIELDS
     private int ID;
     private String name;
@@ -43,11 +41,11 @@ public class Faculty {
     public int getID() {
         return ID;
     }
-    
+
     public void setID(int ID) {
         this.ID = ID;
     }
-    
+
     public String getName() {
         return name;
     }

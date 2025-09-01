@@ -16,17 +16,15 @@
  */
 package Objects;
 
-import Managers.UniManager;
-
 /**
  *
  * @author Saien Naidu
  */
 public class Filter {
-    private final UniManager um = new UniManager();
-    
+
+    // FIELDS
     private boolean useMarks;
-    
+
     private boolean kzn;
     private boolean gauteng;
     private boolean eastcape;
@@ -35,21 +33,22 @@ public class Filter {
     private boolean northwest;
     private boolean mpumalanga;
     private boolean limpopo;
-    
+
     private boolean commerce;
     private boolean engineering;
     private boolean health;
     private boolean law;
     private boolean humanities;
     private boolean sciences;
-    
+
     private String uni1;
     private String uni2;
     private String uni3;
-    
+
     private boolean include;
     private boolean exclude;
 
+    // CONSTRUCTOR
     public Filter(boolean useMarks, boolean kzn, boolean gauteng, boolean eastcape, boolean westcape, boolean freestate, boolean northwest, boolean mpumalanga, boolean limpopo, boolean commerce, boolean engineering, boolean health, boolean law, boolean humanities, boolean sciences, String uni1, String uni2, String uni3, boolean include, boolean exclude) {
         this.useMarks = useMarks;
         this.kzn = kzn;
@@ -73,6 +72,7 @@ public class Filter {
         this.exclude = exclude;
     }
 
+    // GETTERS & SETTERS
     public boolean isUseMarks() {
         return useMarks;
     }
@@ -232,5 +232,5 @@ public class Filter {
     public void setExclude(boolean exclude) {
         this.exclude = exclude;
     }
-    
+
 }

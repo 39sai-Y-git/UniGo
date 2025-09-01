@@ -20,11 +20,9 @@ package Objects;
  *
  * @author Saien Naidu
  */
-
 // This class represents the Degree Object
-
 public class Degree {
-    
+
     // FIELDS
     private int degreeID;
     private String name;

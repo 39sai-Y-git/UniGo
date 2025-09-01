@@ -20,11 +20,9 @@ package Objects;
  *
  * @author Saien Naidu
  */
-
 // This class represents the Requirement Object
-
 public class Requirement {
-    
+
     // FIELDS
     private int ID;
     private Degree deg;
@@ -62,7 +60,7 @@ public class Requirement {
         this.lo = lo;
         this.aps = aps;
     }
-    
+
     // GETTERS & SETTERS
     public Degree getDeg() {
         return deg;
@@ -75,11 +73,11 @@ public class Requirement {
     public int getID() {
         return this.ID;
     }
-    
+
     public void setID(int ID) {
         this.ID = ID;
     }
-    
+
     public int getHlMark() {
         return hlMark;
     }
@@ -183,11 +181,11 @@ public class Requirement {
     public void setLo(int lo) {
         this.lo = lo;
     }
-    
+
     public int getAps() {
         return aps;
     }
-    
+
     public void setAps(int aps) {
         this.aps = aps;
     }

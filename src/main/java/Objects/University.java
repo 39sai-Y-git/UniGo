@@ -20,9 +20,7 @@ package Objects;
  *
  * @author Saien Naidu
  */
-
 // This class represents the University Object
-
 public class University {
 
     // FIELDS
@@ -34,9 +32,9 @@ public class University {
     private int estb;
     private int students;
     private double accRate;
-    
+
     // CONSTRUCTOR
-    public University(int ID, String name, String desc, String location, int rank, int estb, int students, double accRate){
+    public University(int ID, String name, String desc, String location, int rank, int estb, int students, double accRate) {
         this.ID = ID;
         this.name = name;
         this.desc = desc;
@@ -51,11 +49,11 @@ public class University {
     public int getID() {
         return ID;
     }
-    
+
     public void setID(int ID) {
         this.ID = ID;
     }
-    
+
     public String getName() {
         return name;
     }
