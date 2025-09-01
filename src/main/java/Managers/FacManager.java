@@ -45,6 +45,7 @@ public class FacManager {
             // Fetch data
             ResultSet rs = db.query("SELECT * FROM Faculty_Table;");
 
+            // If there is more data
             while (!rs.isLast()) {
                 // Save Faculty into array
                 faculties[size] = createFac(rs, size);
@@ -59,6 +60,8 @@ public class FacManager {
         }
     }
 
+    // PROPERTIES
+    // Create and return a Faculty object using a specific row from the DB
     private Faculty createFac(ResultSet rs, int row) {
         try {
             // Prepare the next row of results
@@ -101,7 +104,7 @@ public class FacManager {
     public Object[][] createTable(University uni) {
         // Instantiate temporary model with the length equal to that of the class's faculty array
         Object[][] temp = new Object[size][1];
-        // The program needs to keep track of the length of the output array
+        // Keep track of the amount of results
         int tempSize = 0;
 
         // Go through each faculty in the class array

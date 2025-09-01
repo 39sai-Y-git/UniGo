@@ -43,6 +43,7 @@ public class UniManager {
             // Fetch data
             ResultSet rs = db.query("SELECT * FROM University_Table;");
 
+            // If there is more data
             while (!rs.isLast()) {
                 // Save University into array
                 universities[size] = createUni(rs, size);
@@ -109,7 +110,7 @@ public class UniManager {
             University[] temp = new University[size];
             int tempSize = 0;
 
-            // While there are more results:
+            // If there is more data:
             while (!rs.isLast()) {
                 // Create a new University object using an entry from the results and save it to the temporary array
                 temp[tempSize] = createUni(rs, tempSize);
@@ -127,7 +128,7 @@ public class UniManager {
                     error[0] = new University(0, "None", null, null, 0, 0, 0, 0);
                     // return this University object and interrupt this method
                     return error;
-                    // This means that the word "None" will display on the table 
+                    // This means that the word "None" will display on the table
                 }
             }
 
