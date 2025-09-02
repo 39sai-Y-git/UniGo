@@ -684,26 +684,26 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="20">
-                    <StringItem index="0" value="Accounting"/>
-                    <StringItem index="1" value="Business Studies"/>
-                    <StringItem index="2" value="CAT"/>
-                    <StringItem index="3" value="Consumer Studies"/>
-                    <StringItem index="4" value="Dance Studies"/>
-                    <StringItem index="5" value="Design"/>
-                    <StringItem index="6" value="Dramatic Arts"/>
-                    <StringItem index="7" value="EGD"/>
-                    <StringItem index="8" value="Economics"/>
-                    <StringItem index="9" value="Geography"/>
-                    <StringItem index="10" value="History"/>
-                    <StringItem index="11" value="Hospitality Studies"/>
-                    <StringItem index="12" value="Information Technology"/>
-                    <StringItem index="13" value="Life Sciences"/>
-                    <StringItem index="14" value="Marine Sciences"/>
-                    <StringItem index="15" value="Music"/>
-                    <StringItem index="16" value="Physical Sciences"/>
-                    <StringItem index="17" value="Tourism"/>
-                    <StringItem index="18" value="Visual Arts"/>
-                    <StringItem index="19" value="Other"/>
+                    <StringItem index="0" value="Other"/>
+                    <StringItem index="1" value="Accounting"/>
+                    <StringItem index="2" value="Business Studies"/>
+                    <StringItem index="3" value="CAT"/>
+                    <StringItem index="4" value="Consumer Studies"/>
+                    <StringItem index="5" value="Dance Studies"/>
+                    <StringItem index="6" value="Design"/>
+                    <StringItem index="7" value="Dramatic Arts"/>
+                    <StringItem index="8" value="EGD"/>
+                    <StringItem index="9" value="Economics"/>
+                    <StringItem index="10" value="Geography"/>
+                    <StringItem index="11" value="History"/>
+                    <StringItem index="12" value="Hospitality Studies"/>
+                    <StringItem index="13" value="Information Technology"/>
+                    <StringItem index="14" value="Life Sciences"/>
+                    <StringItem index="15" value="Marine Sciences"/>
+                    <StringItem index="16" value="Music"/>
+                    <StringItem index="17" value="Physical Sciences"/>
+                    <StringItem index="18" value="Tourism"/>
+                    <StringItem index="19" value="Visual Arts"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -715,26 +715,26 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="20">
-                    <StringItem index="0" value="Accounting"/>
-                    <StringItem index="1" value="Business Studies"/>
-                    <StringItem index="2" value="CAT"/>
-                    <StringItem index="3" value="Consumer Studies"/>
-                    <StringItem index="4" value="Dance Studies"/>
-                    <StringItem index="5" value="Design"/>
-                    <StringItem index="6" value="Dramatic Arts"/>
-                    <StringItem index="7" value="EGD"/>
-                    <StringItem index="8" value="Economics"/>
-                    <StringItem index="9" value="Geography"/>
-                    <StringItem index="10" value="History"/>
-                    <StringItem index="11" value="Hospitality Studies"/>
-                    <StringItem index="12" value="Information Technology"/>
-                    <StringItem index="13" value="Life Sciences"/>
-                    <StringItem index="14" value="Marine Sciences"/>
-                    <StringItem index="15" value="Music"/>
-                    <StringItem index="16" value="Physical Sciences"/>
-                    <StringItem index="17" value="Tourism"/>
-                    <StringItem index="18" value="Visual Arts"/>
-                    <StringItem index="19" value="Other"/>
+                    <StringItem index="0" value="Other"/>
+                    <StringItem index="1" value="Accounting"/>
+                    <StringItem index="2" value="Business Studies"/>
+                    <StringItem index="3" value="CAT"/>
+                    <StringItem index="4" value="Consumer Studies"/>
+                    <StringItem index="5" value="Dance Studies"/>
+                    <StringItem index="6" value="Design"/>
+                    <StringItem index="7" value="Dramatic Arts"/>
+                    <StringItem index="8" value="EGD"/>
+                    <StringItem index="9" value="Economics"/>
+                    <StringItem index="10" value="Geography"/>
+                    <StringItem index="11" value="History"/>
+                    <StringItem index="12" value="Hospitality Studies"/>
+                    <StringItem index="13" value="Information Technology"/>
+                    <StringItem index="14" value="Life Sciences"/>
+                    <StringItem index="15" value="Marine Sciences"/>
+                    <StringItem index="16" value="Music"/>
+                    <StringItem index="17" value="Physical Sciences"/>
+                    <StringItem index="18" value="Tourism"/>
+                    <StringItem index="19" value="Visual Arts"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -746,26 +746,26 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="20">
-                    <StringItem index="0" value="Accounting"/>
-                    <StringItem index="1" value="Business Studies"/>
-                    <StringItem index="2" value="CAT"/>
-                    <StringItem index="3" value="Consumer Studies"/>
-                    <StringItem index="4" value="Dance Studies"/>
-                    <StringItem index="5" value="Design"/>
-                    <StringItem index="6" value="Dramatic Arts"/>
-                    <StringItem index="7" value="EGD"/>
-                    <StringItem index="8" value="Economics"/>
-                    <StringItem index="9" value="Geography"/>
-                    <StringItem index="10" value="History"/>
-                    <StringItem index="11" value="Hospitality Studies"/>
-                    <StringItem index="12" value="Information Technology"/>
-                    <StringItem index="13" value="Life Sciences"/>
-                    <StringItem index="14" value="Marine Sciences"/>
-                    <StringItem index="15" value="Music"/>
-                    <StringItem index="16" value="Physical Sciences"/>
-                    <StringItem index="17" value="Tourism"/>
-                    <StringItem index="18" value="Visual Arts"/>
-                    <StringItem index="19" value="Other"/>
+                    <StringItem index="0" value="Other"/>
+                    <StringItem index="1" value="Accounting"/>
+                    <StringItem index="2" value="Business Studies"/>
+                    <StringItem index="3" value="CAT"/>
+                    <StringItem index="4" value="Consumer Studies"/>
+                    <StringItem index="5" value="Dance Studies"/>
+                    <StringItem index="6" value="Design"/>
+                    <StringItem index="7" value="Dramatic Arts"/>
+                    <StringItem index="8" value="EGD"/>
+                    <StringItem index="9" value="Economics"/>
+                    <StringItem index="10" value="Geography"/>
+                    <StringItem index="11" value="History"/>
+                    <StringItem index="12" value="Hospitality Studies"/>
+                    <StringItem index="13" value="Information Technology"/>
+                    <StringItem index="14" value="Life Sciences"/>
+                    <StringItem index="15" value="Marine Sciences"/>
+                    <StringItem index="16" value="Music"/>
+                    <StringItem index="17" value="Physical Sciences"/>
+                    <StringItem index="18" value="Tourism"/>
+                    <StringItem index="19" value="Visual Arts"/>
                   </StringArray>
                 </Property>
               </Properties>

@@ -397,11 +397,11 @@ public class FMain extends javax.swing.JFrame {
             }
         });
 
-        cbx_opt1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Accounting", "Business Studies", "CAT", "Consumer Studies", "Dance Studies", "Design", "Dramatic Arts", "EGD", "Economics", "Geography", "History", "Hospitality Studies", "Information Technology", "Life Sciences", "Marine Sciences", "Music", "Physical Sciences", "Tourism", "Visual Arts", "Other" }));
+        cbx_opt1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Other", "Accounting", "Business Studies", "CAT", "Consumer Studies", "Dance Studies", "Design", "Dramatic Arts", "EGD", "Economics", "Geography", "History", "Hospitality Studies", "Information Technology", "Life Sciences", "Marine Sciences", "Music", "Physical Sciences", "Tourism", "Visual Arts" }));
 
-        cbx_opt2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Accounting", "Business Studies", "CAT", "Consumer Studies", "Dance Studies", "Design", "Dramatic Arts", "EGD", "Economics", "Geography", "History", "Hospitality Studies", "Information Technology", "Life Sciences", "Marine Sciences", "Music", "Physical Sciences", "Tourism", "Visual Arts", "Other" }));
+        cbx_opt2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Other", "Accounting", "Business Studies", "CAT", "Consumer Studies", "Dance Studies", "Design", "Dramatic Arts", "EGD", "Economics", "Geography", "History", "Hospitality Studies", "Information Technology", "Life Sciences", "Marine Sciences", "Music", "Physical Sciences", "Tourism", "Visual Arts" }));
 
-        cbx_opt3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Accounting", "Business Studies", "CAT", "Consumer Studies", "Dance Studies", "Design", "Dramatic Arts", "EGD", "Economics", "Geography", "History", "Hospitality Studies", "Information Technology", "Life Sciences", "Marine Sciences", "Music", "Physical Sciences", "Tourism", "Visual Arts", "Other" }));
+        cbx_opt3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Other", "Accounting", "Business Studies", "CAT", "Consumer Studies", "Dance Studies", "Design", "Dramatic Arts", "EGD", "Economics", "Geography", "History", "Hospitality Studies", "Information Technology", "Life Sciences", "Marine Sciences", "Music", "Physical Sciences", "Tourism", "Visual Arts" }));
 
         btn_save.setBackground(java.awt.SystemColor.menu);
         btn_save.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
