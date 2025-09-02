@@ -296,19 +296,27 @@ public class DegManager {
         if (f.isUseMarks()) {
             // Get the IDs of the degrees that the user has met the requirements of
             int[] IDs = rm.reqMet();
-            // Create a temporary degree array with a size equal to the amount of IDs
-            Degree[] temp = new Degree[IDs.length];
 
-            // Go through each ID, getting the Degree using it and save it to the Degree array.
-            for (int i = 0; i < IDs.length; i++) {
-                temp[i] = getDegWithID(IDs[i]);
+            // If the user has met the requirement of at least 1 degree:
+            if (IDs != null) {
+                // Create a temporary degree array with a size equal to the amount of IDs
+                Degree[] temp = new Degree[IDs.length];
+
+                // Go through each ID, getting the Degree using it and save it to the Degree array.
+                for (int i = 0; i < IDs.length; i++) {
+                    temp[i] = getDegWithID(IDs[i]);
+                }
+
+                // The output array becomes this Degree array
+                output = new Degree[temp.length];
+                output = temp;
+                // Keep track of the size
+                outputSize = temp.length;
+            } else { // Otherwise
+                output = new Degree[1];
+                output[0] = new Degree(0, "None", null, null, null);
+                return output;
             }
-
-            // The output array becomes this Degree array
-            output = new Degree[temp.length];
-            output = temp;
-            // Keep track of the size
-            outputSize = temp.length;
 
         }
         // </editor-fold>
